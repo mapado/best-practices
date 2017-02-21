@@ -2,7 +2,7 @@
 title: "Bonne pratiques Redux"
 ---
 
-Bonne pratiques Redux
+Bonnes pratiques Redux
 ==============
 
 Nos bonnes pratiques redux
@@ -12,7 +12,7 @@ Nos bonnes pratiques redux
   * Structures de données: [immutable-js](https://facebook.github.io/immutable-js/)
   * Middleware pour actions asynchrones: [redux-thunk](https://github.com/gaearon/redux-thunk)
 
-### Immutablitié des states
+### Immutabilité des states
 
 Les states **DOIVENT** être des `Map` ou des `Record` immutable-js.
 
@@ -21,36 +21,38 @@ Les states **DOIVENT** être des `Map` ou des `Record` immutable-js.
 
 Le "state" **DEVRAIT** être initialisé par défaut avec toutes les clés qu'il peut utiliser.
 
-> Cela permet aux composants de toujours avoir leur valeurs "settée" et de ne pas traiter les cas `if null`
+> Cela permet aux composants de toujours avoir leur valeurs "settée" et de ne pas traiter les cas `if null`.
 >
-> Cela permet aussi aux "containers" de ne pas avoir cette logique à gérer, par exemple: `state.foo.get('bar') || false`
+> Cela permet aussi aux "containers" de ne pas avoir cette logique à gérer, par exemple : `state.foo.get('bar') || false`.
 
-ON **PEUT** utiliser un `Record` immutable pour interdire tout ajout de nouvelle clé et avoir du sucre syntaxique pour accéder à cette clé (`state.foo.bar` plutôt que `state.foo.get('bar')`)
+On **PEUT** utiliser un `Record` immutable pour interdire tout ajout de nouvelle clé, et ainsi avoir du sucre syntaxique pour y accéder (`state.foo.bar` plutôt que `state.foo.get('bar')`).
 
 #### Suppression de clé
-On ne **DOIT PAS** supprimer des clé du state.
+On ne **DOIT PAS** supprimer de clé du state.
 
-> Si l'on supprime une clé, on se retrouve dans le même cas que précédement
+> Si l'on supprime une clé, on se retrouve dans le même cas que précédement.
 
-Du coup: préférez `state.set(‘foo’, false)`, ou `state.set('foo', null)` plutôt que `state.remove(‘foo’)`
+Du coup : préférez `state.set('foo', false)`, ou `state.set('foo', null)` plutôt que `state.remove(‘foo’)`.
 
 ### Dispatch dans les actions
 
 On ne **DEVRAIT PAS** envoyer trop de `dispatch` dans les actions.
 
-On ne **DEVRAIT PAS** envoyer deux dispatch successif si pas besoin de rafraichir la vue.
+On ne **DEVRAIT PAS** envoyer deux dispatch successifs s'il n'y a pas besoin de rafraîchir la vue.
 
-> Un `dispatch` entraine un rafraichissement des composants React.
+> Un `dispatch` entraine un rafraîchissement des composants React.
 
 C'est plutôt au reducer de faire ce job:
 
 👎
 ```js
 function reducer(state, action) {
-  case 'FOO':
-    return foo(state, action.foo);
-  case 'BAR':
-    return bar(state, action.bar);
+  switch(action.type) {
+    case 'FOO':
+      return foo(state, action.foo);
+    case 'BAR':
+      return bar(state, action.bar);
+  }
 }
 
 function simpleAction() {
@@ -59,8 +61,9 @@ function simpleAction() {
       type: 'FOO',
       foo: 'foo',
     });
-  }
+  };
 }
+
 function complexAction() {
   return (dispatch) => {
     dispatch({
@@ -71,17 +74,19 @@ function complexAction() {
       type: 'BAR',
       bar: 'bar',
     });
-  }
+  };
 }
 ```
 
 👍
 ```js
 function reducer(state, action) {
-  case 'FOO':
-    return foo(state, action.foo);
-  case 'FOO and BAR':
-    return fooAndBar(state, action.foo, action.bar);
+  switch(action.type) {
+    case 'FOO':
+      return foo(state, action.foo);
+    case 'FOO and BAR':
+      return fooAndBar(state, action.foo, action.bar);
+  }
 }
 
 function simpleAction() {
@@ -92,6 +97,7 @@ function simpleAction() {
     });
   }
 }
+
 function complexAction() {
   return (dispatch) => {
     dispatch({
@@ -103,26 +109,26 @@ function complexAction() {
 }
 ```
 
-### Status des actions sur données
-Lors d'un appel asynchrone, nous avons souvent besoin de savoir l'état de cet appel (par exemple pour afficher un loader, ou un message d'erreur)
+### Statut des actions effectuées sur les données
+Lors d'un appel asynchrone, nous avons souvent besoin de savoir l'état de cet appel (pour afficher un loader ou un message d'erreur, par exemple).
 
 Appelons "clé de la donnée" la clé dans le state redux où sera stockée notre donnée une fois récupérée.
 
 Nous **POUVONS** stocker le *status* de cette donnée sous une autre clé dans notre state redux.
 
-La clé de  la donnée concernant le status **DOIT** avoir la forme suivante: `<clé de la donnée>-<action>-status`
+La clé de  la donnée concernant le status **DOIT** avoir la forme suivante : `<clé de la donnée>-<action>-status`.
 
 > Les `-` ont ici la même utilité que dans BEM par exemple.
 >
-> Étant donné que nos states sont des objets immutable, l'utilisation d'un `-` ne gène que pas.
+> Étant donné que nos states sont des objets immutable, l'utilisation d'un `-` n'est pas très gênant.
 
-`<action>` est le nom de l'action étant effectué sur la donnée par exemple “articleList-fetch-status”
+`<action>` est le nom de l'action étant effectuée sur la donnée, par exemple “articleList-fetch-status”.
 
 La valeur **DOIT** être une Map contenant une clé `status` et une clé `error`.
 
 #### Valeur de la clé `status`
 
-La valeur de `status` **DEVRAIT** prendre les valeur suivante: 
+La valeur de `status` **DEVRAIT** prendre les valeurs suivantes :
   * null
   * IN_PROGRESS
   * SUCCEEDED
@@ -137,7 +143,7 @@ L’erreur **DOIT** se trouver dans l’objet de status avec la clé “error”
 
 Sa valeur par défaut **DOIT** être null.
 
-Le contenu **PEUT** contenir une string ou un objet.
+Sa valeur **DEVRAIT** être une string ou un objet.
 
 C’est au composant d’avoir la logique de quoi faire en fonction de l’erreur.
 
@@ -172,9 +178,9 @@ const state = {
 
 
 ### Sélecteur vs state complexe
-Le state **DEVRAIT** être utilisé pour stocker les données brut
+Le state **DEVRAIT** être utilisé pour stocker les données brutes.
 
-Un sélecteur **DEVRAIT** être utilisé pour “grouper” / “filtrer” / “trier”, finalement “travailler” sur les données brut pour les envoyer au composants.
+Un sélecteur **DEVRAIT** être utilisé pour “grouper” / “filtrer” / “trier”, finalement “travailler” sur les données brutes pour les envoyer au composant.
 
 Vous pouvez consulter la doc de [reselect](https://github.com/reactjs/reselect) pour plus d'informations sur les sélecteurs.
 
@@ -185,9 +191,9 @@ On **DEVRAIT** suffixer le nom de la clé par le type de donnée.
   * Si c'est une `Map` d'articles, la clé devrait s'appeler `articleMap`.
   * Si c'est un objet custom `FooBarCollection` contenant des articles, la clé devrait s'appeler `articleFooBarCollection`.
 
-Bien conserver le nommage de la clé de "status" en fonction.
+Il faut bien conserver le nommage de la clé de "status" en fonction.
 
-Dans notre dernier exemple, la clé de status se nommera sera par exemple `articleFooBarCollection-fetch-status`
+Dans notre dernier exemple, la clé de status se nommera par exemple `articleFooBarCollection-fetch-status`.
 
 
 ### Profondeur du state
@@ -240,4 +246,4 @@ ON **PEUT** avoir un découpage **fonctionnel** des states dans le cas d'une app
 
 À re-challenger en fonction de cas plus précis.
 
-Peut-être avec plus de “container” intermédiaires pour les chainages de composants
+Peut-être avec plus de “container” intermédiaires pour les chainages de composants.
