@@ -11,7 +11,7 @@ Nous avions donc besoin de standardiser nos façons de faire. C'est chose faite 
 
 Ce document est encore à approuver, nous ne sommes pas forcément sûrs de nos choix, mais ils nous parraissent à l'heure actuelle les plus pertinents dans notre cas.
 
-Nous sommes d'ailleurs très preneurs de retours sur ces sujets si vous avez des utilisations différentes, soit en ouvrant [une issue](https://github.com/mapado/best-practices/issues), soit sur twitter en nous interpellant sur [@Mapado_com](https://www.twitter.com/Mapado_com).
+Nous sommes d'ailleurs très preneurs de retours sur ces sujets si vous avez des utilisations différentes, soit en ouvrant [une issue](https://github.com/mapado/best-practices/issues), soit sur Twitter en nous interpellant sur [@Mapado_com](https://www.twitter.com/Mapado_com).
 
 ### Librairies utilisées avec Redux
   * Sélecteurs: [reselect](https://github.com/reactjs/reselect)
@@ -145,9 +145,9 @@ Elle **PEUT** aussi prendre une valeur personnalisée, par exemple :
   * IN_PROGRESS_TOP
 
 #### Valeur de la clé `error`
-L’erreur **DOIT** se trouver dans l’objet de status avec la clé “error”.
+L’erreur **DOIT** se trouver dans l’objet de status avec la clé `error`.
 
-Sa valeur par défaut **DOIT** être null.
+Sa valeur par défaut **DOIT** être `null`.
 
 Sa valeur **DEVRAIT** être une string ou un objet.
 
@@ -155,9 +155,9 @@ C’est au composant d’avoir la logique de quoi faire en fonction de l’erreu
 
 
 #### Cas particulier : Opérations sur les items d’une liste
-Les opérations sur les items d’une liste **DOIVENT** suivre la même logique, mais peuvent être stockées dans une `Map`.
+Les opérations sur les items d’une liste **DOIVENT** suivre la même logique, mais **PEUVENT** être stockées dans une `Map`.
 
-L'index de cette `Map` **DEVRAIT** être l'identifiant de l'item concerné.
+Les clés de cette `Map` **DEVRAIT** être l'identifiant de l'item concerné.
 
 Exemple:
 ```js
@@ -203,7 +203,7 @@ Dans notre dernier exemple, la clé de status se nommera par exemple `articleFoo
 
 
 ### Profondeur du state
-On ne **DEVRAIT** pas avoir plus d'un niveau dans le state.
+On **NE DEVRAIT PAS** avoir plus d'un niveau dans le state.
 
 👎
 
@@ -243,7 +243,7 @@ On ne **DEVRAIT** pas avoir plus d'un niveau dans le state.
 
 On **DEVRAIT** avoir un seul "state" dans le cas d'une application simple.
 
-ON **PEUT** avoir un découpage **fonctionnel** des states dans le cas d'une application complexe.
+On **PEUT** avoir un découpage **fonctionnel** des states dans le cas d'une application complexe.
 
 ## En "test"
 ### [Redux-thunk] getState dans les actions
