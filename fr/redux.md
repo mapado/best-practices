@@ -38,7 +38,7 @@ On ne **DOIT PAS** supprimer des clé du state.
 
 > Si l'on supprime une clé, on se retrouve dans le même cas que précédement
 
-Du coup: préférez `state.set(‘foo’, false)`, ou `state.set('foo', null)` plutôt que `state.remove(‘foo’)`
+Du coup: préférez `state.set(‘foo’, false)`, ou `state.set('foo', null)` plutôt que `state.remove('foo')`
 
 ### Dispatch dans les actions
 
