@@ -5,7 +5,13 @@ title: "Bonne pratiques Redux"
 Bonnes pratiques Redux
 ==============
 
-Nos bonnes pratiques redux
+A [Mapado](https://www.mapado.com), nous commençons de plus en plus à travailler avec du React + Redux, et étant donné que ce sont simplement des librairies assez permissives, chaque développeur a un peu sa manière de faire.
+
+Nous avions donc besoin de standardiser nos façon de faire. C'est chose faite !
+
+Ce document est encore à approuver, nous ne sommes pas forcément sûrs de nos choix, mais ils nous parraissent à l'heure actuelle les plus pertinents dans notre cas.
+
+Nous sommes d'ailleurs très preneurs de retours à ces sujets si vous avez des façons de faire différentes, soit en ouvrant [une issue](https://github.com/mapado/best-practices/issues), soit sur twitter en nous interpellant sur @Mapado_com.
 
 ### Librairies utilisées avec Redux
   * Sélecteurs: [reselect](https://github.com/reactjs/reselect)
@@ -32,7 +38,7 @@ On ne **DOIT PAS** supprimer de clé du state.
 
 > Si l'on supprime une clé, on se retrouve dans le même cas que précédement.
 
-Du coup : préférez `state.set('foo', false)`, ou `state.set('foo', null)` plutôt que `state.remove(‘foo’)`.
+Du coup : préférez `state.set('foo', false)`, ou `state.set('foo', null)` plutôt que `state.remove('foo')`.
 
 ### Dispatch dans les actions
 
