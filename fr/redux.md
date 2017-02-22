@@ -5,7 +5,13 @@ title: "Bonne pratiques Redux"
 Bonne pratiques Redux
 ==============
 
-Nos bonnes pratiques redux
+A [Mapado](https://www.mapado.com), nous commençons de plus en plus à travailler avec du React + Redux, et étant donné que ce sont simplement des librairies assez permissives, chaque développeur a un peu sa manière de faire.
+
+Nous avions donc besoin de standardiser nos façon de faire. C'est chose faite !
+
+Ce document est encore à approuver, nous ne sommes pas forcément sûrs de nos choix, mais ils nous parraissent à l'heure actuelle les plus pertinents dans notre cas.
+
+Nous sommes d'ailleurs très preneurs de retours à ces sujets si vous avez des façons de faire différentes, soit en ouvrant [une issue](https://github.com/mapado/best-practices/issues), soit sur twitter en nous interpellant sur @Mapado_com.
 
 ### Librairies utilisées avec Redux
   * Sélecteurs: [reselect](https://github.com/reactjs/reselect)
