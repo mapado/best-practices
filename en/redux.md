@@ -5,7 +5,7 @@ title: "Redux best practices"
 Redux best practices
 ==============
 
-[*Version française ici*](/fr/redux)
+[*Version française ici*]({% link /fr/redux %})
 
 At [Mapado](https://www.mapado.com), we are using more and more React and Redux. As they are very permissive librairies, each developer has its own way of coding with them.
 
