@@ -5,7 +5,7 @@ title: "Bonne pratiques Redux"
 Bonnes pratiques Redux
 ==============
 
-[*English version here*]({% link en/redux.md %})
+[*English version here*]({{ site.baseurl }}{% link en/redux.md %})
 
 À [Mapado](https://www.mapado.com), nous commençons de plus en plus à travailler avec du React + Redux, et étant donné que ce sont simplement des librairies assez permissives, chaque développeur a un peu sa manière de faire.
 

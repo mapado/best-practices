@@ -5,7 +5,7 @@ title: "Bonne pratiques ReactJS"
 Bonnes pratiques ReactJS
 ==============
 
-[*English version here*]({% link en/react.md %})
+[*English version here*]({{ site.baseurl }}{% link en/react.md %})
 
 Cette liste de bonne pratique est surtout un retour sur certaines "mauvaise pratiques" que nous avons mis dans notre code et comment les corriger.
 
