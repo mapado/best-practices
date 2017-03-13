@@ -5,8 +5,6 @@ title: "Best practice ReactJS"
 Best practice ReactJS
 ==============
 
-[*Version française ici*]({% link fr/react %})
-
 This best practice list is more a list of corrected "bad practices" that we had in our codebase and fixed.
 
 ### Method naming
