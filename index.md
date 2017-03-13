@@ -10,5 +10,6 @@ Here is a list of our best practices
 
 ## React
 
-  * [React best practices (en)](en/react)
-  * [React best practices (fr)](fr/react)
+  * [React best practices (en)]({% link en/react %})
+  * [React best practices (fr)]({% link fr/react %})
+
