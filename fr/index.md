@@ -14,3 +14,7 @@ Voici une liste de nos bonnes pratiques
 ## React
 
   * [Bonnes pratiques React]({{ site.baseurl }}{% link fr/react.md %})
+
+## React-Redux
+
+  * [Bonnes pratiques React-Redux]({{ site.baseurl }}{% link fr/react-redux.md %})
