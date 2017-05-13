@@ -17,4 +17,4 @@ Here is a list of our best practices
 
 ## React-Redux
 
-  * [React-redux best practices]({{ site.baseurl }}{% link fr/react-redux.md %})
+  * [React-redux best practices]({{ site.baseurl }}{% link en/react-redux.md %})
