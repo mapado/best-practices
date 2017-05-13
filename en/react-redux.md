@@ -26,7 +26,7 @@ Imagine we have a `Layout` component which need to display a `UserInfo` or `Anon
 The `Layout` component SHOULD NOT decide which component to display but SHOULD use an intermediate redux container which will do this job:
 
 👎
-```
+```js
 import React from 'react';
 import { connect } from 'react-redux';
 

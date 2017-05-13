@@ -26,7 +26,7 @@ Imaginons que nous ayons un composant `Layout` qui doit afficher un composant `U
 Le composant `Layout` NE DEVRAIT PAS décider quel composant utiliser mais DEVRAIT utiliser un container redux intermédiaire qui fait ce travail:
 
 👎
-```
+```js
 import React from 'react';
 import { connect } from 'react-redux';
 
