@@ -89,7 +89,7 @@ const UserInfoContainer = connect(
 )(UserInfo);
 
 // kind of our component factory
-function UserOrAnonymous({ isLogged, username }) {
+function UserOrAnonymous({ isLogged }) {
   return isLogged? <UserInfoContainer /> :<Anonymous />;
 }
 

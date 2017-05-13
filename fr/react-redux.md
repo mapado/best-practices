@@ -89,7 +89,7 @@ const UserInfoContainer = connect(
 )(UserInfo);
 
 // un espèce de composant "factory"
-function UserOrAnonymous({ isLogged, username }) {
+function UserOrAnonymous({ isLogged }) {
   return isLogged? <UserInfoContainer /> :<Anonymous />;
 }
 
