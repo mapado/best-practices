@@ -80,4 +80,100 @@ class Foo extends Component {
 }
 ```
 
+### fonctions anonymes dans la methode `render`
 
+De la même manière, on NE DOIT PAS créer des fonctions anonymes dans la méthode `render` pour deux raisons:
+
+  * Les fonctions anonymes sont regénérées à chaque appel de `render`, ce qui consomme de la ressource pour rien.
+  * Cela rend la méthode `render` moins lisible car il y a du code "métier" dans le rendu.
+
+👎
+```;js
+class Foo extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      foo: null,
+    };
+  }
+
+  render() {
+    return (<div>
+      <a onClick={() => {
+        this.setState({ foo: 'bar' })
+      }}>
+        Hey, click-me !
+      </a>
+    </div>);
+  }
+}
+```
+
+👍
+```
+class Foo extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.handleButtonClick = this.handleButtonClick.bind(this);
+
+    this.state = {
+      foo: false,
+    };
+  }
+
+  handleButtonClick() {
+    this.setState(prevState => ({
+      foo: !prevState.foo,
+    }));
+  }
+
+  render() {
+    return (<div>
+      <a onClick={this.handleButtonClick}>
+        Hey, click-me !
+      </a>
+    </div>);
+  }
+}
+```
+
+#### Exception
+
+La seule exception étant si l'on est en train d'itérer sur une liste et que l'on doit passer un object en paramètre.
+
+On DOIT dans tous les cas limiter la fonction anonyme à un appel d'une autre méthode pour la lisibilité.
+
+On PEUT alors faire comme ça:
+
+👍
+```
+class Foo extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.handleButtonClick = this.handleButtonClick.bind(this);
+
+    this.state = {
+      btnClicked: null,
+    };
+  }
+
+  handleButtonClick(item) {
+    this.setState({
+      btnClicked: item,
+    });
+  }
+
+  render() {
+    return (<div>
+      {this.props.myList.map(item => 
+        <a onClick={(item) => this.handleButtonClick(item)}>
+          Hey, click-me !
+        </a>
+      }
+    </div>);
+  }
+}
+```
