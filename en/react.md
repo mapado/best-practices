@@ -80,3 +80,101 @@ class Foo extends Component {
   }
 }
 ```
+
+### anonymous function in the `render` method
+
+Same as the `bind` call, we MUST NOT create anonymous functions in the `render` method for two reasons:
+
+  * Anonymous functions are regenerated on each call of the `render` function, which consume useless resources.
+  * The `render` method is less readable, because there will be business logic in it.
+
+👎
+```;js
+class Foo extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      foo: null,
+    };
+  }
+
+  render() {
+    return (<div>
+      <a onClick={() => {
+        this.setState({ foo: 'bar' })
+      }}>
+        Hey, click-me !
+      </a>
+    </div>);
+  }
+}
+```
+
+👍
+```
+class Foo extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.handleButtonClick = this.handleButtonClick.bind(this);
+
+    this.state = {
+      foo: false,
+    };
+  }
+
+  handleButtonClick() {
+    this.setState(prevState => ({
+      foo: !prevState.foo,
+    }));
+  }
+
+  render() {
+    return (<div>
+      <a onClick={this.handleButtonClick}>
+        Hey, click-me !
+      </a>
+    </div>);
+  }
+}
+```
+
+#### Exception
+
+The only exception is if we are iterating over a list and if we must pass an item of this list as parameter.
+
+We MUST limit the call to calling a class method with for readability.
+
+We CAN do it this way:
+
+👍
+```
+class Foo extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.handleButtonClick = this.handleButtonClick.bind(this);
+
+    this.state = {
+      btnClicked: null,
+    };
+  }
+
+  handleButtonClick(item) {
+    this.setState({
+      btnClicked: item,
+    });
+  }
+
+  render() {
+    return (<div>
+      {this.props.myList.map(item => 
+        <a onClick={(item) => this.handleButtonClick(item)}>
+          Hey, click-me !
+        </a>
+      }
+    </div>);
+  }
+}
+```
