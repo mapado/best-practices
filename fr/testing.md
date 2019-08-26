@@ -4,7 +4,7 @@ title: "Bonnes pratiques de test JS & Front"
 
 # Bonnes pratiques de test JS & Front
 
-[*English version here*]({{ site.baseurl }}{% link en/react.md %})
+[*English version here*]({{ site.baseurl }}{% link en/testing.md %})
 
 Cette liste est surtout un rappel de la façon dont on crée des tests UI / JS à Mapado, et de quelles librairires nous utilisons.
 

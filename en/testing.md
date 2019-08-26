@@ -4,7 +4,7 @@ title: "JS & Frontend testing best practices"
 
 # JS & Frontend testing best practices
 
-[*French version here*]({{ site.baseurl }}{% link fr/react.md %})
+[*French version here*]({{ site.baseurl }}{% link fr/testing.md %})
 
 This is mostly a reminder on how we create UI / JS tests at Mapado, and which libraries we use.
 
