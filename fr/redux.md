@@ -15,6 +15,14 @@ Ce document est encore à approuver, nous ne sommes pas forcément sûrs de nos 
 
 Nous sommes d'ailleurs très preneurs de retours sur ces sujets si vous avez des utilisations différentes, soit en ouvrant [une issue](https://github.com/mapado/best-practices/issues), soit sur Twitter en nous interpellant sur [@Mapado_com](https://www.twitter.com/Mapado_com).
 
+### Quand utiliser Redux
+
+Redux **NE DOIT ÊTRE** utilisé que lorsqu'il y a un besoin global de partage à travers toute l'application.
+
+React permet déjà d'avoir des infos dans son state, et depuis quelques temps maintenant [l'API contexte](https://reactjs.org/docs/context.html) permet de partager efficacement les données entre composants.
+
+En savoir plus : ["You might not need Redux" par Dan Abramov](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367).
+
 ### Librairies utilisées avec Redux
   * Sélecteurs: [reselect](https://github.com/reactjs/reselect)
   * Structures de données: [immutable-js](https://facebook.github.io/immutable-js/)
