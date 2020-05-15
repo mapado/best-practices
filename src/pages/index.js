@@ -72,7 +72,7 @@ function Home() {
                 'button button--outline button--secondary button--lg',
                 styles.getStarted
               )}
-              to={useBaseUrl('./docs/fr/index')}
+              to={useBaseUrl('./docs/fr')}
             >
               En français
             </Link>
