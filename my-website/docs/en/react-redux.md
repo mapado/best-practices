@@ -1,18 +1,16 @@
 ---
-title: 'Bonne pratiques React-Redux'
+title: 'React-Redux best practices'
 ---
 
-# Bonnes pratiques React-Redux
+[_version française ici_](../fr/react-redux.md)
 
-[*English version here*]({{ site.baseurl }}{% link en/react-redux.md %})
+This best practice list is more a list of corrected "bad practices" that we had in our codebase and fixed.
 
-Cette liste de bonne pratique est surtout un retour sur certaines "mauvaise pratiques" que nous avons mis dans notre code et comment les corriger.
+### Injecting components
 
-### Injection de composants
+Imagine we need to inject a component based upon some context, for exemple if the user is logged in.
 
-Imaginons que l'on doit injecter un composant différent en fonction du context, par exemple si l'utilisateur est connecté.
-
-Voici l'état de notre "store" redux:
+Here is our redux store
 
 ```js
 const store = {
@@ -21,9 +19,9 @@ const store = {
 };
 ```
 
-Imaginons que nous ayons un composant `Layout` qui doit afficher un composant `UserInfo` en fonction de l'état de `isLogged`.
+Imagine we have a `Layout` component which need to display a `UserInfo` or `Anonymous` component based upon the `isLogged` value.
 
-Le composant `Layout` NE DEVRAIT PAS décider quel composant utiliser mais DEVRAIT utiliser un container redux intermédiaire qui fait ce travail:
+The `Layout` component SHOULD NOT decide which component to display but SHOULD use an intermediate redux container which will do this job:
 
 👎
 
@@ -86,4 +84,4 @@ function Layout() {
 }
 ```
 
-C'est d'autant plus simple, lisible et compréhensible avec les hooks de redux
+It is way more readable, understandable and efficient now with redux hooks.

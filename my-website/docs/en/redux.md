@@ -2,9 +2,7 @@
 title: 'Redux best practices'
 ---
 
-# Redux best practices
-
-[*Version française ici*]({{ site.baseurl }}{% link fr/redux.md %})
+[_Version française ici_](../fr/redux)
 
 At [Mapado](https://www.mapado.com), we are using more and more React and Redux. As they are very permissive librairies, each developer has its own way of coding with them.
 
@@ -12,7 +10,7 @@ We needed to standardize how we do it. It's now done!
 
 This document is still "in progress", we are not necessarily sure of some of our choices, but they seem to be the best for us right now.
 
-Moreover, we would welcome your comments if you have different use cases, either by opening [an issue](https://github.com/mapado/best-practices/issues), or by mentioning [@Mapado_com](https://www.twitter.com/Mapado_com) on Twitter.
+Moreover, we would welcome your comments if you have different use cases, either by opening [an issue](https://github.com/mapado/best-practices/issues).
 
 ### When to use Redux
 
