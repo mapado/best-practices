@@ -15,13 +15,13 @@ module.exports = {
       },
       links: [
         {
-          to: 'docs/fr',
+          to: 'docs/fr/',
           activeBasePath: 'docs/fr/',
           label: 'Français',
           position: 'left',
         },
         {
-          to: 'docs/en',
+          to: 'docs/en/',
           activeBasePath: 'docs/en/',
           label: 'English',
           position: 'left',
