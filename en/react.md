@@ -1,15 +1,15 @@
 ---
-title: "Best practice ReactJS"
+title: 'Best practice ReactJS'
 ---
 
-Best practice ReactJS
-==============
+# Best practice ReactJS
 
 [*Version française ici*]({{ site.baseurl }}{% link fr/react.md %})
 
 This best practice list is more a list of corrected "bad practices" that we had in our codebase and fixed.
 
 ### Method naming
+
 A method "handling" an event `onSomething` SHOULD start with `handle`.
 
 ```js
@@ -20,13 +20,13 @@ class Foo() {
 
   render() {
     return (
-        <div onClick={this.handleClick}>
-        </div>
+      <button onClick={this.handleClick}>
+        Click
+      </button>
     );
   }
 }
 ```
-
 
 ### bind(this) in the `render` method
 
@@ -39,6 +39,7 @@ For this reason, `binding` and method call SHOULD be the most "easy" and "logica
 It makes it easier to read and understand the code for experienced programmer too.
 
 👎
+
 ```js
 class Foo extends Component {
   handleClick(foo) {
@@ -48,23 +49,20 @@ class Foo extends Component {
   render() {
     this.handleClick.bind(this, this.props.foo);
 
-    return (
-      <div onClick={this.handleClick}>
-      </div>
-    );
+    return <button onClick={this.handleClick}></button>;
   }
 }
 ```
 
-
 👍
+
 ```js
 class Foo extends Component {
   constructor(props) {
     super(props);
 
     this.handleClick = this.handleClick.bind(this);
-  } 
+  }
 
   handleClick() {
     const foo = this.props.foo;
@@ -72,24 +70,21 @@ class Foo extends Component {
   }
 
   render() {
-
-    return (
-      <div onClick={this.handleClick}>
-      </div>
-    );
+    return <button onClick={this.handleClick}></button>;
   }
 }
 ```
 
-### anonymous function in the `render` method
+### class element: anonymous function in the `render` method
 
 Same as the `bind` call, we MUST NOT create anonymous functions in the `render` method for two reasons:
 
-  * Anonymous functions are regenerated on each call of the `render` function, which consume useless resources.
-  * The `render` method is less readable, because there will be business logic in it.
+- Anonymous functions are regenerated on each call of the `render` function, which consume useless resources.
+- The `render` method is less readable, because there will be business logic in it.
 
 👎
-```;js
+
+```js
 class Foo extends PureComponent {
   constructor(props) {
     super(props);
@@ -100,19 +95,24 @@ class Foo extends PureComponent {
   }
 
   render() {
-    return (<div>
-      <a onClick={() => {
-        this.setState({ foo: 'bar' })
-      }}>
-        Hey, click-me !
-      </a>
-    </div>);
+    return (
+      <div>
+        <button
+          onClick={() => {
+            this.setState({ foo: 'bar' });
+          }}
+        >
+          Hey, click-me !
+        </button>
+      </div>
+    );
   }
 }
 ```
 
 👍
-```
+
+```js
 class Foo extends PureComponent {
   constructor(props) {
     super(props);
@@ -125,17 +125,17 @@ class Foo extends PureComponent {
   }
 
   handleButtonClick() {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       foo: !prevState.foo,
     }));
   }
 
   render() {
-    return (<div>
-      <a onClick={this.handleButtonClick}>
-        Hey, click-me !
-      </a>
-    </div>);
+    return (
+      <div>
+        <button onClick={this.handleButtonClick}>Hey, click-me !</button>
+      </div>
+    );
   }
 }
 ```
@@ -149,7 +149,8 @@ We MUST limit the call to calling a class method with for readability.
 We CAN do it this way:
 
 👍
-```
+
+```js
 class Foo extends PureComponent {
   constructor(props) {
     super(props);
@@ -169,10 +170,10 @@ class Foo extends PureComponent {
 
   render() {
     return (<div>
-      {this.props.myList.map(item => 
-        <a onClick={(item) => this.handleButtonClick(item)}>
+      {this.props.myList.map(item =>
+        <button onClick={(item) => this.handleButtonClick(item)}>
           Hey, click-me !
-        </a>
+        </button>
       }
     </div>);
   }

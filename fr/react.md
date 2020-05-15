@@ -1,15 +1,15 @@
 ---
-title: "Bonne pratiques ReactJS"
+title: 'Bonne pratiques ReactJS'
 ---
 
-Bonnes pratiques ReactJS
-==============
+# Bonnes pratiques ReactJS
 
 [*English version here*]({{ site.baseurl }}{% link en/react.md %})
 
 Cette liste de bonne pratique est surtout un retour sur certaines "mauvaise pratiques" que nous avons mis dans notre code et comment les corriger.
 
 ### Nommage de méthodes
+
 Un méthode "répondant" à un évènement `onSomething` DEVRAIT être préfixée par `handle`.
 
 ```js
@@ -20,8 +20,9 @@ class Foo() {
 
   render() {
     return (
-        <div onClick={this.handleClick}>
-        </div>
+      <button onClick={this.handleClick}>
+        Click
+      </button>
     );
   }
 }
@@ -38,6 +39,7 @@ Pour cette raison, le `binding` et les appels de méthodes DEVRAIENT être le pl
 Cela facilite aussi la lisibilité et la compréhension pour les développeurs chevronnés.
 
 👎
+
 ```js
 class Foo extends Component {
   handleClick(foo) {
@@ -47,23 +49,20 @@ class Foo extends Component {
   render() {
     this.handleClick.bind(this, this.props.foo);
 
-    return (
-      <div onClick={this.handleClick}>
-      </div>
-    );
+    return <button onClick={this.handleClick}></button>;
   }
 }
 ```
 
-
 👍
+
 ```js
 class Foo extends Component {
   constructor(props) {
     super(props);
 
     this.handleClick = this.handleClick.bind(this);
-  } 
+  }
 
   handleClick() {
     const foo = this.props.foo;
@@ -71,24 +70,21 @@ class Foo extends Component {
   }
 
   render() {
-
-    return (
-      <div onClick={this.handleClick}>
-      </div>
-    );
+    return <button onClick={this.handleClick}></button>;
   }
 }
 ```
 
-### fonctions anonymes dans la methode `render`
+### Element "classe" : fonctions anonymes dans la methode `render`
 
 De la même manière, on NE DOIT PAS créer des fonctions anonymes dans la méthode `render` pour deux raisons:
 
-  * Les fonctions anonymes sont regénérées à chaque appel de `render`, ce qui consomme de la ressource pour rien.
-  * Cela rend la méthode `render` moins lisible car il y a du code "métier" dans le rendu.
+- Les fonctions anonymes sont regénérées à chaque appel de `render`, ce qui consomme de la ressource pour rien.
+- Cela rend la méthode `render` moins lisible car il y a du code "métier" dans le rendu.
 
 👎
-```;js
+
+```js
 class Foo extends PureComponent {
   constructor(props) {
     super(props);
@@ -99,19 +95,24 @@ class Foo extends PureComponent {
   }
 
   render() {
-    return (<div>
-      <a onClick={() => {
-        this.setState({ foo: 'bar' })
-      }}>
-        Hey, click-me !
-      </a>
-    </div>);
+    return (
+      <div>
+        <button
+          onClick={() => {
+            this.setState({ foo: 'bar' });
+          }}
+        >
+          Hey, click-me !
+        </button>
+      </div>
+    );
   }
 }
 ```
 
 👍
-```
+
+```js
 class Foo extends PureComponent {
   constructor(props) {
     super(props);
@@ -124,17 +125,17 @@ class Foo extends PureComponent {
   }
 
   handleButtonClick() {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       foo: !prevState.foo,
     }));
   }
 
   render() {
-    return (<div>
-      <a onClick={this.handleButtonClick}>
-        Hey, click-me !
-      </a>
-    </div>);
+    return (
+      <div>
+        <button onClick={this.handleButtonClick}>Hey, click-me !</button>
+      </div>
+    );
   }
 }
 ```
@@ -148,7 +149,8 @@ On DOIT dans tous les cas limiter la fonction anonyme à un appel d'une autre m�
 On PEUT alors faire comme ça:
 
 👍
-```
+
+```js
 class Foo extends PureComponent {
   constructor(props) {
     super(props);
@@ -168,10 +170,10 @@ class Foo extends PureComponent {
 
   render() {
     return (<div>
-      {this.props.myList.map(item => 
-        <a onClick={(item) => this.handleButtonClick(item)}>
+      {this.props.myList.map(item =>
+        <button onClick={(item) => this.handleButtonClick(item)}>
           Hey, click-me !
-        </a>
+        </button>
       }
     </div>);
   }
