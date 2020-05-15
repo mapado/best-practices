@@ -2,9 +2,7 @@
 title: 'Best practice ReactJS'
 ---
 
-# Best practice ReactJS
-
-[*Version française ici*]({{ site.baseurl }}{% link fr/react.md %})
+[_Version française ici_](../fr/react.md)
 
 This best practice list is more a list of corrected "bad practices" that we had in our codebase and fixed.
 
