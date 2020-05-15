@@ -72,7 +72,7 @@ function Home() {
                 'button button--outline button--secondary button--lg',
                 styles.getStarted
               )}
-              to={useBaseUrl('fr/index')}
+              to={useBaseUrl('./docs/fr/index')}
             >
               En français
             </Link>
@@ -82,7 +82,7 @@ function Home() {
                 'button button--outline button--secondary button--lg',
                 styles.getStarted
               )}
-              to={useBaseUrl('en/index')}
+              to={useBaseUrl('./docs/en/index')}
             >
               In english
             </Link>
@@ -90,7 +90,7 @@ function Home() {
         </div>
       </header>
       <main>
-        {features && features.length && (
+        {features && features.length > 0 && (
           <section className={styles.features}>
             <div className="container">
               <div className="row">

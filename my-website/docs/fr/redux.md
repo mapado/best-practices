@@ -10,7 +10,7 @@ Nous avions donc besoin de standardiser nos façons de faire. C'est chose faite 
 
 Ce document est encore à approuver, nous ne sommes pas forcément sûrs de nos choix, mais ils nous parraissent à l'heure actuelle les plus pertinents dans notre cas.
 
-Nous sommes d'ailleurs très preneurs de retours sur ces sujets si vous avez des utilisations différentes, soit en ouvrant [une issue](https://github.com/mapado/best-practices/issues), soit sur Twitter en nous interpellant sur [@Mapado_com](https://www.twitter.com/Mapado_com).
+Nous sommes d'ailleurs très preneurs de retours sur ces sujets si vous avez des utilisations différentes, soit en ouvrant [une issue](https://github.com/mapado/best-practices/issues).
 
 ### Quand utiliser Redux
 
