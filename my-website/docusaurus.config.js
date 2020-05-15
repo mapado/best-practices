@@ -11,17 +11,17 @@ module.exports = {
       title: 'Mapado best practices',
       logo: {
         alt: 'Mapado',
-        src: 'img/logo.svg',
+        src: 'img/logo.png',
       },
       links: [
         {
-          to: 'docs/fr/index',
+          to: 'docs/fr',
           activeBasePath: 'docs/fr/',
           label: 'Français',
           position: 'left',
         },
         {
-          to: 'docs/en/index',
+          to: 'docs/en',
           activeBasePath: 'docs/en/',
           label: 'English',
           position: 'left',
