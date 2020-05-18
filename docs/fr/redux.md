@@ -64,7 +64,7 @@ C'est plutôt au reducer de faire ce job:
 
 👎
 
-```js
+```js {21-28}
 function reducer(state, action) {
   switch (action.type) {
     case 'FOO':
@@ -99,7 +99,7 @@ function complexAction() {
 
 👍
 
-```js
+```js {21-25}
 function reducer(state, action) {
   switch (action.type) {
     case 'FOO':
@@ -231,7 +231,7 @@ On **NE DEVRAIT PAS** avoir plus d'un niveau dans le state.
 
 👎
 
-```js
+```js {1,3-6}
   article: {
     items: [ /* some articles */ ],
     'fetch-status': {
@@ -250,7 +250,7 @@ On **NE DEVRAIT PAS** avoir plus d'un niveau dans le state.
 
 👍
 
-```js
+```js {2-5}
   articleList: [ /* some articles */ ],
   'articleList-fetch-status': {
     status: 'IN_PROGRESS',

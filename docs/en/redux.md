@@ -64,7 +64,7 @@ This job is more suited for the reducer:
 
 👎
 
-```js
+```js {21-28}
 function reducer(state, action) {
   switch (action.type) {
     case 'FOO':
@@ -99,7 +99,7 @@ function complexAction() {
 
 👍
 
-```js
+```js {21-25}
 function reducer(state, action) {
   switch (action.type) {
     case 'FOO':
@@ -231,7 +231,7 @@ The state **SHOULD NOT** have more than one nesting level.
 
 👎
 
-```js
+```js {1,3-6}
   article: {
     items: [ /* some articles */ ],
     'fetch-status': {
@@ -250,7 +250,7 @@ The state **SHOULD NOT** have more than one nesting level.
 
 👍
 
-```js
+```js {2-5}
   articleList: [ /* some articles */ ],
   'articleList-fetch-status': {
     status: 'IN_PROGRESS',

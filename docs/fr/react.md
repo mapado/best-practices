@@ -8,7 +8,7 @@ Cette liste de bonne pratique est surtout un retour sur certaines "mauvaise prat
 
 Un méthode "répondant" à un évènement `onSomething` DEVRAIT être préfixée par `handle`.
 
-```js
+```js {2,8}
 class Foo() {
   handleClick() {
     // do something
@@ -36,7 +36,7 @@ Cela facilite aussi la lisibilité et la compréhension pour les développeurs c
 
 👎
 
-```js
+```js {7}
 class Foo extends Component {
   handleClick(foo) {
     // do someting
@@ -52,7 +52,7 @@ class Foo extends Component {
 
 👍
 
-```js
+```js {5,8-11}
 class Foo extends Component {
   constructor(props) {
     super(props);
@@ -80,7 +80,7 @@ De la même manière, on NE DOIT PAS créer des fonctions anonymes dans la méth
 
 👎
 
-```js
+```js {14-16}
 class Foo extends PureComponent {
   constructor(props) {
     super(props);
@@ -108,7 +108,7 @@ class Foo extends PureComponent {
 
 👍
 
-```js
+```js {5,12-16,21}
 class Foo extends PureComponent {
   constructor(props) {
     super(props);
@@ -146,7 +146,7 @@ On PEUT alors faire comme ça:
 
 👍
 
-```js
+```js {20-21}
 class Foo extends PureComponent {
   constructor(props) {
     super(props);

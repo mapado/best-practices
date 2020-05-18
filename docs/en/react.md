@@ -8,7 +8,7 @@ This best practice list is more a list of corrected "bad practices" that we had 
 
 A method "handling" an event `onSomething` SHOULD start with `handle`.
 
-```js
+```js {2,8}
 class Foo() {
   handleClick() {
     // do something
@@ -36,7 +36,7 @@ It makes it easier to read and understand the code for experienced programmer to
 
 👎
 
-```js
+```js {7}
 class Foo extends Component {
   handleClick(foo) {
     // do someting
@@ -52,7 +52,7 @@ class Foo extends Component {
 
 👍
 
-```js
+```js {5,8-11}
 class Foo extends Component {
   constructor(props) {
     super(props);
@@ -80,7 +80,7 @@ Same as the `bind` call, we MUST NOT create anonymous functions in the `render` 
 
 👎
 
-```js
+```js {14-16}
 class Foo extends PureComponent {
   constructor(props) {
     super(props);
@@ -108,7 +108,7 @@ class Foo extends PureComponent {
 
 👍
 
-```js
+```js {5,12-16,21}
 class Foo extends PureComponent {
   constructor(props) {
     super(props);
@@ -146,7 +146,7 @@ We CAN do it this way:
 
 👍
 
-```js
+```js {20-21}
 class Foo extends PureComponent {
   constructor(props) {
     super(props);

@@ -13,17 +13,19 @@ Here is our redux store
 ```js
 const store = {
   [isLogged: boolean]: true,
-  [username: ?string]: 'Michel',
+  [username?: string]: 'Michel',
 };
 ```
 
 Imagine we have a `Layout` component which need to display a `UserInfo` or `Anonymous` component based upon the `isLogged` value.
 
-The `Layout` component SHOULD NOT decide which component to display but SHOULD use an intermediate redux container which will do this job:
+The `Layout` component SHOULD NOT decide which component to display but SHOULD use an intermediate redux container which will do this job.
+
+Content of the state SHOULD be injected as close as possible of its usage (ex. here with the `username`).
 
 👎
 
-```js
+```js {12,14,18-19,22-23,27-28}
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -59,7 +61,7 @@ export default connect(mapStateToProps)(Layout);
 
 👍
 
-```js
+```js {9,16-18}
 import React from 'react';
 import { useSelector } from 'react-redux';
 
@@ -72,7 +74,6 @@ function UserInfo({ username }) {
 
   return (<div>Hello {username}<div>);
 }
-
 
 // enfin affichons notre composant `Layout`
 function Layout() {
