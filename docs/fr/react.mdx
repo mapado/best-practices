@@ -7,6 +7,72 @@ import TabItem from '@theme/TabItem';
 
 Cette liste de bonne pratique est surtout un retour sur certaines "mauvaise pratiques" que nous avons mis dans notre code et comment les corriger.
 
+### Nombre de composants par fichiers composants
+
+Un fichier "composant" ne DEVRAIT pas avoir plus d'un composant dedans :
+
+👎
+
+```jsx title="/src/components/Menu.js"
+function Label() {
+  return 'some label';
+}
+
+function Content() {
+  return 'some label';
+}
+
+function Menu() {
+  return (
+    <div>
+      <div>
+        <Label />
+      </div>
+
+      <div>
+        <Content />
+      </div>
+    </div>
+  );
+}
+```
+
+👍
+
+```jsx title="/src/components/Menu/Content.js"
+function Label() {
+  return 'some label';
+}
+```
+
+```jsx title="/src/components/Menu/Content.js"
+function Content() {
+  return 'some label';
+}
+```
+
+```jsx title="/src/components/Menu/index.js"
+function Menu() {
+  return (
+    <div>
+      <div>
+        <Label />
+      </div>
+
+      <div>
+        <Content />
+      </div>
+    </div>
+  );
+}
+```
+
+:::note Intérêt
+Le but est de trouver le bon composant quand on ouvre le fichier en question, en pas de trouver plusieurs composants sans trouver celui qui est censé être là.
+:::
+
+#### Cas des "conteneurs" / "injecteurs"
+
 ### Nommage de méthodes
 
 Un méthode "répondant" à un évènement `onSomething` DEVRAIT être préfixée par `handle`.
@@ -202,3 +268,220 @@ class Foo extends PureComponent {
   }
 }
 ```
+
+### Hooks : définitions des fonctions de "setters"
+
+À l'instar des composants de classe, on NE DEVRAIT PAS de définir des fonctions dans le corps du rendu de la méthode pour faire des actions simples:
+
+👎
+
+```jsx
+function Container() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  function handleClick() {
+    setIsVisible(true);
+  }
+
+  return <button onClick={handleClick}>Make visible</button>;
+}
+```
+
+👍
+
+```jsx
+function Container() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  return <button onClick={() => setIsVisible(true)}>Make visible</button>;
+}
+```
+
+:::info Explication
+
+- Dans tous les cas la fonction est regénérée à chaque rendu
+- Le fait de définir une fonction supplémentaire peut complexifier la compréhension pour des cas simple
+
+:::
+
+:::caution Attention
+Il est par contre important d'extraire une fonction personnalisée quand le code devient complexe auquel cas la lisibilité du rendu du composant s'en trouverait diminuée.
+:::
+
+### Hooks : extraction de hooks personnalisés
+
+On DEVRAIT extraire les hooks personnalisés dans les cas suivants :
+
+- Quand les "hooks" prennent plus de 40% de la taille du composant : extraire dans des hooks par "blocs fonctionnels"
+- Quand plusieurs "hooks" ont des "périmètres fonctionnels" différents, sortir les hooks par blocs fonctionnels différents
+
+Il est très facile à extraire des hooks : il suffit de copier coller tout son code dans une autre fonction.
+
+👎
+
+```jsx
+function Cart() {
+  const sdk = useSdk();
+  const { cartId } = useParams();
+  const [cart, setCart] = useState(null);
+
+  useEffect(() => {
+    sdk.find(cartId).then((cart) => {
+      setCart(cart);
+    });
+  }, [sdk, cartId]);
+
+  if (cart === null) {
+    return <div>loading…</div>;
+  }
+
+  return (
+    <div>
+      <h2>{cart.title}</h2>
+      <p>
+        {cart.amount} {cart.currency}
+      </p>
+    </div>
+  );
+}
+```
+
+👍
+
+```jsx
+function useCurrentCart() {
+  const sdk = useSdk();
+  const { cartId } = useParams();
+  const [cart, setCart] = useState(null);
+
+  useEffect(() => {
+    sdk.find(cartId).then((cart) => {
+      setCart(cart);
+    });
+  }, [sdk, cartId]);
+
+  return cart;
+}
+
+function Cart() {
+  const cart = useCurrentCart();
+
+  if (cart === null) {
+    return <div>loading…</div>;
+  }
+
+  return (
+    <div>
+      <h2>{cart.title}</h2>
+      <p>
+        {cart.amount} {cart.currency}
+      </p>
+    </div>
+  );
+}
+```
+
+:::note Intérêt
+Une meilleure lisibilité du composant, possibilité de tester les hooks.
+:::
+
+Les hooks personnalisés PEUVENT être situés dans le fichier à côté du composant si ils restent petits et "privés".
+
+Ils DEVRAIENT être dans un fichiers autonome dans le dossier du composant si ils sont "privés" mais complexes (plus de ~100 lignes).
+
+Ils PEUVENT être situés dans un dossier / fichier partagés si ils sont utilisables par plusieurs composants.
+Dans ce cas ils DEVRAIENT être au plus près de leur utilisation métier. (un "hook" concernant uniquement les paniers devrait se trouver avec le code des paniers, et pas à la racine).
+
+### Hooks : `useState` multiples
+
+On NE DEVRAIT PAS utiliser `useState` plusieurs fois autour du même "bloc fonctionnel", mais on DEVRAIT utiliser `useReducer` dans ce cas.
+
+👎
+
+```jsx
+function useCurrentCart(sdk, cartId) {
+  const [cart, setCart] = useState(null);
+  const [error, setError] = useState(null);
+  const [isLoadingCart, setIsLoadingCart] = useState(false);
+
+  useEffect(() => {
+    setIsLoadingCart(true);
+
+    sdk
+      .find(cartId)
+      .then((cart) => {
+        setCart(cart);
+        setIsLoading(false);
+        setError(null);
+      })
+      .catch((error) => {
+        setCart(null);
+        setIsLoading(true);
+        setError(error);
+      });
+  }, [cartId]);
+
+  return { isLoading, cart, error };
+}
+```
+
+👍
+
+```jsx
+const initialState = {
+  isLoading: false,
+  cart: null,
+  error: null,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'FETCH_CART':
+      return {
+        isLoading: true,
+        cart: null,
+        error: null,
+      };
+    case 'CART_RECEIVED':
+      return {
+        isLoading: false,
+        cart: action.cart,
+        error: null,
+      };
+    case 'FETCH_CART_ERROR':
+      return {
+        isLoading: false,
+        cart: null,
+        error: action.error,
+      };
+    default:
+      throw new Error();
+  }
+}
+
+function useCurrentCart(sdk, cartId) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    dispatch({ type: 'FETCH_CART' });
+
+    sdk
+      .find(cartId)
+      .then((cart) => {
+        dispatch({ type: 'CART_RECEIVED', cart });
+      })
+      .catch((error) => {
+        dispatch({ type: 'FETCH_CART_ERROR', error });
+      });
+  }, [cartId]);
+
+  return state;
+}
+```
+
+:::note Intérêt
+
+- Pouvoir modifier facilement en ajoutant une clé, ou un cas sans avoir un "setter" qui est mal (ré-)initialisé.
+- Avoir la liste de tous les cas et les actions lisibles facilement sans avoir besoin de comprendre la logique sous-jacente.
+
+:::
