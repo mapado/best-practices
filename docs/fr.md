@@ -4,9 +4,9 @@ title: 'Bonnes pratiques à Mapado'
 
 Voici une liste de nos bonnes pratiques
 
-[Redux](./redux)
-
 [React](./react)
+
+[Redux](./redux)
 
 [React-Redux](./react-redux)
 

@@ -4,9 +4,9 @@ title: 'Mapado Best practices'
 
 Here is a list of our best practices
 
-[Redux](./redux)
-
 [React](./react)
+
+[Redux](./redux)
 
 [React-redux](./react-redux)
 
