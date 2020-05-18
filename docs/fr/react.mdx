@@ -2,6 +2,9 @@
 title: 'ReactJS'
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 Cette liste de bonne pratique est surtout un retour sur certaines "mauvaise pratiques" que nous avons mis dans notre code et comment les corriger.
 
 ### Nommage de méthodes
@@ -34,7 +37,14 @@ Pour cette raison, le `binding` et les appels de méthodes DEVRAIENT être le pl
 
 Cela facilite aussi la lisibilité et la compréhension pour les développeurs chevronnés.
 
-👎
+<Tabs
+  defaultValue="good"
+  values={[
+    { label: 'Pas bien 👎', value: 'bad', },
+    { label: 'Bien 👍', value: 'good', },
+  ]
+}>
+<TabItem value="bad">
 
 ```js {7}
 class Foo extends Component {
@@ -50,9 +60,10 @@ class Foo extends Component {
 }
 ```
 
-👍
+</TabItem>
+<TabItem value="good">
 
-```js {5,8-11}
+```js {5}
 class Foo extends Component {
   constructor(props) {
     super(props);
@@ -71,14 +82,28 @@ class Foo extends Component {
 }
 ```
 
+</TabItem>
+</Tabs>
+
 ### Element "classe" : fonctions anonymes dans la methode `render`
 
-De la même manière, on NE DOIT PAS créer des fonctions anonymes dans la méthode `render` pour deux raisons:
+De la même manière, on NE DOIT PAS créer des fonctions anonymes dans la méthode `render`.
+
+:::note Explications
 
 - Les fonctions anonymes sont regénérées à chaque appel de `render`, ce qui consomme de la ressource pour rien.
 - Cela rend la méthode `render` moins lisible car il y a du code "métier" dans le rendu.
 
-👎
+:::
+
+<Tabs
+  defaultValue="good"
+  values={[
+    { label: 'Pas bien 👎', value: 'bad', },
+    { label: 'Bien 👍', value: 'good', },
+  ]
+}>
+<TabItem value="bad">
 
 ```js {14-16}
 class Foo extends PureComponent {
@@ -86,7 +111,7 @@ class Foo extends PureComponent {
     super(props);
 
     this.state = {
-      foo: null,
+      foo: false,
     };
   }
 
@@ -106,7 +131,8 @@ class Foo extends PureComponent {
 }
 ```
 
-👍
+</TabItem>
+<TabItem value="good">
 
 ```js {5,12-16,21}
 class Foo extends PureComponent {
@@ -136,6 +162,9 @@ class Foo extends PureComponent {
 }
 ```
 
+</TabItem>
+</Tabs>
+
 #### Exception
 
 La seule exception étant si l'on est en train d'itérer sur une liste et que l'on doit passer un object en paramètre.
@@ -143,8 +172,6 @@ La seule exception étant si l'on est en train d'itérer sur une liste et que l'
 On DOIT dans tous les cas limiter la fonction anonyme à un appel d'une autre méthode pour la lisibilité.
 
 On PEUT alors faire comme ça:
-
-👍
 
 ```js {20-21}
 class Foo extends PureComponent {
