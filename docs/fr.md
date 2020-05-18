@@ -4,18 +4,10 @@ title: 'Bonnes pratiques à Mapado'
 
 Voici une liste de nos bonnes pratiques
 
-## Redux
+[Redux](./redux)
 
-- [Bonnes pratiques Redux](./redux)
+[React](./react)
 
-## React
+[React-Redux](./react-redux)
 
-- [Bonnes pratiques React](./react)
-
-## React-Redux
-
-- [Bonnes pratiques React-Redux](./react-redux)
-
-## Tests JS / Front
-
-- [Bonnes pratiques de tests JS](./testing)
+[Tests JS](./testing)

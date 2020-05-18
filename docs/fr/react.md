@@ -1,8 +1,6 @@
 ---
-title: 'Bonne pratiques ReactJS'
+title: 'ReactJS'
 ---
-
-[_English version here_](../en/react)
 
 Cette liste de bonne pratique est surtout un retour sur certaines "mauvaise pratiques" que nous avons mis dans notre code et comment les corriger.
 

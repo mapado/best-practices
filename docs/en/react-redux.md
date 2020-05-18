@@ -1,8 +1,6 @@
 ---
-title: 'React-Redux best practices'
+title: 'React-Redux'
 ---
-
-[_version française ici_](../fr/react-redux.md)
 
 This best practice list is more a list of corrected "bad practices" that we had in our codebase and fixed.
 

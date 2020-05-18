@@ -1,8 +1,6 @@
 ---
-title: 'Redux best practices'
+title: 'Redux'
 ---
-
-[_Version française ici_](../fr/redux)
 
 At [Mapado](https://www.mapado.com), we are using more and more React and Redux. As they are very permissive librairies, each developer has its own way of coding with them.
 

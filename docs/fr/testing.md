@@ -1,8 +1,6 @@
 ---
-title: 'Bonnes pratiques de test JS & Front'
+title: 'Test JS & Front'
 ---
-
-[_English version here_](../en/testing)
 
 Cette liste est surtout un rappel de la façon dont on crée des tests UI / JS à Mapado, et de quelles librairires nous utilisons.
 

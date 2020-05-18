@@ -1,8 +1,6 @@
 ---
-title: 'Bonne pratiques React-Redux'
+title: 'React-Redux'
 ---
-
-[_English version here_](../en/react-redux)
 
 Cette liste de bonne pratique est surtout un retour sur certaines "mauvaise pratiques" que nous avons mis dans notre code et comment les corriger.
 

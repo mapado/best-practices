@@ -1,8 +1,6 @@
 ---
-title: 'Best practice ReactJS'
+title: 'ReactJS'
 ---
-
-[_Version française ici_](../fr/react.md)
 
 This best practice list is more a list of corrected "bad practices" that we had in our codebase and fixed.
 

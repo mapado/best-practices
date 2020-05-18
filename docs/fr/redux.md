@@ -1,8 +1,6 @@
 ---
-title: 'Bonne pratiques Redux'
+title: 'Redux'
 ---
-
-[_English version here_](../en/redux)
 
 À [Mapado](https://www.mapado.com), nous commençons de plus en plus à travailler avec du React + Redux, et étant donné que ce sont simplement des librairies assez permissives, chaque développeur a un peu sa manière de faire.
 

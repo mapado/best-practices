@@ -1,8 +1,6 @@
 ---
-title: 'JS & Frontend testing best practices'
+title: 'JS & Frontend testing'
 ---
-
-[_French version here_](../fr/testing)
 
 This is mostly a reminder on how we create UI / JS tests at Mapado, and which libraries we use.
 
