@@ -19,7 +19,7 @@ On DEVRAIT utiliser les "arrow functions" dans les cas suivants, et uniquement d
   <button onClick={() => setVisible(true)}>show</button>;
   ```
 
-- Si elle sa définition ne fait qu'une seule ligne, avec un seul retour possible :
+- Si sa définition ne fait qu'une seule ligne, avec un seul retour possible :
   ```js
   const isValid = (entity) => entity.itemList.some((item) => item.isValid);
   ```
