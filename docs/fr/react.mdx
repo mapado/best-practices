@@ -11,7 +11,14 @@ Cette liste de bonne pratique est surtout un retour sur certaines "mauvaise prat
 
 Un fichier "composant" ne DEVRAIT pas avoir plus d'un composant dedans :
 
-👎
+<Tabs
+  defaultValue="good"
+  values={[
+    { label: 'Pas bien 👎', value: 'bad', },
+    { label: 'Bien 👍', value: 'good', },
+  ]
+}>
+<TabItem value="bad">
 
 ```jsx title="/src/components/Menu.js"
 function Label() {
@@ -37,7 +44,8 @@ function Menu() {
 }
 ```
 
-👍
+</TabItem>
+<TabItem value="good">
 
 ```jsx title="/src/components/Menu/Content.js"
 function Label() {
@@ -66,6 +74,9 @@ function Menu() {
   );
 }
 ```
+
+</TabItem>
+</Tabs>
 
 :::note Intérêt
 Le but est de trouver le bon composant quand on ouvre le fichier en question, en pas de trouver plusieurs composants sans trouver celui qui est censé être là.
@@ -151,7 +162,7 @@ class Foo extends Component {
 </TabItem>
 </Tabs>
 
-### Element "classe" : fonctions anonymes dans la methode `render`
+### Composant "classe" : fonctions anonymes dans la methode `render`
 
 De la même manière, on NE DOIT PAS créer des fonctions anonymes dans la méthode `render`.
 
@@ -273,9 +284,16 @@ class Foo extends PureComponent {
 
 À l'instar des composants de classe, on NE DEVRAIT PAS de définir des fonctions dans le corps du rendu de la méthode pour faire des actions simples:
 
-👎
+<Tabs
+  defaultValue="good"
+  values={[
+    { label: 'Pas bien 👎', value: 'bad', },
+    { label: 'Bien 👍', value: 'good', },
+  ]
+}>
+<TabItem value="bad">
 
-```jsx
+```jsx {4-6}
 function Container() {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -287,15 +305,19 @@ function Container() {
 }
 ```
 
-👍
+</TabItem>
+<TabItem value="good">
 
-```jsx
+```jsx {4}
 function Container() {
   const [isVisible, setIsVisible] = useState(false);
 
   return <button onClick={() => setIsVisible(true)}>Make visible</button>;
 }
 ```
+
+</TabItem>
+</Tabs>
 
 :::info Explication
 
@@ -317,9 +339,16 @@ On DEVRAIT extraire les hooks personnalisés dans les cas suivants :
 
 Il est très facile à extraire des hooks : il suffit de copier coller tout son code dans une autre fonction.
 
-👎
+<Tabs
+  defaultValue="good"
+  values={[
+    { label: 'Pas bien 👎', value: 'bad', },
+    { label: 'Bien 👍', value: 'good', },
+  ]
+}>
+<TabItem value="bad">
 
-```jsx
+```jsx {2-10}
 function Cart() {
   const sdk = useSdk();
   const { cartId } = useParams();
@@ -346,9 +375,10 @@ function Cart() {
 }
 ```
 
-👍
+</TabItem>
+<TabItem value="good">
 
-```jsx
+```jsx {1,16}
 function useCurrentCart() {
   const sdk = useSdk();
   const { cartId } = useParams();
@@ -381,13 +411,16 @@ function Cart() {
 }
 ```
 
+</TabItem>
+</Tabs>
+
 :::note Intérêt
 Une meilleure lisibilité du composant, possibilité de tester les hooks.
 :::
 
 Les hooks personnalisés PEUVENT être situés dans le fichier à côté du composant si ils restent petits et "privés".
 
-Ils DEVRAIENT être dans un fichiers autonome dans le dossier du composant si ils sont "privés" mais complexes (plus de ~100 lignes).
+Ils DEVRAIENT être dans un fichiers autonome dans le dossier du composant si ils sont "privés" mais complexes (plus de ~50 lignes).
 
 Ils PEUVENT être situés dans un dossier / fichier partagés si ils sont utilisables par plusieurs composants.
 Dans ce cas ils DEVRAIENT être au plus près de leur utilisation métier. (un "hook" concernant uniquement les paniers devrait se trouver avec le code des paniers, et pas à la racine).
@@ -396,7 +429,14 @@ Dans ce cas ils DEVRAIENT être au plus près de leur utilisation métier. (un "
 
 On NE DEVRAIT PAS utiliser `useState` plusieurs fois autour du même "bloc fonctionnel", mais on DEVRAIT utiliser `useReducer` dans ce cas.
 
-👎
+<Tabs
+  defaultValue="good"
+  values={[
+    { label: 'Pas bien 👎', value: 'bad', },
+    { label: 'Bien 👍', value: 'good', },
+  ]
+}>
+<TabItem value="bad">
 
 ```jsx
 function useCurrentCart(sdk, cartId) {
@@ -425,7 +465,8 @@ function useCurrentCart(sdk, cartId) {
 }
 ```
 
-👍
+</TabItem>
+<TabItem value="good">
 
 ```jsx
 const initialState = {
@@ -478,6 +519,9 @@ function useCurrentCart(sdk, cartId) {
   return state;
 }
 ```
+
+</TabItem>
+</Tabs>
 
 :::note Intérêt
 
