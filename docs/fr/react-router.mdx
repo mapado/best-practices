@@ -1,0 +1,129 @@
+---
+title: React Router
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## Routing
+
+En cas de besoin d'un "bloc" partagé entre différentes pages (header, menu, etc.), on DEVRAIT encapsuler un "sous-router" dans un conteneur dédié à ces pages.
+
+<Tabs
+  defaultValue="good"
+  values={[
+    { label: 'Pas bien 👎', value: 'bad', },
+    { label: 'Bien 👍', value: 'good', },
+  ]
+}>
+<TabItem value="bad">
+
+```jsx
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+const ROUTE_CART_PROCEED = '/cart/:id/proceed';
+const ROUTE_CART_REFUND = '/cart/:id/refund';
+
+<Router>
+  <Switch>
+    <Route exact path={ROUTE_CART_PROCEED}>
+      <CartDetail type="detail" />
+    </Route>
+
+    <Route exact path={ROUTE_CART_REFUND}>
+      <CartDetail type="refund" />
+    </Route>
+  </Switch>
+</Router>;
+
+// highlight-next-line
+function CartDetail({ type }) {
+  return (
+    <>
+      <CartHeader />
+
+      {/* highlight-start */}
+      {type === 'proceed' && <CartProceed />}
+      {type === 'refund' && <CartRefund />}
+      {/* highlight-end */}
+    </>
+  );
+}
+```
+
+</TabItem>
+<TabItem value="good">
+
+```jsx {8-11,18-20}
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+const ROUTE_CART_PROCEED = '/cart/:id/proceed';
+const ROUTE_CART_REFUND = '/cart/:id/refund';
+
+<Router>
+  <Switch>
+    <Route exact path={[ROUTE_CART_PROCEED, ROUTE_CART_REFUND]}>
+      <CartContainer>
+        <Switch>
+          <Route exact path={ROUTE_CART_PROCEED}>
+            <CartProceed />
+          </Route>
+          <Route exact path={ROUTE_CART_REFUND}>
+            <CartRefund />
+          </Route>
+        </Switch>
+      </CartContainer>
+    </Route>
+  </Switch>
+</Router>;
+
+function CartContainer({ type, children }) {
+  return (
+    <>
+      <CartHeader />
+
+      {children}
+    </>
+  );
+}
+```
+
+</TabItem>
+</Tabs>
+
+On PEUT aussi extraire tout le "sous-routeur" dans un composant spécifique quand le nombre de route à gérer devient trop grand et que le module est autonome :
+
+```jsx
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+const ROUTE_CART_PROCEED = '/cart/:id/proceed';
+const ROUTE_CART_REFUND = '/cart/:id/refund';
+
+<Router>
+  <Switch>
+    <Route exact path={[ROUTE_CART_PROCEED, ROUTE_CART_REFUND]}>
+      {/* highlight-next-line */}
+      <CartContainer />
+    </Route>
+  </Switch>
+</Router>;
+
+function CartContainer({ type }) {
+  return (
+    <>
+      <CartHeader />
+
+      {/* highlight-start */}
+      <Switch>
+        <Route exact path={ROUTE_CART_PROCEED}>
+          <CartProceed />
+        </Route>
+        <Route exact path={ROUTE_CART_REFUND}>
+          <CartRefund />
+        </Route>
+      </Switch>
+      {/* highlight-end */}
+    </>
+  );
+}
+```
