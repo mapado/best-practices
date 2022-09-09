@@ -84,24 +84,22 @@ export enum MODULE_TYPE {
   PROMOTE = "promote",
 }
 
-export type ModuleToAdd = {
-  type: MODULE_TYPE;
-};
+function generateModule(moduleType: MODULE_TYPE) {
+  if (moduleType === MODULE_TYPE.INFORMATION) {
+    // do something
+  }
 
-// ...
-
-if (moduleType === MODULE_TYPE.INFORMATION) {
-  return <ModuleInformation />;
+  // do something else
 }
 ```
 
 :::info Convention
-Il est préférable d'écrire les constantes de configuration et enums en MAJUSCULE.
+On DEVRAIT écrire les constantes de configuration et enums en MAJUSCULE.
 :::
 
 ## Espacements entre les types de déclarations
 
-Afin de gagner en lisibilité dans la lecture du code, on doit ajouter une ligne vide au-dessus d'un type de déclaration quand le précédent est différent.
+Afin de gagner en lisibilité dans la lecture du code, on DOIT ajouter une ligne vide au-dessus d'un type de déclaration quand le précédent est différent.
 
 ```jsx
 function Foo() {
