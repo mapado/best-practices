@@ -57,3 +57,83 @@ Le guide JavaScript de AirBnB [sur les arrow functions](https://github.com/airbn
 > Quand ne pas l'utiliser ? Si vous avez une function assez compliquée, vous devriez sortir cette logique dans sa propre fonction nommée.
 
 :::
+
+## Constantes & Enums
+
+On DEVRAIT utiliser des constantes lorsqu'on utilise une donnée simple (`string` | `number` | `boolean`...) en tant que valeur de configuration (d'une fonction ou autre).
+
+```jsx
+const TIMEOUT_DELAY = 1000;
+
+setTimeout(doSomething, TIMEOUT_DELAY);
+```
+
+```jsx
+const EVENT_DATE_BY_LIST = "list";
+const EVENT_DATE_BY_DATE = "date";
+// ...
+const [selectedTab, setSelectedTab] = useState(EVENT_DATE_BY_LIST);
+```
+
+Dans le cas où plusieurs constantes sont utilisées à plusieurs endroits, on privilégiera de les regrouper sous un [enum TypeScript](https://www.typescriptlang.org/docs/handbook/enums.html). Cela rend également le typage beaucoup plus simple.
+
+```tsx
+export enum MODULE_TYPE {
+  INFORMATION = "information",
+  RECOMMENDATION = "recommendation",
+  PROMOTE = "promote",
+}
+
+function generateModule(moduleType: MODULE_TYPE) {
+  if (moduleType === MODULE_TYPE.INFORMATION) {
+    // do something
+  }
+
+  // do something else
+}
+```
+
+:::info Convention
+On DEVRAIT écrire les constantes de configuration et enums en MAJUSCULE.
+:::
+
+## Espacements entre les types de déclarations
+
+Afin de gagner en lisibilité dans la lecture du code, on DOIT ajouter une ligne vide au-dessus d'un type de déclaration quand le précédent est différent.
+
+```jsx
+function Foo() {
+  const { t } = useTranslation();
+  const [loading, setLoading] = useState(true);
+  let name = "JD";
+
+  if (!loading) {
+    name = "Chris";
+  }
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setLoading(false), 500);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  if (loading) {
+    return <MpdLoader />;
+  }
+
+  return <div>{t("hello", { name })}</div>;
+}
+```
+
+Dans l'exemple ci-dessus, on remarque la construction suivante :
+
+- Un espace est présent entre les variables et le `if` ;
+- Un espace est présent entre le `if` et le `useEffect` ;
+- À l'intérieur du `useEffect`, un espace est présent entre la variable et le `return` ;
+- Un espace est présent entre le `useEffect` et le `if` ;
+- Le `return` dans le `if` n'a pas d'espacement car il est tout seul ;
+- Un espace est présent entre le `if` et le `return` ;
+
+:::info Eslint
+La règle eslint [padding-line-between-statements](https://eslint.org/docs/latest/rules/padding-line-between-statements) est disponible sur les projets pour détecter une erreur si ce schéma n'est pas respecté.
+:::
