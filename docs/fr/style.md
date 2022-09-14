@@ -60,7 +60,7 @@ Le guide JavaScript de AirBnB [sur les arrow functions](https://github.com/airbn
 
 ## Constantes & Enums
 
-On privilégie l'utilisation de constantes lorsqu'on utilise une donnée simple (`string` | `number` | `boolean`...) en tant que valeur de configuration (d'une fonction ou autre).
+On DEVRAIT utiliser des constantes lorsqu'on utilise une donnée simple (`string` | `number` | `boolean`...) en tant que valeur de configuration (d'une fonction ou autre).
 
 ```jsx
 const TIMEOUT_DELAY = 1000;
