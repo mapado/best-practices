@@ -14825,12 +14825,12 @@ Dans ce cas ils DEVRAIENT être au plus près de leur utilisation métier. (un "
       .find(cartId)
       .then((cart) => {
         setCart(cart);
-        setIsLoading(false);
+        setIsLoadingCart(false);
         setError(null);
       })
       .catch((error) => {
         setCart(null);
-        setIsLoading(true);
+        setIsLoadingCart(false);
         setError(error);
       });
   }, [cartId]);
