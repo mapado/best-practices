@@ -448,7 +448,7 @@ __webpack_require__.d(__webpack_exports__, "h", function() { return /* binding *
 // UNUSED EXPORTS: MemoryRouter, Prompt, Redirect, __HistoryContext, generatePath, useHistory, useParams, useRouteMatch
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
-var inheritsLoose = __webpack_require__(16);
+var inheritsLoose = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(1);
@@ -638,7 +638,7 @@ var index = react_default.a.createContext || createReactContext;
 /* harmony default export */ var esm = (index);
 
 // EXTERNAL MODULE: ./node_modules/tiny-invariant/dist/tiny-invariant.esm.js
-var tiny_invariant_esm = __webpack_require__(17);
+var tiny_invariant_esm = __webpack_require__(18);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
 var esm_extends = __webpack_require__(2);
@@ -648,7 +648,7 @@ var path_to_regexp = __webpack_require__(85);
 var path_to_regexp_default = /*#__PURE__*/__webpack_require__.n(path_to_regexp);
 
 // EXTERNAL MODULE: ./node_modules/react-is/index.js
-var react_is = __webpack_require__(116);
+var react_is = __webpack_require__(117);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
 var objectWithoutPropertiesLoose = __webpack_require__(31);
@@ -1846,91 +1846,6 @@ module.exports = Marker;
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.fromCallback = function (fn) {
-  return Object.defineProperty(function () {
-    if (typeof arguments[arguments.length - 1] === 'function') fn.apply(this, arguments)
-    else {
-      return new Promise((resolve, reject) => {
-        arguments[arguments.length] = (err, res) => {
-          if (err) return reject(err)
-          resolve(res)
-        }
-        arguments.length++
-        fn.apply(this, arguments)
-      })
-    }
-  }, 'name', { value: fn.name })
-}
-
-exports.fromPromise = function (fn) {
-  return Object.defineProperty(function () {
-    const cb = arguments[arguments.length - 1]
-    if (typeof cb !== 'function') return fn.apply(this, arguments)
-    else fn.apply(this, arguments).then(r => cb(null, r), cb)
-  }, 'name', { value: fn.name })
-}
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _inheritsLoose; });
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  subClass.__proto__ = superClass;
-}
-
-/***/ }),
-/* 17 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var isProduction = "production" === 'production';
-var prefix = 'Invariant failed';
-function invariant(condition, message) {
-    if (condition) {
-        return;
-    }
-    if (isProduction) {
-        throw new Error(prefix);
-    }
-    throw new Error(prefix + ": " + (message || ''));
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (invariant);
-
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-const u = __webpack_require__(15).fromCallback
-const mkdirs = u(__webpack_require__(251))
-const mkdirsSync = __webpack_require__(252)
-
-module.exports = {
-  mkdirs,
-  mkdirsSync,
-  // alias
-  mkdirp: mkdirs,
-  mkdirpSync: mkdirsSync,
-  ensureDir: mkdirs,
-  ensureDirSync: mkdirsSync
-}
-
-
-/***/ }),
-/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1964,6 +1879,91 @@ var styles_module_default = /*#__PURE__*/__webpack_require__.n(styles_module);
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */const keys={left:37,right:39};function Tabs(props){const{block,children,defaultValue,values,groupId}=props;const{tabGroupChoices,setTabGroupChoices}=hooks_useTabGroupChoiceContext();const[selectedValue,setSelectedValue]=Object(react["useState"])(defaultValue);if(groupId!=null){const relevantTabGroupChoice=tabGroupChoices[groupId];if(relevantTabGroupChoice!=null&&relevantTabGroupChoice!==selectedValue){setSelectedValue(relevantTabGroupChoice);}}const changeSelectedValue=newValue=>{setSelectedValue(newValue);if(groupId!=null){setTabGroupChoices(groupId,newValue);}};const tabRefs=[];const focusNextTab=(tabs,target)=>{const next=tabs.indexOf(target)+1;if(!tabs[next]){tabs[0].focus();}else{tabs[next].focus();}};const focusPreviousTab=(tabs,target)=>{const prev=tabs.indexOf(target)-1;if(!tabs[prev]){tabs[tabs.length-1].focus();}else{tabs[prev].focus();}};const handleKeydown=(tabs,target,event)=>{switch(event.keyCode){case keys.right:focusNextTab(tabs,target);break;case keys.left:focusPreviousTab(tabs,target);break;default:break;}};return/*#__PURE__*/react_default.a.createElement("div",null,/*#__PURE__*/react_default.a.createElement("ul",{role:"tablist","aria-orientation":"horizontal",className:classnames_default()('tabs',{'tabs--block':block})},values.map(({value,label})=>/*#__PURE__*/react_default.a.createElement("li",{role:"tab",tabIndex:"0","aria-selected":selectedValue===value,className:classnames_default()('tab-item',styles_module_default.a.tabItem,{'tab-item--active':selectedValue===value}),key:value,ref:tabControl=>tabRefs.push(tabControl),onKeyDown:event=>handleKeydown(tabRefs,event.target,event),onFocus:()=>changeSelectedValue(value),onClick:()=>changeSelectedValue(value)},label))),/*#__PURE__*/react_default.a.createElement("div",{role:"tabpanel",className:"margin-vert--md"},react["Children"].toArray(children).filter(child=>child.props.value===selectedValue)[0]));}/* harmony default export */ var theme_Tabs = __webpack_exports__["a"] = (Tabs);
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.fromCallback = function (fn) {
+  return Object.defineProperty(function () {
+    if (typeof arguments[arguments.length - 1] === 'function') fn.apply(this, arguments)
+    else {
+      return new Promise((resolve, reject) => {
+        arguments[arguments.length] = (err, res) => {
+          if (err) return reject(err)
+          resolve(res)
+        }
+        arguments.length++
+        fn.apply(this, arguments)
+      })
+    }
+  }, 'name', { value: fn.name })
+}
+
+exports.fromPromise = function (fn) {
+  return Object.defineProperty(function () {
+    const cb = arguments[arguments.length - 1]
+    if (typeof cb !== 'function') return fn.apply(this, arguments)
+    else fn.apply(this, arguments).then(r => cb(null, r), cb)
+  }, 'name', { value: fn.name })
+}
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _inheritsLoose; });
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+
+/***/ }),
+/* 18 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var isProduction = "production" === 'production';
+var prefix = 'Invariant failed';
+function invariant(condition, message) {
+    if (condition) {
+        return;
+    }
+    if (isProduction) {
+        throw new Error(prefix);
+    }
+    throw new Error(prefix + ": " + (message || ''));
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (invariant);
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+const u = __webpack_require__(16).fromCallback
+const mkdirs = u(__webpack_require__(251))
+const mkdirsSync = __webpack_require__(252)
+
+module.exports = {
+  mkdirs,
+  mkdirsSync,
+  // alias
+  mkdirp: mkdirs,
+  mkdirpSync: mkdirsSync,
+  ensureDir: mkdirs,
+  ensureDirSync: mkdirsSync
+}
+
 
 /***/ }),
 /* 20 */
@@ -2100,7 +2100,7 @@ function valueEqual(a, b) {
 /* harmony default export */ var value_equal = (valueEqual);
 
 // EXTERNAL MODULE: ./node_modules/tiny-invariant/dist/tiny-invariant.esm.js
-var tiny_invariant_esm = __webpack_require__(17);
+var tiny_invariant_esm = __webpack_require__(18);
 
 // CONCATENATED MODULE: ./node_modules/history/esm/history.js
 
@@ -3043,7 +3043,7 @@ function createMemoryHistory(props) {
 
 "use strict";
 
-const u = __webpack_require__(15).fromPromise
+const u = __webpack_require__(16).fromPromise
 const fs = __webpack_require__(108)
 
 function pathExists (path) {
@@ -4407,7 +4407,7 @@ module.exports = override(compactable, vendorPrefixedCompactable);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "d", function() { return react_router__WEBPACK_IMPORTED_MODULE_0__["g"]; });
 
-/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
+/* harmony import */ var _babel_runtime_helpers_esm_inheritsLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var history__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(20);
@@ -4415,7 +4415,7 @@ module.exports = override(compactable, vendorPrefixedCompactable);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(2);
 /* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(31);
-/* harmony import */ var tiny_invariant__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(17);
+/* harmony import */ var tiny_invariant__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(18);
 
 
 
@@ -9540,7 +9540,7 @@ module.exports = {
 "use strict";
 
 
-const u = __webpack_require__(15).fromCallback
+const u = __webpack_require__(16).fromCallback
 const rimraf = __webpack_require__(256)
 
 module.exports = {
@@ -12213,7 +12213,7 @@ module.exports =
 "use strict";
 
 
-const u = __webpack_require__(15).fromCallback
+const u = __webpack_require__(16).fromCallback
 const jsonFile = __webpack_require__(264)
 
 module.exports = {
@@ -13919,7 +13919,7 @@ module.exports =
 
 // This is adapted from https://github.com/normalize/mz
 // Copyright (c) 2014-2016 Jonathan Ong me@jongleberry.com and Contributors
-const u = __webpack_require__(15).fromCallback
+const u = __webpack_require__(16).fromCallback
 const fs = __webpack_require__(11)
 
 const api = [
@@ -14170,7 +14170,7 @@ module.exports = {
 "use strict";
 
 
-const u = __webpack_require__(15).fromCallback
+const u = __webpack_require__(16).fromCallback
 module.exports = {
   copy: u(__webpack_require__(254))
 }
@@ -14464,7 +14464,108 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _mdx_js_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
-/* harmony import */ var _theme_Tabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(19);
+/* harmony import */ var _theme_Tabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(15);
+/* harmony import */ var _theme_TabItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
+const frontMatter={title:'Guide de style'};const metadata={"id":"fr/style","title":"Guide de style","description":"## Comment est-ce qu'on écrit une fonction (arrow function vs function declaration)","source":"@site/docs/fr/style.mdx","permalink":"/best-practices/docs/fr/style","editUrl":"https://github.com/mapado/best-practices/edit/master/docs/fr/style.mdx","sidebar":"fr","previous":{"title":"Bonnes pratiques à Mapado","permalink":"/best-practices/docs/fr"},"next":{"title":"ReactJS","permalink":"/best-practices/docs/fr/react"}};/* @jsx mdx */const rightToc=[{value:'Comment est-ce qu&#39;on écrit une fonction (arrow function vs function declaration)',id:'comment-est-ce-quon-écrit-une-fonction-arrow-function-vs-function-declaration',children:[]},{value:'Constantes &amp; Enums',id:'constantes--enums',children:[]},{value:'Espacements entre les types de déclarations',id:'espacements-entre-les-types-de-déclarations',children:[]}];const makeShortcode=name=>function MDXDefaultShortcode(props){console.warn("Component "+name+" was not imported, exported, or provided by MDXProvider as global scope");return Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",props);};const layoutProps={rightToc};const MDXLayout="wrapper";function MDXContent({components,...props}){return Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])(MDXLayout,Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({},layoutProps,props,{components:components,mdxType:"MDXLayout"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h2",{"id":"comment-est-ce-quon-écrit-une-fonction-arrow-function-vs-function-declaration"},`Comment est-ce qu'on écrit une fonction (arrow function vs function declaration)`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`Javascript permet la définition de "arrow functions". Bien qu'ayant des `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("a",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"p"},{"href":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions"}),`différences non négligeables`),` avec leurs consœurs, on utilise l'une ou l'autre syntaxe en fonction des préférences personnelles.`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`On DEVRAIT utiliser la déclaration de fonction `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("strong",{parentName:"p"},`seulement`),` dans le cas où la fonction est au premier niveau (comme souvent avec les utils ou les composants) :`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",{"className":"admonition admonition-caution alert alert--warning"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-heading"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h5",{parentName:"div"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("span",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"h5"},{"className":"admonition-icon"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("svg",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"span"},{"xmlns":"http://www.w3.org/2000/svg","width":"16","height":"16","viewBox":"0 0 16 16"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("path",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"svg"},{"fillRule":"evenodd","d":"M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"})))),`Attention`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-content"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",{parentName:"div"},`On ne DEVRAIT jamais avoir de déclaration de fonction dans une déclaration de fonction ! Une fois la déclaration de fonction faite au premier niveau, les fonctions qu'elle contient DEVRAIENT être des "arrow functions".`))),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])(_theme_Tabs__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"],{defaultValue:"good",values:[{label:'Pas bien 👎',value:'bad'},{label:'Bien 👍',value:'good'}],mdxType:"Tabs"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])(_theme_TabItem__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"],{value:"bad",mdxType:"TabItem"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-jsx","metastring":"title=\"/src/utils/foo.js\"","title":"\"/src/utils/foo.js\""}),`function foo(callback) {
+  const value = callback();
+
+  function getUser() {
+    // Do something
+  }
+
+  if (value === true) {
+    getUser();
+  }
+}
+`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-jsx","metastring":"title=\"/src/components/Content.js\"","title":"\"/src/components/Content.js\""}),`function Content() {
+  function handleClick() {
+    // Do something
+  }
+
+  return <button onClick={handleClick}>DO NOT PRESS</button>;
+}
+`))),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])(_theme_TabItem__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"],{value:"good",mdxType:"TabItem"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-jsx","metastring":"title=\"/src/utils/foo.js\"","title":"\"/src/utils/foo.js\""}),`function foo(callback) {
+  const value = callback();
+  const getUser = () => {
+    // Do something
+  };
+
+  if (value === true) {
+    getUser();
+  }
+}
+`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-jsx","metastring":"title=\"/src/components/Content.js\"","title":"\"/src/components/Content.js\""}),`function Content() {
+  const handleClick = () => {
+    // Do something
+  };
+
+  return <button onClick={handleClick}>DO NOT PRESS</button>;
+}
+`)))),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`On DEVRAIT utiliser les "arrow functions" dans tous les autres cas :`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("ul",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("li",{parentName:"ul"},`Dans des "callback" :`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-jsx"}),`list
+  .map((entity) => entity.id)
+  .filter((id) => id > 5)
+  .some((id) => id % 2 === 0);
+
+<button onClick={() => setVisible(true)}>show</button>;
+`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("ul",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("li",{parentName:"ul"},`Si sa définition ne fait qu'une seule ligne, avec un seul retour possible :`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-js"}),`const isValid = (entity) => entity.itemList.some((item) => item.isValid);
+`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",{"className":"admonition admonition-note alert alert--secondary"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-heading"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h5",{parentName:"div"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("span",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"h5"},{"className":"admonition-icon"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("svg",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"span"},{"xmlns":"http://www.w3.org/2000/svg","width":"14","height":"16","viewBox":"0 0 14 16"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("path",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"svg"},{"fillRule":"evenodd","d":"M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"})))),`À lire aussi`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-content"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",{parentName:"div"},`Le guide JavaScript de AirBnB `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("a",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"p"},{"href":"https://github.com/airbnb/javascript#arrow-functions"}),`sur les arrow functions`),` donne des informations intéressantes sur la façon d'utiliser les arrow functions. Ils définissent pour leur part les cas suivants:`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("blockquote",{parentName:"div"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",{parentName:"blockquote"},`Lorsque vous devez utiliser des fonctions anonymes (comme pour passer une fonction de retour en-ligne), utilisez la notation "arrow-function"`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",{parentName:"blockquote"},`Pourquoi ? Cela crée une version de la fonction qui s'execute dans le contexte actuel (this), qui est habituellement ce que l'on souhaite, et la syntaxe est plus concise.`)))),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h2",{"id":"constantes--enums"},`Constantes & Enums`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`On DEVRAIT utiliser des constantes lorsqu'on utilise une donnée simple (`,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"p"},`string`),` | `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"p"},`number`),` | `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"p"},`boolean`),`...) en tant que valeur de configuration (d'une fonction ou autre).`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-jsx"}),`const TIMEOUT_DELAY = 1000;
+
+setTimeout(doSomething, TIMEOUT_DELAY);
+`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-jsx"}),`const EVENT_DATE_BY_LIST = "list";
+const EVENT_DATE_BY_DATE = "date";
+// ...
+const [selectedTab, setSelectedTab] = useState(EVENT_DATE_BY_LIST);
+`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`Dans le cas où plusieurs constantes sont utilisées à plusieurs endroits, on privilégiera de les regrouper sous un `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("a",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"p"},{"href":"https://www.typescriptlang.org/docs/handbook/enums.html"}),`enum TypeScript`),`. Cela rend également le typage beaucoup plus simple.`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-tsx"}),`export enum MODULE_TYPE {
+  INFORMATION = "information",
+  RECOMMENDATION = "recommendation",
+  PROMOTE = "promote",
+}
+
+function generateModule(moduleType: MODULE_TYPE) {
+  if (moduleType === MODULE_TYPE.INFORMATION) {
+    // do something
+  }
+
+  // do something else
+}
+`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",{"className":"admonition admonition-caution alert alert--warning"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-heading"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h5",{parentName:"div"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("span",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"h5"},{"className":"admonition-icon"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("svg",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"span"},{"xmlns":"http://www.w3.org/2000/svg","width":"16","height":"16","viewBox":"0 0 16 16"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("path",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"svg"},{"fillRule":"evenodd","d":"M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"})))),`Attention`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-content"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",{parentName:"div"},`On `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("strong",{parentName:"p"},`DEVRAIT toujours assigner une valeur`),` à la clé de l'enum afin d'éviter des effets indésirables (voir pourquoi dans `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("a",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"p"},{"href":"https://blog.beraliv.dev/2022-09-10-with-or-without-enums#numeric-enums-are-not-type-safe"}),`cet article (En)`),`).`))),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",{"className":"admonition admonition-info alert alert--info"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-heading"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h5",{parentName:"div"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("span",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"h5"},{"className":"admonition-icon"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("svg",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"span"},{"xmlns":"http://www.w3.org/2000/svg","width":"14","height":"16","viewBox":"0 0 14 16"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("path",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"svg"},{"fillRule":"evenodd","d":"M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"})))),`Convention`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-content"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",{parentName:"div"},`On DEVRAIT écrire les constantes de configuration et enums en MAJUSCULE.`))),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h2",{"id":"espacements-entre-les-types-de-déclarations"},`Espacements entre les types de déclarations`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`Afin de gagner en lisibilité dans la lecture du code, on DOIT ajouter une ligne vide au-dessus d'un type de déclaration quand le précédent est différent.`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-jsx"}),`function Foo() {
+  const { t } = useTranslation();
+  const [loading, setLoading] = useState(true);
+  let name = "JD";
+
+  if (!loading) {
+    name = "Chris";
+  }
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setLoading(false), 500);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  if (loading) {
+    return <MpdLoader />;
+  }
+
+  return <div>{t("hello", { name })}</div>;
+}
+`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`Dans l'exemple ci-dessus, on remarque la construction suivante :`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("ul",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("li",{parentName:"ul"},`Un espace est présent entre les variables et le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`if`),` ;`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("li",{parentName:"ul"},`Un espace est présent entre le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`if`),` et le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`useEffect`),` ;`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("li",{parentName:"ul"},`À l'intérieur du `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`useEffect`),`, un espace est présent entre la variable et le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`return`),` ;`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("li",{parentName:"ul"},`Un espace est présent entre le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`useEffect`),` et le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`if`),` ;`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("li",{parentName:"ul"},`Le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`return`),` dans le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`if`),` n'a pas d'espacement car il est tout seul ;`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("li",{parentName:"ul"},`Un espace est présent entre le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`if`),` et le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`return`),` ;`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",{"className":"admonition admonition-info alert alert--info"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-heading"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h5",{parentName:"div"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("span",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"h5"},{"className":"admonition-icon"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("svg",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"span"},{"xmlns":"http://www.w3.org/2000/svg","width":"14","height":"16","viewBox":"0 0 14 16"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("path",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"svg"},{"fillRule":"evenodd","d":"M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"})))),`Eslint`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-content"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",{parentName:"div"},`La règle eslint `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("a",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"p"},{"href":"https://eslint.org/docs/latest/rules/padding-line-between-statements"}),`padding-line-between-statements`),` est disponible sur les projets pour détecter une erreur si ce schéma n'est pas respecté.`))));};MDXContent.isMDXComponent=true;
+
+/***/ }),
+/* 116 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "frontMatter", function() { return frontMatter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "metadata", function() { return metadata; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rightToc", function() { return rightToc; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return MDXContent; });
+/* harmony import */ var _home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _mdx_js_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
+/* harmony import */ var _theme_Tabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(15);
 /* harmony import */ var _theme_TabItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
 const frontMatter={title:'React Router'};const metadata={"id":"fr/react-router","title":"React Router","description":"## Routing","source":"@site/docs/fr/react-router.mdx","permalink":"/best-practices/docs/fr/react-router","editUrl":"https://github.com/mapado/best-practices/edit/master/docs/fr/react-router.mdx","sidebar":"fr","previous":{"title":"React-Redux","permalink":"/best-practices/docs/fr/react-redux"},"next":{"title":"Test JS & Front","permalink":"/best-practices/docs/fr/testing"}};/* @jsx mdx */const rightToc=[{value:'Routing',id:'routing',children:[]}];const makeShortcode=name=>function MDXDefaultShortcode(props){console.warn("Component "+name+" was not imported, exported, or provided by MDXProvider as global scope");return Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",props);};const layoutProps={rightToc};const MDXLayout="wrapper";function MDXContent({components,...props}){return Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])(MDXLayout,Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({},layoutProps,props,{components:components,mdxType:"MDXLayout"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h2",{"id":"routing"},`Routing`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`En cas de besoin d'un "bloc" partagé entre différentes pages (header, menu, etc.), on DEVRAIT encapsuler un "sous-router" dans un conteneur dédié à ces pages.`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])(_theme_Tabs__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"],{defaultValue:"good",values:[{label:'Pas bien 👎',value:'bad'},{label:'Bien 👍',value:'good'}],mdxType:"Tabs"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])(_theme_TabItem__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"],{value:"bad",mdxType:"TabItem"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-jsx"}),`import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -14562,7 +14663,7 @@ function CartContainer({ type }) {
 `)));};MDXContent.isMDXComponent=true;
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14574,7 +14675,7 @@ if (true) {
 
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14587,7 +14688,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _mdx_js_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
-/* harmony import */ var _theme_Tabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(19);
+/* harmony import */ var _theme_Tabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(15);
 /* harmony import */ var _theme_TabItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
 const frontMatter={title:'ReactJS'};const metadata={"id":"fr/react","title":"ReactJS","description":"Cette liste de bonne pratique est surtout un retour sur certaines \"mauvaise pratiques\" que nous avons mis dans notre code et comment les corriger.","source":"@site/docs/fr/react.mdx","permalink":"/best-practices/docs/fr/react","editUrl":"https://github.com/mapado/best-practices/edit/master/docs/fr/react.mdx","sidebar":"fr","previous":{"title":"Guide de style","permalink":"/best-practices/docs/fr/style"},"next":{"title":"Redux","permalink":"/best-practices/docs/fr/redux"}};/* @jsx mdx */const rightToc=[{value:'Nombre de composants par fichiers composants',id:'nombre-de-composants-par-fichiers-composants',children:[]},{value:'Nommage de méthodes',id:'nommage-de-méthodes',children:[]},{value:'bind(this) dans la methode <code>render</code>',id:'bindthis-dans-la-methode-render',children:[]},{value:'Composant &quot;classe&quot; : fonctions anonymes dans la methode <code>render</code>',id:'composant-classe--fonctions-anonymes-dans-la-methode-render',children:[]},{value:'Hooks : définitions des fonctions de &quot;setters&quot;',id:'hooks--définitions-des-fonctions-de-setters',children:[]},{value:'Hooks : extraction de hooks personnalisés',id:'hooks--extraction-de-hooks-personnalisés',children:[]},{value:'Hooks : <code>useState</code> multiples',id:'hooks--usestate-multiples',children:[]}];const makeShortcode=name=>function MDXDefaultShortcode(props){console.warn("Component "+name+" was not imported, exported, or provided by MDXProvider as global scope");return Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",props);};const layoutProps={rightToc};const MDXLayout="wrapper";function MDXContent({components,...props}){return Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])(MDXLayout,Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({},layoutProps,props,{components:components,mdxType:"MDXLayout"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`Cette liste de bonne pratique est surtout un retour sur certaines "mauvaise pratiques" que nous avons mis dans notre code et comment les corriger.`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h3",{"id":"nombre-de-composants-par-fichiers-composants"},`Nombre de composants par fichiers composants`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`Un fichier "composant" ne DEVRAIT pas avoir plus d'un composant dedans :`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])(_theme_Tabs__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"],{defaultValue:"good",values:[{label:'Pas bien 👎',value:'bad'},{label:'Bien 👍',value:'good'}],mdxType:"Tabs"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])(_theme_TabItem__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"],{value:"bad",mdxType:"TabItem"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-jsx","metastring":"title=\"/src/components/Menu.js\"","title":"\"/src/components/Menu.js\""}),`function Label() {
   return 'some label';
@@ -14889,7 +14990,7 @@ function useCurrentCart(sdk, cartId) {
 `)))),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",{"className":"admonition admonition-note alert alert--secondary"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-heading"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h5",{parentName:"div"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("span",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"h5"},{"className":"admonition-icon"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("svg",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"span"},{"xmlns":"http://www.w3.org/2000/svg","width":"14","height":"16","viewBox":"0 0 14 16"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("path",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"svg"},{"fillRule":"evenodd","d":"M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"})))),`Intérêt`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-content"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("ul",{parentName:"div"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("li",{parentName:"ul"},`Pouvoir modifier facilement en ajoutant une clé, ou un cas sans avoir un "setter" qui est mal (ré-)initialisé.`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("li",{parentName:"ul"},`Avoir la liste de tous les cas et les actions lisibles facilement sans avoir besoin de comprendre la logique sous-jacente.`)))));};MDXContent.isMDXComponent=true;
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14905,7 +15006,7 @@ __webpack_require__.r(__webpack_exports__);
 const frontMatter={title:'Bonnes pratiques à Mapado'};const metadata={"id":"fr","title":"Bonnes pratiques à Mapado","description":"Voici une liste de nos bonnes pratiques","source":"@site/docs/fr.md","permalink":"/best-practices/docs/fr","editUrl":"https://github.com/mapado/best-practices/edit/master/docs/fr.md","sidebar":"fr","next":{"title":"Guide de style","permalink":"/best-practices/docs/fr/style"}};/* @jsx mdx */const rightToc=[];const makeShortcode=name=>function MDXDefaultShortcode(props){console.warn("Component "+name+" was not imported, exported, or provided by MDXProvider as global scope");return Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",props);};const layoutProps={rightToc};const MDXLayout="wrapper";function MDXContent({components,...props}){return Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])(MDXLayout,Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({},layoutProps,props,{components:components,mdxType:"MDXLayout"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`Voici une liste de nos bonnes pratiques`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("a",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"p"},{"href":"./style"}),`Guide de style`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("a",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"p"},{"href":"./react"}),`React`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("a",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"p"},{"href":"./redux"}),`Redux`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("a",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"p"},{"href":"./react-redux"}),`React-Redux`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("a",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"p"},{"href":"./react-router"}),`React Router`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("a",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"p"},{"href":"./testing"}),`Tests JS`)));};MDXContent.isMDXComponent=true;
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15021,7 +15122,7 @@ function complexAction() {
 `)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h3",{"id":"mono-state-vs-multi-state"},`Mono-state vs multi-state`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`On `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("strong",{parentName:"p"},`DEVRAIT`),` avoir un seul "state" dans le cas d'une application simple.`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`On `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("strong",{parentName:"p"},`PEUT`),` avoir un découpage `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("strong",{parentName:"p"},`fonctionnel`),` des states dans le cas d'une application complexe.`));};MDXContent.isMDXComponent=true;
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15037,13 +15138,13 @@ __webpack_require__.r(__webpack_exports__);
 const frontMatter={title:'Mapado Best practices'};const metadata={"id":"en","title":"Mapado Best practices","description":"Here is a list of our best practices","source":"@site/docs/en.md","permalink":"/best-practices/docs/en","editUrl":"https://github.com/mapado/best-practices/edit/master/docs/en.md","sidebar":"en","next":{"title":"ReactJS","permalink":"/best-practices/docs/en/react"}};/* @jsx mdx */const rightToc=[];const makeShortcode=name=>function MDXDefaultShortcode(props){console.warn("Component "+name+" was not imported, exported, or provided by MDXProvider as global scope");return Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",props);};const layoutProps={rightToc};const MDXLayout="wrapper";function MDXContent({components,...props}){return Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])(MDXLayout,Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({},layoutProps,props,{components:components,mdxType:"MDXLayout"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`Here is a list of our best practices`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("a",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"p"},{"href":"./react"}),`React`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("a",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"p"},{"href":"./redux"}),`Redux`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("a",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"p"},{"href":"./react-redux"}),`React-redux`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("a",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"p"},{"href":"./testing"}),`JS & Frontend Testing`)));};MDXContent.isMDXComponent=true;
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module) {
 
 module.exports = JSON.parse("{\"docsSidebars\":{\"fr\":[{\"type\":\"link\",\"label\":\"Bonnes pratiques à Mapado\",\"href\":\"/best-practices/docs/fr\"},{\"type\":\"link\",\"label\":\"Guide de style\",\"href\":\"/best-practices/docs/fr/style\"},{\"type\":\"link\",\"label\":\"ReactJS\",\"href\":\"/best-practices/docs/fr/react\"},{\"type\":\"link\",\"label\":\"Redux\",\"href\":\"/best-practices/docs/fr/redux\"},{\"type\":\"link\",\"label\":\"React-Redux\",\"href\":\"/best-practices/docs/fr/react-redux\"},{\"type\":\"link\",\"label\":\"React Router\",\"href\":\"/best-practices/docs/fr/react-router\"},{\"type\":\"link\",\"label\":\"Test JS & Front\",\"href\":\"/best-practices/docs/fr/testing\"}],\"en\":[{\"type\":\"link\",\"label\":\"Mapado Best practices\",\"href\":\"/best-practices/docs/en\"},{\"type\":\"link\",\"label\":\"ReactJS\",\"href\":\"/best-practices/docs/en/react\"},{\"type\":\"link\",\"label\":\"Redux\",\"href\":\"/best-practices/docs/en/redux\"},{\"type\":\"link\",\"label\":\"React-Redux\",\"href\":\"/best-practices/docs/en/react-redux\"},{\"type\":\"link\",\"label\":\"JS & Frontend testing\",\"href\":\"/best-practices/docs/en/testing\"}]},\"permalinkToSidebar\":{\"/best-practices/docs/en\":\"en\",\"/best-practices/docs/en/react\":\"en\",\"/best-practices/docs/en/react-redux\":\"en\",\"/best-practices/docs/en/redux\":\"en\",\"/best-practices/docs/en/testing\":\"en\",\"/best-practices/docs/fr\":\"fr\",\"/best-practices/docs/fr/react\":\"fr\",\"/best-practices/docs/fr/react-redux\":\"fr\",\"/best-practices/docs/fr/react-router\":\"fr\",\"/best-practices/docs/fr/redux\":\"fr\",\"/best-practices/docs/fr/style\":\"fr\",\"/best-practices/docs/fr/testing\":\"fr\"}}");
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15159,7 +15260,7 @@ function complexAction() {
 `)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h3",{"id":"mono-state-vs-multi-state"},`Mono-state vs multi-state`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`We `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("strong",{parentName:"p"},`SHOULD`),` have only one "state" in a simple application.`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`We `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("strong",{parentName:"p"},`CAN`),` split `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("strong",{parentName:"p"},`functionally`),` the states in a complex application.`));};MDXContent.isMDXComponent=true;
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15435,7 +15536,7 @@ describe('Home', () => {
 `)));};MDXContent.isMDXComponent=true;
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15482,84 +15583,6 @@ const features=[// {
 //   ),
 // },
 ];function Feature({imageUrl,title,description}){const imgUrl=Object(_docusaurus_useBaseUrl__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(imageUrl);return/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div",{className:classnames__WEBPACK_IMPORTED_MODULE_2___default()('col col--4',_styles_module_css__WEBPACK_IMPORTED_MODULE_7___default.a.feature)},imgUrl&&/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div",{className:"text--center"},/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("img",{className:_styles_module_css__WEBPACK_IMPORTED_MODULE_7___default.a.featureImage,src:imgUrl,alt:title})),/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h3",null,title),/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p",null,description));}function Home(){const context=Object(_docusaurus_useDocusaurusContext__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])();const{siteConfig={}}=context;return/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_theme_Layout__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"],{title:`Hello from ${siteConfig.title}`,description:"Description will go into a meta tag in <head />"},/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("header",{className:classnames__WEBPACK_IMPORTED_MODULE_2___default()('hero hero--primary',_styles_module_css__WEBPACK_IMPORTED_MODULE_7___default.a.heroBanner)},/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div",{className:"container"},/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1",{className:"hero__title"},siteConfig.title),/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p",{className:"hero__subtitle"},siteConfig.tagline),/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div",{className:_styles_module_css__WEBPACK_IMPORTED_MODULE_7___default.a.buttons},/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_docusaurus_Link__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"],{className:classnames__WEBPACK_IMPORTED_MODULE_2___default()('button button--outline button--secondary button--lg',_styles_module_css__WEBPACK_IMPORTED_MODULE_7___default.a.getStarted),to:Object(_docusaurus_useBaseUrl__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])('docs/fr/')},"En fran\xE7ais"),"\xA0",/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_docusaurus_Link__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"],{className:classnames__WEBPACK_IMPORTED_MODULE_2___default()('button button--outline button--secondary button--lg',_styles_module_css__WEBPACK_IMPORTED_MODULE_7___default.a.getStarted),to:Object(_docusaurus_useBaseUrl__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])('docs/en/')},"In english")))),/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("main",null,features&&features.length>0&&/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("section",{className:_styles_module_css__WEBPACK_IMPORTED_MODULE_7___default.a.features},/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div",{className:"container"},/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div",{className:"row"},features.map((props,idx)=>/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Feature,Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({key:idx},props))))))));}/* harmony default export */ __webpack_exports__["default"] = (Home);
-
-/***/ }),
-/* 125 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "frontMatter", function() { return frontMatter; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "metadata", function() { return metadata; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rightToc", function() { return rightToc; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return MDXContent; });
-/* harmony import */ var _home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _mdx_js_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
-const frontMatter={title:'Guide de style'};const metadata={"id":"fr/style","title":"Guide de style","description":"## Comment est-ce qu'on écrit une fonction (arrow function vs function declaration)","source":"@site/docs/fr/style.md","permalink":"/best-practices/docs/fr/style","editUrl":"https://github.com/mapado/best-practices/edit/master/docs/fr/style.md","sidebar":"fr","previous":{"title":"Bonnes pratiques à Mapado","permalink":"/best-practices/docs/fr"},"next":{"title":"ReactJS","permalink":"/best-practices/docs/fr/react"}};/* @jsx mdx */const rightToc=[{value:'Comment est-ce qu&#39;on écrit une fonction (arrow function vs function declaration)',id:'comment-est-ce-quon-écrit-une-fonction-arrow-function-vs-function-declaration',children:[]},{value:'Constantes &amp; Enums',id:'constantes--enums',children:[]},{value:'Espacements entre les types de déclarations',id:'espacements-entre-les-types-de-déclarations',children:[]}];const makeShortcode=name=>function MDXDefaultShortcode(props){console.warn("Component "+name+" was not imported, exported, or provided by MDXProvider as global scope");return Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",props);};const layoutProps={rightToc};const MDXLayout="wrapper";function MDXContent({components,...props}){return Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])(MDXLayout,Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({},layoutProps,props,{components:components,mdxType:"MDXLayout"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h2",{"id":"comment-est-ce-quon-écrit-une-fonction-arrow-function-vs-function-declaration"},`Comment est-ce qu'on écrit une fonction (arrow function vs function declaration)`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`Javascript permet la définition de "arrow functions". Bien qu'ayant des `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("a",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"p"},{"href":"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions"}),`différences non négligeables`),` avec leurs consœurs, on utilise l'une ou l'autre syntaxe en fonction des préférences personnelles.`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`On DEVRAIT utiliser les "arrow functions" dans les cas suivants, et uniquement dans les cas suivants:`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("ul",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("li",{parentName:"ul"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",{parentName:"li"},`dans des "callback":`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",{parentName:"li"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-jsx"}),`list
-  .map((entity) => entity.id)
-  .filter((id) => id > 5)
-  .some((id) => id % 2 === 0);
-
-<button onClick={() => setVisible(true)}>show</button>;
-`))),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("li",{parentName:"ul"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",{parentName:"li"},`Si sa définition ne fait qu'une seule ligne, avec un seul retour possible :`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",{parentName:"li"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-js"}),`const isValid = (entity) => entity.itemList.some((item) => item.isValid);
-`)))),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`On DEVRAIT utiliser la déclaration de fonction dans tous les autres cas :`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-js"}),`function isValid(entity) {
-  if (!entity) {
-    return false;
-  }
-
-  return entity.itemList.some((item) => item.isValid);
-}
-
-function handleClick(event) {
-  event.preventDefault();
-
-  doSomething();
-}
-`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",{"className":"admonition admonition-info alert alert--info"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-heading"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h5",{parentName:"div"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("span",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"h5"},{"className":"admonition-icon"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("svg",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"span"},{"xmlns":"http://www.w3.org/2000/svg","width":"14","height":"16","viewBox":"0 0 14 16"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("path",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"svg"},{"fillRule":"evenodd","d":"M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"})))),`Pourquoi ?`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-content"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",{parentName:"div"},`Bien que les arrow-function amène une certaine "légèreté" au code, le modèle mental lorsque l'on définit des "arrow-functions" peut rendre la compréhension plus difficile.
-Le gain de "légèreté" n'existe plus dès que l'on a besoin d'imbriquer du code dans des accolades.`))),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",{"className":"admonition admonition-note alert alert--secondary"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-heading"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h5",{parentName:"div"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("span",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"h5"},{"className":"admonition-icon"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("svg",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"span"},{"xmlns":"http://www.w3.org/2000/svg","width":"14","height":"16","viewBox":"0 0 14 16"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("path",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"svg"},{"fillRule":"evenodd","d":"M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"})))),`À lire aussi`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-content"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",{parentName:"div"},`Le guide JavaScript de AirBnB `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("a",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"p"},{"href":"https://github.com/airbnb/javascript#arrow-functions"}),`sur les arrow functions`),` donne des informations intéressantes sur la façon d'utiliser les arrow functions. Ils définissent pour leur part les cas suivants:`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("blockquote",{parentName:"div"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",{parentName:"blockquote"},`Lorsque vous devez utiliser des fonctions anonymes (comme pour passer une fonction de retour en-ligne), utilisez la notation "arrow-function"`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",{parentName:"blockquote"},`Pourquoi ? Cela crée une version de la fonction qui s'execute dans le contexte actuel (this), qui est habituellement ce que l'on souhaite, et la syntaxe est plus concise.`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("blockquote",{parentName:"div"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",{parentName:"blockquote"},`Quand ne pas l'utiliser ? Si vous avez une function assez compliquée, vous devriez sortir cette logique dans sa propre fonction nommée.`)))),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h2",{"id":"constantes--enums"},`Constantes & Enums`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`On DEVRAIT utiliser des constantes lorsqu'on utilise une donnée simple (`,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"p"},`string`),` | `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"p"},`number`),` | `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"p"},`boolean`),`...) en tant que valeur de configuration (d'une fonction ou autre).`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-jsx"}),`const TIMEOUT_DELAY = 1000;
-
-setTimeout(doSomething, TIMEOUT_DELAY);
-`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-jsx"}),`const EVENT_DATE_BY_LIST = "list";
-const EVENT_DATE_BY_DATE = "date";
-// ...
-const [selectedTab, setSelectedTab] = useState(EVENT_DATE_BY_LIST);
-`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`Dans le cas où plusieurs constantes sont utilisées à plusieurs endroits, on privilégiera de les regrouper sous un `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("a",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"p"},{"href":"https://www.typescriptlang.org/docs/handbook/enums.html"}),`enum TypeScript`),`. Cela rend également le typage beaucoup plus simple.`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-tsx"}),`export enum MODULE_TYPE {
-  INFORMATION = "information",
-  RECOMMENDATION = "recommendation",
-  PROMOTE = "promote",
-}
-
-function generateModule(moduleType: MODULE_TYPE) {
-  if (moduleType === MODULE_TYPE.INFORMATION) {
-    // do something
-  }
-
-  // do something else
-}
-`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",{"className":"admonition admonition-info alert alert--info"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-heading"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h5",{parentName:"div"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("span",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"h5"},{"className":"admonition-icon"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("svg",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"span"},{"xmlns":"http://www.w3.org/2000/svg","width":"14","height":"16","viewBox":"0 0 14 16"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("path",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"svg"},{"fillRule":"evenodd","d":"M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"})))),`Convention`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-content"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",{parentName:"div"},`On DEVRAIT écrire les constantes de configuration et enums en MAJUSCULE.`))),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h2",{"id":"espacements-entre-les-types-de-déclarations"},`Espacements entre les types de déclarations`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`Afin de gagner en lisibilité dans la lecture du code, on DOIT ajouter une ligne vide au-dessus d'un type de déclaration quand le précédent est différent.`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-jsx"}),`function Foo() {
-  const { t } = useTranslation();
-  const [loading, setLoading] = useState(true);
-  let name = "JD";
-
-  if (!loading) {
-    name = "Chris";
-  }
-
-  useEffect(() => {
-    const timeout = setTimeout(() => setLoading(false), 500);
-
-    return () => clearTimeout(timeout);
-  }, []);
-
-  if (loading) {
-    return <MpdLoader />;
-  }
-
-  return <div>{t("hello", { name })}</div>;
-}
-`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`Dans l'exemple ci-dessus, on remarque la construction suivante :`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("ul",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("li",{parentName:"ul"},`Un espace est présent entre les variables et le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`if`),` ;`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("li",{parentName:"ul"},`Un espace est présent entre le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`if`),` et le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`useEffect`),` ;`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("li",{parentName:"ul"},`À l'intérieur du `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`useEffect`),`, un espace est présent entre la variable et le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`return`),` ;`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("li",{parentName:"ul"},`Un espace est présent entre le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`useEffect`),` et le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`if`),` ;`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("li",{parentName:"ul"},`Le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`return`),` dans le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`if`),` n'a pas d'espacement car il est tout seul ;`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("li",{parentName:"ul"},`Un espace est présent entre le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`if`),` et le `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"li"},`return`),` ;`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",{"className":"admonition admonition-info alert alert--info"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-heading"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h5",{parentName:"div"},Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("span",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"h5"},{"className":"admonition-icon"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("svg",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"span"},{"xmlns":"http://www.w3.org/2000/svg","width":"14","height":"16","viewBox":"0 0 14 16"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("path",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"svg"},{"fillRule":"evenodd","d":"M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"})))),`Eslint`)),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"div"},{"className":"admonition-content"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",{parentName:"div"},`La règle eslint `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("a",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"p"},{"href":"https://eslint.org/docs/latest/rules/padding-line-between-statements"}),`padding-line-between-statements`),` est disponible sur les projets pour détecter une erreur si ce schéma n'est pas respecté.`))));};MDXContent.isMDXComponent=true;
 
 /***/ }),
 /* 126 */
@@ -15715,7 +15738,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _mdx_js_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
-/* harmony import */ var _theme_Tabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(19);
+/* harmony import */ var _theme_Tabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(15);
 /* harmony import */ var _theme_TabItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
 const frontMatter={title:'ReactJS'};const metadata={"id":"en/react","title":"ReactJS","description":"This best practice list is more a list of corrected \"bad practices\" that we had in our codebase and fixed.","source":"@site/docs/en/react.mdx","permalink":"/best-practices/docs/en/react","editUrl":"https://github.com/mapado/best-practices/edit/master/docs/en/react.mdx","sidebar":"en","previous":{"title":"Mapado Best practices","permalink":"/best-practices/docs/en"},"next":{"title":"Redux","permalink":"/best-practices/docs/en/redux"}};/* @jsx mdx */const rightToc=[{value:'Method naming',id:'method-naming',children:[]},{value:'bind(this) in the <code>render</code> method',id:'bindthis-in-the-render-method',children:[]},{value:'Class element: anonymous function in the <code>render</code> method',id:'class-element-anonymous-function-in-the-render-method',children:[]}];const makeShortcode=name=>function MDXDefaultShortcode(props){console.warn("Component "+name+" was not imported, exported, or provided by MDXProvider as global scope");return Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("div",props);};const layoutProps={rightToc};const MDXLayout="wrapper";function MDXContent({components,...props}){return Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])(MDXLayout,Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({},layoutProps,props,{components:components,mdxType:"MDXLayout"}),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`This best practice list is more a list of corrected "bad practices" that we had in our codebase and fixed.`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("h3",{"id":"method-naming"},`Method naming`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("p",null,`A method "handling" an event `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"p"},`onSomething`),` SHOULD start with `,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("inlineCode",{parentName:"p"},`handle`),`.`),Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("pre",null,Object(_mdx_js_react__WEBPACK_IMPORTED_MODULE_2__[/* mdx */ "b"])("code",Object(_home_runner_work_best_practices_best_practices_node_modules_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"])({parentName:"pre"},{"className":"language-js","metastring":"{2,8}","{2,8}":true}),`class Foo() {
   handleClick() {
@@ -18175,7 +18198,7 @@ module.exports = Object.assign(
   __webpack_require__(255),
   __webpack_require__(257),
   __webpack_require__(263),
-  __webpack_require__(18),
+  __webpack_require__(19),
   __webpack_require__(267),
   __webpack_require__(269),
   __webpack_require__(271),
@@ -18197,7 +18220,7 @@ if (Object.getOwnPropertyDescriptor(fs, 'promises')) {
 /* 139 */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"/best-practices/\":{\"component\":\"c4f5d8e4\"},\"/best-practices/docs/:route\":{\"component\":\"1be78505\",\"docsMetadata\":\"71a437cd\"},\"/best-practices/docs/en\":{\"component\":\"17896441\",\"content\":\"693bd31a\"},\"/best-practices/docs/en/react\":{\"component\":\"17896441\",\"content\":\"f4666041\"},\"/best-practices/docs/en/react-redux\":{\"component\":\"17896441\",\"content\":\"e09b5563\"},\"/best-practices/docs/en/redux\":{\"component\":\"17896441\",\"content\":\"9906ec2f\"},\"/best-practices/docs/en/testing\":{\"component\":\"17896441\",\"content\":\"bd870e2d\"},\"/best-practices/docs/fr\":{\"component\":\"17896441\",\"content\":\"5b7ff356\"},\"/best-practices/docs/fr/react\":{\"component\":\"17896441\",\"content\":\"1c63aa57\"},\"/best-practices/docs/fr/react-redux\":{\"component\":\"17896441\",\"content\":\"ec90eea9\"},\"/best-practices/docs/fr/react-router\":{\"component\":\"17896441\",\"content\":\"14c1e443\"},\"/best-practices/docs/fr/redux\":{\"component\":\"17896441\",\"content\":\"5d1f74e9\"},\"/best-practices/docs/fr/style\":{\"component\":\"17896441\",\"content\":\"cfe33f54\"},\"/best-practices/docs/fr/testing\":{\"component\":\"17896441\",\"content\":\"05ec8f58\"}}");
+module.exports = JSON.parse("{\"/best-practices/\":{\"component\":\"c4f5d8e4\"},\"/best-practices/docs/:route\":{\"component\":\"1be78505\",\"docsMetadata\":\"71a437cd\"},\"/best-practices/docs/en\":{\"component\":\"17896441\",\"content\":\"693bd31a\"},\"/best-practices/docs/en/react\":{\"component\":\"17896441\",\"content\":\"f4666041\"},\"/best-practices/docs/en/react-redux\":{\"component\":\"17896441\",\"content\":\"e09b5563\"},\"/best-practices/docs/en/redux\":{\"component\":\"17896441\",\"content\":\"9906ec2f\"},\"/best-practices/docs/en/testing\":{\"component\":\"17896441\",\"content\":\"bd870e2d\"},\"/best-practices/docs/fr\":{\"component\":\"17896441\",\"content\":\"5b7ff356\"},\"/best-practices/docs/fr/react\":{\"component\":\"17896441\",\"content\":\"1c63aa57\"},\"/best-practices/docs/fr/react-redux\":{\"component\":\"17896441\",\"content\":\"ec90eea9\"},\"/best-practices/docs/fr/react-router\":{\"component\":\"17896441\",\"content\":\"14c1e443\"},\"/best-practices/docs/fr/redux\":{\"component\":\"17896441\",\"content\":\"5d1f74e9\"},\"/best-practices/docs/fr/style\":{\"component\":\"17896441\",\"content\":\"0be78a40\"},\"/best-practices/docs/fr/testing\":{\"component\":\"17896441\",\"content\":\"05ec8f58\"}}");
 
 /***/ }),
 /* 140 */
@@ -18216,7 +18239,7 @@ module.exports = {
 "use strict";
 
 
-var reactIs = __webpack_require__(116);
+var reactIs = __webpack_require__(117);
 
 /**
  * Copyright 2015, Yahoo! Inc.
@@ -32792,7 +32815,7 @@ module.exports = require("util");
 
 const fs = __webpack_require__(11)
 const path = __webpack_require__(5)
-const mkdirpSync = __webpack_require__(18).mkdirsSync
+const mkdirpSync = __webpack_require__(19).mkdirsSync
 const utimesSync = __webpack_require__(112).utimesMillisSync
 const stat = __webpack_require__(52)
 
@@ -33113,7 +33136,7 @@ module.exports = function (size) {
 
 const fs = __webpack_require__(11)
 const path = __webpack_require__(5)
-const mkdirp = __webpack_require__(18).mkdirs
+const mkdirp = __webpack_require__(19).mkdirs
 const pathExists = __webpack_require__(22).pathExists
 const utimes = __webpack_require__(112).utimesMillis
 const stat = __webpack_require__(52)
@@ -33330,10 +33353,10 @@ module.exports = copy
 "use strict";
 
 
-const u = __webpack_require__(15).fromCallback
+const u = __webpack_require__(16).fromCallback
 const fs = __webpack_require__(11)
 const path = __webpack_require__(5)
-const mkdir = __webpack_require__(18)
+const mkdir = __webpack_require__(19)
 const remove = __webpack_require__(53)
 
 const emptyDir = u(function emptyDir (dir, callback) {
@@ -33736,10 +33759,10 @@ module.exports = {
 "use strict";
 
 
-const u = __webpack_require__(15).fromCallback
+const u = __webpack_require__(16).fromCallback
 const path = __webpack_require__(5)
 const fs = __webpack_require__(11)
-const mkdir = __webpack_require__(18)
+const mkdir = __webpack_require__(19)
 const pathExists = __webpack_require__(22).pathExists
 
 function createFile (file, callback) {
@@ -33792,10 +33815,10 @@ module.exports = {
 "use strict";
 
 
-const u = __webpack_require__(15).fromCallback
+const u = __webpack_require__(16).fromCallback
 const path = __webpack_require__(5)
 const fs = __webpack_require__(11)
-const mkdir = __webpack_require__(18)
+const mkdir = __webpack_require__(19)
 const pathExists = __webpack_require__(22).pathExists
 
 function createLink (srcpath, dstpath, callback) {
@@ -33860,10 +33883,10 @@ module.exports = {
 "use strict";
 
 
-const u = __webpack_require__(15).fromCallback
+const u = __webpack_require__(16).fromCallback
 const path = __webpack_require__(5)
 const fs = __webpack_require__(11)
-const _mkdirs = __webpack_require__(18)
+const _mkdirs = __webpack_require__(19)
 const mkdirs = _mkdirs.mkdirs
 const mkdirsSync = _mkdirs.mkdirsSync
 
@@ -34074,7 +34097,7 @@ module.exports = {
 "use strict";
 
 
-const u = __webpack_require__(15).fromCallback
+const u = __webpack_require__(16).fromCallback
 const jsonFile = __webpack_require__(82)
 
 jsonFile.outputJson = u(__webpack_require__(265))
@@ -34238,7 +34261,7 @@ module.exports = jsonfile
 
 
 const path = __webpack_require__(5)
-const mkdir = __webpack_require__(18)
+const mkdir = __webpack_require__(19)
 const pathExists = __webpack_require__(22).pathExists
 const jsonFile = __webpack_require__(82)
 
@@ -34273,7 +34296,7 @@ module.exports = outputJson
 
 const fs = __webpack_require__(11)
 const path = __webpack_require__(5)
-const mkdir = __webpack_require__(18)
+const mkdir = __webpack_require__(19)
 const jsonFile = __webpack_require__(82)
 
 function outputJsonSync (file, data, options) {
@@ -34312,7 +34335,7 @@ const fs = __webpack_require__(11)
 const path = __webpack_require__(5)
 const copySync = __webpack_require__(110).copySync
 const removeSync = __webpack_require__(53).removeSync
-const mkdirpSync = __webpack_require__(18).mkdirpSync
+const mkdirpSync = __webpack_require__(19).mkdirpSync
 const stat = __webpack_require__(52)
 
 function moveSync (src, dest, opts) {
@@ -34362,7 +34385,7 @@ module.exports = moveSync
 "use strict";
 
 
-const u = __webpack_require__(15).fromCallback
+const u = __webpack_require__(16).fromCallback
 module.exports = {
   move: u(__webpack_require__(270))
 }
@@ -34379,7 +34402,7 @@ const fs = __webpack_require__(11)
 const path = __webpack_require__(5)
 const copy = __webpack_require__(113).copy
 const remove = __webpack_require__(53).remove
-const mkdirp = __webpack_require__(18).mkdirp
+const mkdirp = __webpack_require__(19).mkdirp
 const pathExists = __webpack_require__(22).pathExists
 const stat = __webpack_require__(52)
 
@@ -34447,10 +34470,10 @@ module.exports = move
 "use strict";
 
 
-const u = __webpack_require__(15).fromCallback
+const u = __webpack_require__(16).fromCallback
 const fs = __webpack_require__(11)
 const path = __webpack_require__(5)
-const mkdir = __webpack_require__(18)
+const mkdir = __webpack_require__(19)
 const pathExists = __webpack_require__(22).pathExists
 
 function outputFile (file, data, encoding, callback) {
@@ -35312,7 +35335,7 @@ function _interopRequireWildcard(obj) {
 var routesChunkNames = __webpack_require__(139);
 
 // CONCATENATED MODULE: ./.docusaurus/registry.js
-/* harmony default export */ var registry = ({'05ec8f58':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(114))),"@site/docs/fr/testing.md",/*require.resolve*/(114)],'14c1e443':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(115))),"@site/docs/fr/react-router.mdx",/*require.resolve*/(115)],'17896441':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(131))),"@theme/DocItem",/*require.resolve*/(131)],'1be78505':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(130))),"@theme/DocPage",/*require.resolve*/(130)],'1c63aa57':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(117))),"@site/docs/fr/react.mdx",/*require.resolve*/(117)],'5b7ff356':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(118))),"@site/docs/fr.md",/*require.resolve*/(118)],'5d1f74e9':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(119))),"@site/docs/fr/redux.md",/*require.resolve*/(119)],'693bd31a':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(120))),"@site/docs/en.md",/*require.resolve*/(120)],'71a437cd':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(121))),"~docs/best-practices-docs-route-5d5.json",/*require.resolve*/(121)],'9906ec2f':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(122))),"@site/docs/en/redux.md",/*require.resolve*/(122)],'bd870e2d':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(123))),"@site/docs/en/testing.md",/*require.resolve*/(123)],'c4f5d8e4':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(124))),"@site/src/pages/index.js",/*require.resolve*/(124)],'cfe33f54':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(125))),"@site/docs/fr/style.md",/*require.resolve*/(125)],'e09b5563':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(126))),"@site/docs/en/react-redux.md",/*require.resolve*/(126)],'ec90eea9':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(127))),"@site/docs/fr/react-redux.md",/*require.resolve*/(127)],'f4666041':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(128))),"@site/docs/en/react.mdx",/*require.resolve*/(128)]});
+/* harmony default export */ var registry = ({'05ec8f58':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(114))),"@site/docs/fr/testing.md",/*require.resolve*/(114)],'0be78a40':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(115))),"@site/docs/fr/style.mdx",/*require.resolve*/(115)],'14c1e443':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(116))),"@site/docs/fr/react-router.mdx",/*require.resolve*/(116)],'17896441':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(131))),"@theme/DocItem",/*require.resolve*/(131)],'1be78505':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(130))),"@theme/DocPage",/*require.resolve*/(130)],'1c63aa57':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(118))),"@site/docs/fr/react.mdx",/*require.resolve*/(118)],'5b7ff356':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(119))),"@site/docs/fr.md",/*require.resolve*/(119)],'5d1f74e9':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(120))),"@site/docs/fr/redux.md",/*require.resolve*/(120)],'693bd31a':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(121))),"@site/docs/en.md",/*require.resolve*/(121)],'71a437cd':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(122))),"~docs/best-practices-docs-route-5d5.json",/*require.resolve*/(122)],'9906ec2f':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(123))),"@site/docs/en/redux.md",/*require.resolve*/(123)],'bd870e2d':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(124))),"@site/docs/en/testing.md",/*require.resolve*/(124)],'c4f5d8e4':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(125))),"@site/src/pages/index.js",/*require.resolve*/(125)],'e09b5563':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(126))),"@site/docs/en/react-redux.md",/*require.resolve*/(126)],'ec90eea9':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(127))),"@site/docs/fr/react-redux.md",/*require.resolve*/(127)],'f4666041':[()=>Promise.resolve().then(()=>_interopRequireWildcard(__webpack_require__(128))),"@site/docs/en/react.mdx",/*require.resolve*/(128)]});
 // CONCATENATED MODULE: ./node_modules/@docusaurus/core/lib/client/flat.js
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
