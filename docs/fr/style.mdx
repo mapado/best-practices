@@ -188,3 +188,25 @@ Dans l'exemple ci-dessus, on remarque la construction suivante :
 :::info Eslint
 La règle eslint [padding-line-between-statements](https://eslint.org/docs/latest/rules/padding-line-between-statements) est disponible sur les projets pour détecter une erreur si ce schéma n'est pas respecté.
 :::
+
+### "Array destructuring"
+
+On **DEVRAIT** utiliser le "array destructuring" quand on affecte des variables
+
+```tsx
+const [counter, setCounter] = useState(0);
+```
+
+On ne **DEVRAIT PAS** utiliser le array destructuring si l'on n'a pas les mots clés `const` ou `let` devant le tableau.
+
+```tsx
+let counter = 0;
+
+[counter] = generateCounter();
+```
+
+:::info Eslint
+**Pourquoi ?**
+
+Cette syntaxe est difficilement compréhensible car on ne comprends pas directement que l'on est en train d'affecter des variables (on dirait que l'on crée un tableau).
+:::
