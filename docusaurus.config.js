@@ -15,15 +15,15 @@ module.exports = {
       },
       links: [
         {
-          to: 'docs/fr/',
-          activeBasePath: 'docs/fr/',
-          label: 'Français',
+          to: 'docs/js/',
+          activeBasePath: 'docs/js/',
+          label: 'JS/TS',
           position: 'left',
         },
         {
-          to: 'docs/en/',
-          activeBasePath: 'docs/en/',
-          label: 'English',
+          to: 'docs/php/',
+          activeBasePath: 'docs/php/',
+          label: 'PHP',
           position: 'left',
         },
         {

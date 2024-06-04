@@ -1,12 +1,12 @@
 module.exports = {
-  fr: [
-    'fr',
-    'fr/style',
-    'fr/react',
-    'fr/redux',
-    'fr/react-redux',
-    'fr/react-router',
-    'fr/testing',
+  js: [
+    'js',
+    'js/style',
+    'js/react',
+    'js/redux',
+    'js/react-redux',
+    'js/react-router',
+    'js/testing',
   ],
-  en: ['en', 'en/react', 'en/redux', 'en/react-redux', 'en/testing'],
+  php: ['php', 'php/php', 'php/symfony', 'php/api-plaform'],
 };
