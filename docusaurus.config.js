@@ -15,9 +15,9 @@ module.exports = {
       },
       links: [
         {
-          to: 'docs/fr/',
-          activeBasePath: 'docs/fr/',
-          label: 'Français',
+          to: 'docs/js/',
+          activeBasePath: 'docs/js/',
+          label: 'JS/TS',
           position: 'left',
         },
         {
