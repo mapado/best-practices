@@ -21,9 +21,9 @@ module.exports = {
           position: 'left',
         },
         {
-          to: 'docs/en/',
-          activeBasePath: 'docs/en/',
-          label: 'English',
+          to: 'docs/php/',
+          activeBasePath: 'docs/php/',
+          label: 'PHP',
           position: 'left',
         },
         {

@@ -82,9 +82,9 @@ function Home() {
                 'button button--outline button--secondary button--lg',
                 styles.getStarted
               )}
-              to={useBaseUrl('docs/en/')}
+              to={useBaseUrl('docs/php/')}
             >
-              In english
+              PHP
             </Link>
           </div>
         </div>

@@ -8,5 +8,5 @@ module.exports = {
     'fr/react-router',
     'fr/testing',
   ],
-  en: ['en', 'en/react', 'en/redux', 'en/react-redux', 'en/testing'],
+  php: ['php', 'php/php', 'php/symfony', 'php/api-plaform'],
 };
