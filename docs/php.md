@@ -1,8 +1,6 @@
 ---
-title: 'Mapado Best practices for PHP'
+title: 'Bonnes pratiques PHP'
 ---
-
-Here is a list of our best practices
 
 [PHP](./php)
 

@@ -1,8 +1,6 @@
 ---
-title: 'Bonnes pratiques à Mapado'
+title: 'Bonnes pratiques JS'
 ---
-
-Voici une liste de nos bonnes pratiques
 
 [Guide de style](./style)
 

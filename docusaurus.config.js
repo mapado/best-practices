@@ -1,6 +1,6 @@
 module.exports = {
-  title: 'best-practice',
-  tagline: "Mapado's developer best practices",
+  title: 'Bonnes pratiques de Mapado',
+  tagline: "Comment être un bon développeur chez Mapado",
   url: 'https://mapado.github.io/',
   baseUrl: '/best-practices/',
   favicon: 'img/favicon.ico',
@@ -8,12 +8,18 @@ module.exports = {
   projectName: 'best-practices', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'Mapado best practices',
+      title: 'Bonnes pratiques',
       logo: {
         alt: 'Mapado',
         src: 'img/logo.png',
       },
       links: [
+        {
+          to: 'docs/common/',
+          activeBasePath: 'docs/common/',
+          label: 'Général',
+          position: 'left',
+        },
         {
           to: 'docs/js/',
           activeBasePath: 'docs/js/',

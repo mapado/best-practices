@@ -9,4 +9,5 @@ module.exports = {
     'js/testing',
   ],
   php: ['php', 'php/php', 'php/symfony', 'php/api-plaform'],
+  common: ['common', 'common/pull-request'],
 };
