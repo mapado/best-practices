@@ -20,6 +20,8 @@ $ yarn
 $ yarn start
 ```
 
+Open URL in your browser `http://xxx.dev.mapado.com:3001/best-practices/`
+
 This command starts a local development server and open up a browser window. Most changes are reflected live without having to restart the server.
 
 ### Build
