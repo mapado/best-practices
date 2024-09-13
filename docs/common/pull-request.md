@@ -17,7 +17,7 @@ La PR est validée, la relecture peut contenir des commentaires et suggestions q
 #### Request Changes
 La PR est rejetée. Le rejet comporte des commentaires qui DOIVENT être pris en compte.
 
-Une fois la PR corrigée, l'auteur doit "re-request" les reviewers. Si une PR comporte au moins 1 rejet, elle ne doit pas être mergée en l'état.
+Une fois la PR corrigée, l'auteur DOIT "re-request" les reviewers. Si une PR comporte au moins 1 rejet, elle NE DOIT PAS être mergée en l'état.
 
 #### Comment
-Ne devrait pas exister. Chaque PR relue doit être validée ou rejetée.
+PEUT exister dans le cas de question qui mérite des échanges, mais dans l'idéal NE DEVRAIT PAS exister. Chaque PR relue DEVRAIT être validée ou rejetée.
