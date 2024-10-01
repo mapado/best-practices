@@ -8,6 +8,6 @@ module.exports = {
     'js/react-router',
     'js/testing',
   ],
-  php: ['php', 'php/php', 'php/symfony', 'php/api-plaform'],
+  php: ['php', 'php/php', 'php/symfony', 'php/api-platform'],
   common: ['common', 'common/pull-request'],
 };
