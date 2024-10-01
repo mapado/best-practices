@@ -5,7 +5,7 @@ title: 'PHP'
 
 ## Gestion des pluriels
 
-Le nom des variables, quand elles sont au pluriels DOIVENT se terminer par `List` et ne doivent pas se terminer par `s`.
+Le nom des variables, quand elles sont au pluriels DOIVENT se terminer par `List` et NE DOIVENT PAS se terminer par `s`.
 
 :::info Pourquoi ?
 
