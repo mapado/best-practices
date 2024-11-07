@@ -1,2 +1,5 @@
-* @mapado/frontend-team
-* @mapado/backend-team
+* @mapado/frontend-team @mapado/backend-team
+
+/docs/js/* @mapado/frontend-team
+
+/docs/php/* @mapado/backend-team
