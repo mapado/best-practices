@@ -212,7 +212,7 @@ Cette syntaxe est difficilement compréhensible car on ne comprends pas directem
 
 ## Extension de fichier dans les imports
 
-On **NE DEVRAIT PAS** avoir le nom de l'extension dans les imports 
+On **NE DEVRAIT PAS** avoir le nom de l'extension dans les imports
 
 <Tabs
   defaultValue="good"
@@ -222,13 +222,56 @@ On **NE DEVRAIT PAS** avoir le nom de l'extension dans les imports
   ]}
 >
   <TabItem value="bad">
+
 ```tsx
-import Component from './components.jsx';
+import Component from "./components.jsx";
 ```
+
 </TabItem>
-  <TabItem value="good">
+<TabItem value="good">
+
 ```tsx
-import Component from './components';
+import Component from "./components";
+```
+
+  </TabItem>
+</Tabs>
+
+## Variables makeup
+
+On **DEVRAIT** privilégier les [variables makeup](https://makeup.mapado.net/?path=/docs/overview-variables--docs) lorsqu'on style un composant React.
+
+<Tabs
+  defaultValue="good"
+  values={[
+    { label: 'Pas bien 👎', value: 'bad', },
+    { label: 'Bien 👍', value: 'good', },
+  ]}
+>
+  <TabItem value="bad">
+
+```tsx
+const styled = "styled-components";
+
+// ...
+
+const Container = styled.div`
+  margin: 5px 0;
+`;
+```
+
+</TabItem>
+<TabItem value="good">
+
+```tsx
+const styled = "styled-components";
+import { $marginSmall } from "@mapado/makeup/build/variables";
+
+// ...
+
+const Container = styled.div`
+  margin: ${$marginSmall} 0;
+`;
 ```
 
   </TabItem>
