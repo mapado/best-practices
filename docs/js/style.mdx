@@ -2,8 +2,8 @@
 title: Guide de style
 ---
 
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
 ## Comment est-ce qu'on écrit une fonction (arrow function vs function declaration)
 
@@ -116,8 +116,8 @@ setTimeout(doSomething, TIMEOUT_DELAY);
 ```
 
 ```jsx
-const EVENT_DATE_BY_LIST = "list";
-const EVENT_DATE_BY_DATE = "date";
+const EVENT_DATE_BY_LIST = 'list';
+const EVENT_DATE_BY_DATE = 'date';
 // ...
 const [selectedTab, setSelectedTab] = useState(EVENT_DATE_BY_LIST);
 ```
@@ -126,9 +126,9 @@ Dans le cas où plusieurs constantes sont utilisées à plusieurs endroits, on p
 
 ```tsx
 export enum MODULE_TYPE {
-  INFORMATION = "information",
-  RECOMMENDATION = "recommendation",
-  PROMOTE = "promote",
+  INFORMATION = 'information',
+  RECOMMENDATION = 'recommendation',
+  PROMOTE = 'promote',
 }
 
 function generateModule(moduleType: MODULE_TYPE) {
@@ -156,10 +156,10 @@ Afin de gagner en lisibilité dans la lecture du code, on DOIT ajouter une ligne
 function Foo() {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
-  let name = "JD";
+  let name = 'JD';
 
   if (!loading) {
-    name = "Chris";
+    name = 'Chris';
   }
 
   useEffect(() => {
@@ -172,7 +172,7 @@ function Foo() {
     return <MpdLoader />;
   }
 
-  return <div>{t("hello", { name })}</div>;
+  return <div>{t('hello', { name })}</div>;
 }
 ```
 
@@ -224,14 +224,14 @@ On **NE DEVRAIT PAS** avoir le nom de l'extension dans les imports
   <TabItem value="bad">
 
 ```tsx
-import Component from "./components.jsx";
+import Component from './components.jsx';
 ```
 
 </TabItem>
 <TabItem value="good">
 
 ```tsx
-import Component from "./components";
+import Component from './components';
 ```
 
   </TabItem>
@@ -251,7 +251,7 @@ On **DEVRAIT** privilégier les [variables makeup](https://makeup.mapado.net/?pa
   <TabItem value="bad">
 
 ```tsx
-const styled = "styled-components";
+const styled = 'styled-components';
 
 // ...
 
@@ -264,8 +264,8 @@ const Container = styled.div`
 <TabItem value="good">
 
 ```tsx
-const styled = "styled-components";
-import { $marginSmall } from "@mapado/makeup/build/variables";
+const styled = 'styled-components';
+import { $marginSmall } from '@mapado/makeup/build/variables';
 
 // ...
 
