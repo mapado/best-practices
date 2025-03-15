@@ -16,7 +16,7 @@ Pour simuler des données, nous utilisons d'autres librairies, en fonction du ca
 
 Pour simuler le `store` redux (afin de tester des actions ou des reducers), vous pouvez utiliser [redux-mock-store](https://github.com/dmitry-zaets/redux-mock-store).
 
-Pour simuler des appels asynchrones, nous utilisations [nock](https://github.com/nock/nock) ou [fetch-mock](http://www.wheresrhys.co.uk/fetch-mock/)
+Pour simuler des appels asynchrones, nous utilisations [metch-fock](https://github.com/mapado/metch-fock), [nock](https://github.com/nock/nock) ou [fetch-mock](http://www.wheresrhys.co.uk/fetch-mock/)
 
 ### Comment tester
 
