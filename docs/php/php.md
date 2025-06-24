@@ -13,6 +13,31 @@ Cela permet d'avoir une vrai segmentation visuelle afin de comprendre très rapi
 Cela permet aussi d'éviter les problèmes de complexités grammaticales en anglais (les mots terminant en "y" sont transformés en "ies" au pluriels : "cherry" / "cherries", les mots en "-f" prennent un "v", ex "wife" / "wives", etc.).
 :::
 
+## camelCase / snake_case
+
+Les noms des classes, méthodes et constantes DOIVENT suivre la [PSR-1](https://www.php-fig.org/psr/psr-1/).
+
+Pour les autres cas, nous utilisons le **camelCase** pour :
+
+- les propriétés de classe
+- les clés de tableau
+
+et le **snake_case** pour :
+
+- valeurs de tableau
+- valeurs de variables
+
+```php
+private const PROVIDER_KEY = 'provider_name';
+
+private array $aggregationData = [
+    "filterList": [],
+    "aggregationList": [
+        "average_cart_value"
+    ]
+];
+```
+
 ## Assertions
 
 En PHP, on a plusieurs façons de faire des assertions. Pour rappel une assertions en PHP [est définie de la manière suivante](https://www.php.net/assert) :
