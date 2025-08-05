@@ -28,6 +28,7 @@ et le **snake_case** pour :
 - valeurs de variables
 
 ```php
+<?php
 private const PROVIDER_KEY = 'provider_name';
 
 private array $aggregationData = [
@@ -51,6 +52,7 @@ Autrement dit, si l'on envoit une erreur, c'est que c'est du code qui NE DOIT JA
 Une façon de faire ça est d'utiliser un `if` avec une exception :
 
 ```php
+<?php
 if (!is_int($id)) {
     throw new \LogicException('$id must be an int. This should not happen.');
 }
@@ -61,6 +63,7 @@ C'est très fonctionnel, mais c'est un peu verbeux, et on ne sait jamais trop qu
 Une autre façon est d'utiliser la fonction php [`assert`](https://www.php.net/assert) :
 
 ```php
+<?php
 assert(is_int($id));
 ```
 
@@ -80,6 +83,7 @@ Les trois façons sont valables, mais choisir l'une ou l'autre des instructions 
 On DEVRAIT utiliser `match` uniquement dans des cas "simples". Par exemple:
 
 ```php
+<?php
 $expressionResult = match ($condition) {
     1, 2 => foo(),
     3, 4 => bar(),
@@ -96,6 +100,7 @@ match ($job->getName()) {
 Dès lors que l'on veut faire plusieurs choses dans un cas, on DEVRAIT utiliser un `switch` :
 
 ```php
+<?php
 switch ($action) {
     case self::NAME_EXPORT_DATA:
         $this->exportData($job);
@@ -117,6 +122,7 @@ Dès que les cas de tests deviennent trop complexes, on DEVRAIT utiliser un `if`
 Par exemple, on ne DEVRAIT pas faire ça :
 
 ```php
+<?php
 $result = match ($x) {
     foo() => 'value',
     $this->bar() => 'value', // $this->bar() n'est pas appelé si foo() === $x
@@ -128,6 +134,7 @@ $result = match ($x) {
 Dans ce cas on DEVRAIT utiliser un `if` :
 
 ```php
+<?php
 if (foo()) {
     $result = 'value';
 } elseif ($this->bar()) {
@@ -150,6 +157,7 @@ Car le `match(true)` implique souvent que l'on va avoir des cas de tests trop co
 Il existe une fonction [`compact`](https://www.php.net/compact) en PHP qui permet de créer un tableau à partir de chaine de caractère:
 
 ```php
+<?php
 $id  = 5;
 
 $r = compact('id');
@@ -161,7 +169,8 @@ Cela dit, cette fonction est trop "magique" et moins lisible.
 
 On NE DOIT PAS utiliser cette fonction en production, mais préférer la version explicite :
 
-```
+```php
+<?php
 $id = 5;
 
 $r = ['id' => $id];
