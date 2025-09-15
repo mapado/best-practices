@@ -105,6 +105,87 @@ Le guide JavaScript de AirBnB [sur les arrow functions](https://github.com/airbn
 
 :::
 
+## Null coalescing (??) vs OR (||)
+
+On DEVRAIT utiliser le null coalescing operator (`??`) plutôt que l'OR operator (`||`) pour définir une valeur par défaut.
+
+<Tabs
+  defaultValue="good"
+  values={[
+    { label: 'Pas bien 👎', value: 'bad', },
+    { label: 'Bien 👍', value: 'good', },
+  ]}
+>
+  <TabItem value="bad">
+
+```tsx
+const value = props.value || 'default value';
+```
+
+</TabItem>
+<TabItem value="good">
+
+```tsx
+const value = props.value ?? 'default value';
+```
+
+</TabItem>
+</Tabs>
+
+:::info Pourquoi ?
+
+L'OR operator (`||`) retourne la valeur de droite si la valeur de gauche est "falsy" (c'est à dire `false`, `0`, `''`, `null`, `undefined` ou `NaN`).
+
+Le null coalescing operator (`??`) retourne la valeur de droite si la valeur de gauche est `null` ou `undefined`.
+
+Cela permet d'éviter des bugs lorsque la valeur de gauche peut être `0` ou `''` (ex: un compteur, un champ texte...) et que l'on souhaite conserver cette valeur.
+:::
+
+:::note En savoir plus
+
+- [Documentation MDN sur le null coalescing operator (??)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing)
+- [Documentation MDN sur l'OR operator (||)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR)
+
+:::
+
+## Types vs interface
+
+On DEVRAIT utiliser des `type` plutôt que des `interface` pour définir des types d'objets.
+
+<Tabs
+  defaultValue="good"
+  values={[
+    { label: 'Pas bien 👎', value: 'bad', },
+    { label: 'Bien 👍', value: 'good', },
+  ]}
+>
+  <TabItem value="bad">
+
+```tsx
+interface User {
+  id: number;
+  name: string;
+}
+```
+
+</TabItem>
+<TabItem value="good">
+
+```tsx
+type User = {
+  id: number;
+  name: string;
+};
+```
+
+</TabItem>
+</Tabs>
+
+:::note En savoir plus
+
+[Documentation officielle "Differences Between Type Aliases and Interfaces".](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces)
+:::
+
 ## Constantes & Enums
 
 On DEVRAIT utiliser des constantes lorsqu'on utilise une donnée simple (`string` | `number` | `boolean`...) en tant que valeur de configuration (d'une fonction ou autre).

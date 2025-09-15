@@ -1,0 +1,86 @@
+---
+title: Traductions
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Clé de traduction
+
+La clé de traduction NE DOIT PAS être créée à partir de variable dans une chaine de caractère.
+
+Elle doit TOUJOURS être une chaine de caractère statique.
+
+<Tabs
+  defaultValue="good"
+  values={[
+    { label: 'Pas bien 👎', value: 'bad', },
+    { label: 'Bien 👍', value: 'good', },
+  ]}
+>
+<TabItem value="bad">
+
+```ts
+t(`errors.${errorCode}`);
+```
+
+</TabItem>
+<TabItem value="good">
+
+```ts
+t('errors.network');
+```
+
+</TabItem>
+</Tabs>
+
+:::info Pourquoi ?
+
+### Expérience de développement
+
+On a souvent besoin de chercher dans la base de code où se trouve une clé de traduction spécifique.
+
+### Analyse statique
+
+Les outils d'analyse statique (comme [i18next-scanner](https://github.com/i18next/i18next-scanner)) peuvent être utilisés pour détecter les clés de traduction manquantes ou inutilisées dans le code.
+
+Idéalement, ou pourrait aussi valider avec TypeScript que la clé de traduction existe bien dans les fichiers de traduction.
+
+:::
+
+Si l'on a besoin d'avoir une partie dynamique dans la clé de traduction, il existe des façons de faire :
+
+#### Utiliser un "switch ICU"
+
+```ts
+return t('errors', { errorCode });
+```
+
+et dans l'éditeur de traduction:
+
+```json
+{errorCode, select,
+  network {Erreur réseau}
+  server {Erreur serveur}
+  timeout {Délai d'attente dépassé}
+  other {Erreur inconnue}
+}
+```
+
+#### Utiliser un "switch"
+
+```ts
+switch (errorCode) {
+  case 'network':
+    return t('errors.network');
+    break;
+  case 'server':
+    return t('errors.server');
+    break;
+  case 'timeout':
+    return t('errors.timeout');
+    break;
+  default:
+    return t('errors.unknown');
+}
+```
