@@ -12,4 +12,6 @@ title: 'Bonnes pratiques JS'
 
 [React Router](./react-router)
 
+[Traductions](./translations)
+
 [Tests JS](./testing)

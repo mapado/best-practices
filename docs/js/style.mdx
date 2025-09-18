@@ -105,6 +105,124 @@ Le guide JavaScript de AirBnB [sur les arrow functions](https://github.com/airbn
 
 :::
 
+## Null coalescing (??) vs OR (||)
+
+On DEVRAIT utiliser le null coalescing operator (`??`) plutôt que l'OR operator (`||`) pour définir une valeur par défaut SAUF dans le cas où on veux explicitement remplacer les chaines vide, les `0` et `false`.
+
+<Tabs
+  defaultValue="good"
+  values={[
+    { label: 'Pas bien 👎', value: 'bad', },
+    { label: 'Bien 👍', value: 'good', },
+  ]}
+>
+  <TabItem value="bad">
+
+```tsx
+const value = props.value || 'default value';
+```
+
+</TabItem>
+<TabItem value="good">
+
+```tsx
+const value = props.value ?? 'default value';
+```
+
+</TabItem>
+</Tabs>
+
+:::info Pourquoi ?
+
+L'OR operator (`||`) retourne la valeur de droite si la valeur de gauche est "falsy" (c'est à dire `false`, `0`, `''`, `null`, `undefined` ou `NaN`).
+
+Le null coalescing operator (`??`) retourne la valeur de droite si la valeur de gauche est `null` ou `undefined`.
+
+Cela permet d'éviter des bugs lorsque la valeur de gauche peut être `0` ou `''` (ex: un compteur, un champ texte...) et que l'on souhaite conserver cette valeur.
+:::
+
+:::note En savoir plus
+
+- [Documentation MDN sur le null coalescing operator (??)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing)
+- [Documentation MDN sur l'OR operator (||)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR)
+
+:::
+
+## Types vs interface
+
+On DEVRAIT utiliser des `type` plutôt que des `interface` pour définir des types d'objets.
+
+<Tabs
+  defaultValue="good"
+  values={[
+    { label: 'Pas bien 👎', value: 'bad', },
+    { label: 'Bien 👍', value: 'good', },
+  ]}
+>
+  <TabItem value="bad">
+
+```tsx
+interface User {
+  id: number;
+  name: string;
+}
+```
+
+</TabItem>
+<TabItem value="good">
+
+```tsx
+type User = {
+  id: number;
+  name: string;
+};
+```
+
+</TabItem>
+</Tabs>
+
+:::note En savoir plus
+
+[Documentation officielle "Differences Between Type Aliases and Interfaces".](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces)
+:::
+
+## Array&lt;T&gt; vs T[]
+
+On DOIT utiliser la syntaxe `Array<T>` pour définir un tableau d'éléments de type `T`.
+
+<Tabs
+  defaultValue="good"
+  values={[
+    { label: 'Pas bien 👎', value: 'bad', },
+    { label: 'Bien 👍', value: 'good', },
+  ]}
+>
+<TabItem value="bad">
+
+```ts
+const list: User[] = [];
+```
+
+</TabItem>
+<TabItem value="good">
+
+```ts
+const list: Array<User> = [];
+```
+
+</TabItem>
+</Tabs>
+
+:::info Pourquoi ?
+
+La syntaxe `Array<T>` est plus explicite et permet de mieux comprendre le type des éléments du tableau. De plus, elle est plus cohérente avec d'autres types génériques en TypeScript.
+
+Array est juste un générique comme un autre, exactement comme `List<T>` par exemple (ou n'importe quelle structure y compris dans le code JS comme `Set<T>`).
+
+En savoir plus : [Array Types in TypeScript](https://tkdodo.eu/blog/array-types-in-type-script);
+
+:::
+
 ## Constantes & Enums
 
 On DEVRAIT utiliser des constantes lorsqu'on utilise une donnée simple (`string` | `number` | `boolean`...) en tant que valeur de configuration (d'une fonction ou autre).

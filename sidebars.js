@@ -6,6 +6,7 @@ module.exports = {
     'js/redux',
     'js/react-redux',
     'js/react-router',
+    'js/translations',
     'js/testing',
   ],
   php: ['php', 'php/php', 'php/symfony', 'php/api-platform'],
