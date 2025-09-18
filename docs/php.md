@@ -7,3 +7,5 @@ title: 'Bonnes pratiques PHP'
 [Symfony](./symfony)
 
 [API-Platform](./api-platform)
+
+[Guidelines globales](./guidelines)
