@@ -25,6 +25,35 @@ Quand ils sont identifiés :
 - Recoder une fonction qui n'est pas assez explicite
 - ...
 
+## Documentation technique
+
+### Documentation markdown
+
+Lors du développement de feature complexe (workflow spécifique, possibilité d'implémentation future de la feature...), on DOIT ajouter une documentation technique.
+
+Cette documentation doit être synthétique :
+
+- Expliquer le fonctionnement de la feature / du workflow
+- Si besoin, expliquer comment étendre la feature (exemple avec [l'implémentation de la connexion SSO](https://github.com/mapado/oauth-server/blob/main/docs/SSO_EXTERNAL_PROVIDER.md))
+- Ajouter un schéma s'il en existe un
+
+Cette documentation doit être créée dans le dossier `/doc(s)` à la racine du projet.
+
+### @see
+
+Pour aider les autres devs à naviguer dans le code que vous avez créé, il est possible d'utiliser la phpdoc `@see` pour faire un lien vers un fichier.
+
+Exemple :
+
+```php
+/**
+ * @see /doc/ENTITY_AVAILABLE_ACTION.md
+ * @see \Mapado\TicketingBundle\Api\Normalizer\AvailableActionNormalizer::normalize
+ * @see \Mapado\TicketingBundle\Application\Resolver\AvailableAction\AvailableActionResolverInterface
+ */
+interface HasAvailableActionInterface {}
+```
+
 ## TODOs
 
 ### TODO liées à une future mise à jour de package
