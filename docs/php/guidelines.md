@@ -24,3 +24,27 @@ Quand ils sont identifiés :
 - Ajouter des interfaces à des repository
 - Recoder une fonction qui n'est pas assez explicite
 - ...
+
+## TODOs
+
+### TODO liées à une future mise à jour de package
+
+On utilise `phpstan-todo-by` qui permet de lier des todo à une version d'un package.
+
+Exemple :
+
+```php
+// @TODO php:8.5 use pipe operator
+$result = trim(str_shuffle(strtoupper("Hello World")));
+
+/**
+ * @TODO symfony/framework-bundle:6.4 migrate to AutowireIterator/Locator
+ */
+class SsoProviderFactory
+{
+}
+```
+
+Il est aussi possible d'utiliser des dates, des issues Github ([voir doc](https://github.com/staabm/phpstan-todo-by/))
+
+Lors de la mise à jour vers les versions concernées, PHPStan émettra des erreurs.
