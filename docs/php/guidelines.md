@@ -35,7 +35,7 @@ Cette documentation doit être synthétique :
 
 - Expliquer le fonctionnement de la feature / du workflow
 - Si besoin, expliquer comment étendre la feature (exemple avec [l'implémentation de la connexion SSO](https://github.com/mapado/oauth-server/blob/main/docs/SSO_EXTERNAL_PROVIDER.md))
-- Ajouter un schéma s'il en existe un
+- Ajouter un schéma s'il en existe un ([Excalidraw](https://excalidraw.com/) or [Mermaid](https://github.blog/developer-skills/github/include-diagrams-markdown-files-mermaid/))
 
 Cette documentation doit être créée dans le dossier `/doc(s)` à la racine du projet.
 
