@@ -9,6 +9,13 @@ module.exports = {
     'js/translations',
     'js/testing',
   ],
-  php: ['php', 'php/php', 'php/symfony', 'php/api-platform'],
+  php: [
+    'php',
+    'php/guidelines'
+    'php/php',
+    'php/symfony',
+    'php/api-platform'
+    'php/behat'
+  ],
   common: ['common', 'common/pull-request'],
 };
