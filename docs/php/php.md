@@ -175,3 +175,263 @@ $id = 5;
 
 $r = ['id' => $id];
 ```
+
+## Property hooks et Visibilité asymétrique à la place des getters et setters
+
+Depuis PHP 8.4, trois fonctionnalités majeures ont été introduites :
+
+- les [property hooks](https://www.php.net/manual/fr/language.oop5.property-hooks.php)
+- la [visibilité asymétrique](https://www.php.net/manual/fr/language.oop5.asymmetric-visibility.php)
+- les [propriétés dans les interfaces](https://www.php.net/manual/fr/language.oop5.interfaces.php)
+
+Toutes ces fonctionnalités permettent de ne plus avoir besoin de getter et de setter.
+
+On DOIT utiliser ces fonctionnalités au maximum et NE PLUS écrire de getters/setters classiques.
+
+:::info Pourquoi ?
+
+- **Moins de code boilerplate** : plus besoin de getters/setters mécaniques qui n'apportent aucune valeur.
+- **API plus naturelle** : accéder à `$user->name` est plus lisible et idiomatique que `$user->getName()`.
+- **Encapsulation préservée** : la visibilité asymétrique permet de garder le contrôle sur l'écriture tout en exposant la lecture.
+- **Interfaces plus expressives** : déclarer une propriété dans une interface est plus clair et direct que forcer l'implémentation d'un getter.
+:::
+
+### Property hooks
+
+Les [property hooks](https://www.php.net/manual/fr/language.oop5.property-hooks.php) permettent de définir un comportement personnalisé lors de la lecture (`get`) ou de l'écriture (`set`) d'une propriété, sans passer par des méthodes explicites.
+
+#### Validation dans un setter
+
+Au lieu d'écrire un setter qui valide la donnée :
+
+```php
+<?php
+// ❌ Avant : setter avec validation
+class User
+{
+    private string $email;
+
+    public function setEmail(string $email): void
+    {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new \InvalidArgumentException('Email invalide');
+        }
+
+        $this->email = $email;
+    }
+}
+
+$user->setEmail('john@example.com');
+```
+
+On DOIT utiliser un property hook `set` :
+
+```php
+<?php
+// ✅ Après : property hook avec validation
+class User
+{
+    public string $email {
+        set(string $value) {
+            if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+                throw new \InvalidArgumentException('Email invalide');
+            }
+
+            $this->email = $value;
+        }
+    }
+}
+
+$user->email = 'john@example.com';
+```
+
+#### Traitement dans un setter
+
+De la même façon, au lieu d'écrire un setter qui transforme la donnée :
+
+```php
+<?php
+// ❌ Avant : setter avec traitement
+class User
+{
+    private string $firstName;
+
+    public function setFirstName(string $firstName): void
+    {
+        $this->firstName = ucfirst(strtolower($firstName));
+    }
+}
+
+$user->setFirstName('john');
+```
+
+On DOIT utiliser un property hook `set` :
+
+```php
+<?php
+// ✅ Après : property hook avec traitement
+class User
+{
+    public string $firstName {
+        set(string $value) {
+            $this->firstName = ucfirst(strtolower($value));
+        }
+    }
+}
+
+$user->firstName = 'john'; // stocke "John"
+```
+
+#### Propriétés virtuelles
+
+Une propriété qui ne définit qu'un hook `get` (sans `set`) et qui ne stocke pas de valeur en interne est une **propriété virtuelle**.
+Elle ne prend pas de mémoire et se comporte comme une méthode déguisée en propriété :
+
+```php
+<?php
+// ❌ Avant : getter calculé
+class User
+{
+    public function __construct(
+        private string $firstName,
+        private string $lastName,
+    ) {
+    }
+
+    public function getFullName(): string
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+}
+
+echo $user->getFullName();
+```
+
+On DOIT utiliser une propriété virtuelle :
+
+```php
+<?php
+// ✅ Après : propriété virtuelle
+class User
+{
+    public string $fullName {
+        get => $this->firstName . ' ' . $this->lastName;
+    }
+
+    public function __construct(
+        private string $firstName,
+        private string $lastName,
+    ) {
+    }
+}
+
+echo $user->fullName;
+```
+
+### Visibilité asymétrique
+
+La [visibilité asymétrique](https://www.php.net/manual/fr/language.oop5.asymmetric-visibility.php) permet de définir une visibilité différente pour la lecture et l'écriture d'une propriété.
+
+L'exemple le plus courant est une propriété que l'on veut exposer en lecture publique, mais dont on veut interdire la modification depuis l'extérieur de la classe :
+
+```php
+<?php
+// ❌ Avant : getter pour exposer une propriété
+class User
+{
+    private string $name;
+
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function updateName(string $name): void
+    {
+        // logique complexe de mise à jour du nom
+        // ...
+    }
+}
+
+echo $user->getName();
+```
+
+On DOIT utiliser la visibilité asymétrique :
+
+```php
+<?php
+// ✅ Après : visibilité asymétrique
+class User
+{
+    public function __construct(
+        public private(set) string $name,
+    ) {
+    }
+
+    public function updateName(string $name): void
+    {
+        // logique complexe de mise à jour du nom
+        // ...
+    }
+}
+
+echo $user->name;
+```
+
+La propriété est lisible publiquement (`public`), mais ne peut être modifiée que depuis l'intérieur de la classe (`private(set)`). Le code extérieur peut lire `$user->name` directement, mais toute tentative d'écriture `$user->name = 'foo'` provoquera une erreur.
+
+:::warning Attention
+Ne pas confondre avec `readonly` : une propriété `readonly` ne peut être écrite qu'une seule fois (en général dans le constructeur), même depuis l'intérieur de la classe. Avec `private(set)`, la classe peut modifier la propriété autant de fois qu'elle le souhaite via ses propres méthodes.
+:::
+
+### Propriétés dans les interfaces
+
+Depuis PHP 8.4, les [interfaces peuvent déclarer des propriétés](https://www.php.net/manual/fr/language.oop5.interfaces.php). 
+On DOIT les utiliser lorsqu'on veut garantir qu'une classe expose une donnée en lecture.
+
+On NE DOIT PAS forcer l'implémentation d'un getter quand on veut simplement que l'interface garantisse l'accès à une propriété :
+
+```php
+<?php
+// ❌ Avant : getter dans l'interface
+interface HasName
+{
+    public function getName(): string;
+}
+
+class User implements HasName
+{
+    public function __construct(private string $name) {}
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+}
+```
+
+On DOIT utiliser une propriété dans l'interface :
+
+```php
+<?php
+// ✅ Après : propriété dans l'interface
+interface HasName
+{
+    public string $name { get; }
+}
+
+class User implements HasName
+{
+    public function __construct(
+        public readonly string $name,
+    ) {
+    }
+}
+```
+
+L'interface déclare que `$name` doit être lisible publiquement, mais n'impose pas de setter. La classe est libre de choisir comment implémenter cette propriété : promotion de constructeur, property hook, propriété classique, etc.
