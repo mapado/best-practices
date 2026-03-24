@@ -1,5 +1,5 @@
 ---
-title: 'PHP'
+title: 'Code style'
 ---
 
 import Tabs from '@theme/Tabs';

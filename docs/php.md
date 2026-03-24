@@ -4,11 +4,10 @@ title: 'Bonnes pratiques PHP'
 
 [Guidelines globales](./guidelines)
 
-[PHP](./php)
+[Code style](./code-style)
 
 [Symfony](./symfony)
 
 [API-Platform](./api-platform)
 
 [Behat](./behat)
-

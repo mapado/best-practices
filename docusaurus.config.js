@@ -1,6 +1,6 @@
 module.exports = {
   title: 'Bonnes pratiques de Mapado',
-  tagline: "Comment être un bon développeur chez Mapado",
+  tagline: 'Comment être un bon développeur chez Mapado',
   url: 'https://mapado.github.io/',
   baseUrl: '/best-practices/',
   favicon: 'img/favicon.ico',
@@ -13,7 +13,7 @@ module.exports = {
         alt: 'Mapado',
         src: 'img/logo.png',
       },
-      links: [
+      items: [
         {
           to: 'docs/common/',
           activeBasePath: 'docs/common/',

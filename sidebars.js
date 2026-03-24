@@ -12,7 +12,7 @@ module.exports = {
   php: [
     'php',
     'php/guidelines',
-    'php/php',
+    'php/code-style',
     'php/symfony',
     'php/api-platform',
     'php/behat',
