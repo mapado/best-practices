@@ -2,6 +2,9 @@
 title: 'PHP'
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 ## Gestion des pluriels
 
 Le nom des variables, quand elles sont au pluriels DOIVENT se terminer par `List` et NE DOIVENT PAS se terminer par `s`.
@@ -194,6 +197,7 @@ On DOIT utiliser ces fonctionnalités au maximum et NE PLUS écrire de getters/s
 - **API plus naturelle** : accéder à `$user->name` est plus lisible et idiomatique que `$user->getName()`.
 - **Encapsulation préservée** : la visibilité asymétrique permet de garder le contrôle sur l'écriture tout en exposant la lecture.
 - **Interfaces plus expressives** : déclarer une propriété dans une interface est plus clair et direct que forcer l'implémentation d'un getter.
+
 :::
 
 ### Property hooks
@@ -202,11 +206,18 @@ Les [property hooks](https://www.php.net/manual/fr/language.oop5.property-hooks.
 
 #### Validation dans un setter
 
-Au lieu d'écrire un setter qui valide la donnée :
+Au lieu d'écrire un setter qui valide la donnée, on DOIT utiliser un property hook `set` :
+
+<Tabs
+defaultValue="good"
+values={[
+{ label: 'setter avec validation ❌', value: 'bad', },
+{ label: 'Après : property hook avec validation ✅', value: 'good', },
+]
+}>
+<TabItem value="bad">
 
 ```php
-<?php
-// ❌ Avant : setter avec validation
 class User
 {
     private string $email;
@@ -224,11 +235,10 @@ class User
 $user->setEmail('john@example.com');
 ```
 
-On DOIT utiliser un property hook `set` :
+</TabItem>
+<TabItem value="good">
 
 ```php
-<?php
-// ✅ Après : property hook avec validation
 class User
 {
     public string $email {
@@ -245,13 +255,23 @@ class User
 $user->email = 'john@example.com';
 ```
 
+</TabItem>
+</Tabs>
+
 #### Traitement dans un setter
 
-De la même façon, au lieu d'écrire un setter qui transforme la donnée :
+De la même façon, au lieu d'écrire un setter qui transforme la donnée, on DOIT utiliser un property hook `set` :
+
+<Tabs
+defaultValue="good"
+values={[
+{ label: 'setter avec traitement ❌', value: 'bad', },
+{ label: 'property hook avec traitement ✅', value: 'good', },
+]
+}>
+<TabItem value="bad">
 
 ```php
-<?php
-// ❌ Avant : setter avec traitement
 class User
 {
     private string $firstName;
@@ -265,11 +285,10 @@ class User
 $user->setFirstName('john');
 ```
 
-On DOIT utiliser un property hook `set` :
+</TabItem>
+<TabItem value="good">
 
 ```php
-<?php
-// ✅ Après : property hook avec traitement
 class User
 {
     public string $firstName {
@@ -282,14 +301,24 @@ class User
 $user->firstName = 'john'; // stocke "John"
 ```
 
+</TabItem>
+</Tabs>
+
 #### Propriétés virtuelles
 
 Une propriété qui ne définit qu'un hook `get` (sans `set`) et qui ne stocke pas de valeur en interne est une **propriété virtuelle**.
-Elle ne prend pas de mémoire et se comporte comme une méthode déguisée en propriété :
+Elle ne prend pas de mémoire et se comporte comme une méthode déguisée en propriété, on DOIT utiliser une propriété virtuelle :
+
+<Tabs
+defaultValue="good"
+values={[
+{ label: 'getter calculé ❌', value: 'bad', },
+{ label: 'propriété virtuelle ✅', value: 'good', },
+]
+}>
+<TabItem value="bad">
 
 ```php
-<?php
-// ❌ Avant : getter calculé
 class User
 {
     public function __construct(
@@ -307,11 +336,10 @@ class User
 echo $user->getFullName();
 ```
 
-On DOIT utiliser une propriété virtuelle :
+</TabItem>
+<TabItem value="good">
 
 ```php
-<?php
-// ✅ Après : propriété virtuelle
 class User
 {
     public string $fullName {
@@ -328,15 +356,25 @@ class User
 echo $user->fullName;
 ```
 
+</TabItem>
+</Tabs>
+
 ### Visibilité asymétrique
 
 La [visibilité asymétrique](https://www.php.net/manual/fr/language.oop5.asymmetric-visibility.php) permet de définir une visibilité différente pour la lecture et l'écriture d'une propriété.
 
-L'exemple le plus courant est une propriété que l'on veut exposer en lecture publique, mais dont on veut interdire la modification depuis l'extérieur de la classe :
+L'exemple le plus courant est une propriété que l'on veut exposer en lecture publique, mais dont on veut interdire la modification depuis l'extérieur de la classe, on DOIT utiliser la visibilité asymétrique :
+
+<Tabs
+defaultValue="good"
+values={[
+{ label: 'getter pour exposer une propriété ❌', value: 'bad', },
+{ label: 'visibilité asymétrique ✅', value: 'good', },
+]
+}>
+<TabItem value="bad">
 
 ```php
-<?php
-// ❌ Avant : getter pour exposer une propriété
 class User
 {
     private string $name;
@@ -361,11 +399,10 @@ class User
 echo $user->getName();
 ```
 
-On DOIT utiliser la visibilité asymétrique :
+</TabItem>
+<TabItem value="good">
 
 ```php
-<?php
-// ✅ Après : visibilité asymétrique
 class User
 {
     public function __construct(
@@ -383,6 +420,9 @@ class User
 echo $user->name;
 ```
 
+</TabItem>
+</Tabs>
+
 La propriété est lisible publiquement (`public`), mais ne peut être modifiée que depuis l'intérieur de la classe (`private(set)`). Le code extérieur peut lire `$user->name` directement, mais toute tentative d'écriture `$user->name = 'foo'` provoquera une erreur.
 
 :::warning Attention
@@ -391,14 +431,21 @@ Ne pas confondre avec `readonly` : une propriété `readonly` ne peut être écr
 
 ### Propriétés dans les interfaces
 
-Depuis PHP 8.4, les [interfaces peuvent déclarer des propriétés](https://www.php.net/manual/fr/language.oop5.interfaces.php). 
+Depuis PHP 8.4, les [interfaces peuvent déclarer des propriétés](https://www.php.net/manual/fr/language.oop5.interfaces.php).
 On DOIT les utiliser lorsqu'on veut garantir qu'une classe expose une donnée en lecture.
 
-On NE DOIT PAS forcer l'implémentation d'un getter quand on veut simplement que l'interface garantisse l'accès à une propriété :
+On NE DOIT PAS forcer l'implémentation d'un getter quand on veut simplement que l'interface garantisse l'accès à une propriété, on DOIT déclarer une propriété dans l'interface :
+
+<Tabs
+defaultValue="good"
+values={[
+{ label: 'getter dans l\'interface ❌', value: 'bad', },
+{ label: 'propriété dans l\'interface ✅', value: 'good', },
+]
+}>
+<TabItem value="bad">
 
 ```php
-<?php
-// ❌ Avant : getter dans l'interface
 interface HasName
 {
     public function getName(): string;
@@ -415,11 +462,10 @@ class User implements HasName
 }
 ```
 
-On DOIT utiliser une propriété dans l'interface :
+</TabItem>
+<TabItem value="good">
 
 ```php
-<?php
-// ✅ Après : propriété dans l'interface
 interface HasName
 {
     public string $name { get; }
@@ -433,5 +479,8 @@ class User implements HasName
     }
 }
 ```
+
+</TabItem>
+</Tabs>
 
 L'interface déclare que `$name` doit être lisible publiquement, mais n'impose pas de setter. La classe est libre de choisir comment implémenter cette propriété : promotion de constructeur, property hook, propriété classique, etc.
