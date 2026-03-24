@@ -2,4 +2,4 @@
 title: 'Bonne pratiques générales'
 ---
 
-[Pull request](./pull-request)
+[Pull request](common/pull-request)

@@ -1,4 +1,3 @@
-import React from 'react';
 import classnames from 'classnames';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
@@ -67,10 +66,10 @@ function Home() {
           <h1 className="hero__title">{siteConfig.title}</h1>
           <p className="hero__subtitle">{siteConfig.tagline}</p>
           <div className={styles.buttons}>
-          <Link
+            <Link
               className={classnames(
                 'button button--outline button--secondary button--lg',
-                styles.getStarted
+                styles.getStarted,
               )}
               to={useBaseUrl('docs/common/')}
             >
@@ -80,7 +79,7 @@ function Home() {
             <Link
               className={classnames(
                 'button button--outline button--secondary button--lg',
-                styles.getStarted
+                styles.getStarted,
               )}
               to={useBaseUrl('docs/js/')}
             >
@@ -90,7 +89,7 @@ function Home() {
             <Link
               className={classnames(
                 'button button--outline button--secondary button--lg',
-                styles.getStarted
+                styles.getStarted,
               )}
               to={useBaseUrl('docs/php/')}
             >

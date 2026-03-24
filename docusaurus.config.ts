@@ -1,4 +1,8 @@
-module.exports = {
+import type { Config } from '@docusaurus/types';
+import type * as Preset from '@docusaurus/preset-classic';
+import { themes } from 'prism-react-renderer';
+
+const config: Config = {
   title: 'Bonnes pratiques de Mapado',
   tagline: 'Comment être un bon développeur chez Mapado',
   url: 'https://mapado.github.io/',
@@ -15,20 +19,20 @@ module.exports = {
       },
       items: [
         {
-          to: 'docs/common/',
-          activeBasePath: 'docs/common/',
+          to: 'docs/common',
+          activeBasePath: 'docs/common',
           label: 'Général',
           position: 'left',
         },
         {
-          to: 'docs/js/',
-          activeBasePath: 'docs/js/',
+          to: 'docs/js',
+          activeBasePath: 'docs/js',
           label: 'JS/TS',
           position: 'left',
         },
         {
-          to: 'docs/php/',
-          activeBasePath: 'docs/php/',
+          to: 'docs/php',
+          activeBasePath: 'docs/php',
           label: 'PHP',
           position: 'left',
         },
@@ -54,10 +58,10 @@ module.exports = {
     //   ],
     // },
     prism: {
-      theme: require('prism-react-renderer/themes/dracula'),
-      additionalLanguages: ['php', 'gherkin'],
+      theme: themes.dracula,
+      additionalLanguages: ['bash', 'diff', 'json', 'php', 'gherkin'],
     },
-  },
+  } satisfies Preset.ThemeConfig,
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -80,3 +84,5 @@ module.exports = {
     ],
   ],
 };
+
+export default config;

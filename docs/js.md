@@ -2,16 +2,16 @@
 title: 'Bonnes pratiques JS'
 ---
 
-[Guide de style](./style)
+[Guide de style](js/style)
 
-[React](./react)
+[React](js/react)
 
-[Redux](./redux)
+[Redux](js/redux)
 
-[React-Redux](./react-redux)
+[React-Redux](js/react-redux)
 
-[React Router](./react-router)
+[React Router](js/react-router)
 
-[Traductions](./translations)
+[Traductions](js/translations)
 
-[Tests JS](./testing)
+[Tests JS](js/testing)

@@ -2,12 +2,12 @@
 title: 'Bonnes pratiques PHP'
 ---
 
-[Guidelines globales](./guidelines)
+[Guidelines globales](php/guidelines)
 
-[Code style](./code-style)
+[Code style](php/code-style)
 
-[Symfony](./symfony)
+[Symfony](php/symfony)
 
-[API-Platform](./api-platform)
+[API-Platform](php/api-platform)
 
-[Behat](./behat)
+[Behat](php/behat)
