@@ -11,11 +11,11 @@ module.exports = {
   ],
   php: [
     'php',
-    'php/guidelines'
+    'php/guidelines',
     'php/php',
     'php/symfony',
-    'php/api-platform'
-    'php/behat'
+    'php/api-platform',
+    'php/behat',
   ],
   common: ['common', 'common/pull-request'],
 };
