@@ -42,6 +42,85 @@ private array $aggregationData = [
 ];
 ```
 
+## Concaténation de chaine
+
+:::info
+
+En PHP, il existe différente façon de concaténer des choses :
+
+- Opérateur de concaténation (.),
+- Interpolation de variables dans une string,
+- sprintf
+- Et d'autre (herodoc, nowdoc, etc.)
+
+:::
+
+A Mapado, nous DEVONS utiliser l'interpolation de variable dans une string, qui est plus lisible et plus simple à écrire que les autres méthodes quand c'est un cas avec des variables simples à interpoler.
+
+<Tabs
+defaultValue="interpolation"
+values={[
+{ label: 'opérateur de concaténation ❌', value: 'concat', },
+{ label: 'sprintf ❌', value: 'sprintf', },
+{ label: 'Interpolation de variables dans une string ✅', value: 'interpolation', },
+]
+}>
+<TabItem value="concat">
+
+```php
+$message = 'Bonjour ' . $user . '. Ton nombre porte-bonheur est le ' . $luckyNumber . '.';
+```
+
+</TabItem>
+<TabItem value="sprintf">
+
+```php
+$message = sprintf('Bonjour %s. Ton nombre porte-bonheur est le %d.', $user, $luckyNumber);
+```
+
+</TabItem>
+<TabItem value="interpolation">
+
+```php
+$message = "Bonjour {$user}. Ton nombre porte-bonheur est le {$luckyNumber}.";
+```
+
+</TabItem>
+</Tabs>
+
+Dans tous les autres cas, nous DEVONS utiliser `sprintf` qui est plus lisible et plus simple à écrire que les autres méthodes quand c'est un cas plus complexe (ex: interpolation de fonctions, de méthodes, etc.)
+
+<Tabs
+defaultValue="sprintf"
+values={[
+{ label: 'opérateur de concaténation ❌', value: 'concat', },
+{ label: 'sprintf ✅', value: 'sprintf', },
+{ label: 'Interpolation de variables dans une string ❌', value: 'interpolation', },
+]
+}>
+<TabItem value="concat">
+
+```php
+$message = 'Bonjour ' . $user . '. Ton nombre porte-bonheur est le ' . $this->getLuckyNumber($user) . '.';
+```
+
+</TabItem>
+<TabItem value="sprintf">
+
+```php
+$message = sprintf('Bonjour %s. Ton nombre porte-bonheur est le %d.', $user, $this->getLuckyNumber($user));
+```
+
+</TabItem>
+<TabItem value="interpolation">
+
+```php
+$message = "Bonjour {$user}. Ton nombre porte-bonheur est le {$this->getLuckyNumber($user)}.";
+```
+
+</TabItem>
+</Tabs>
+
 ## Assertions
 
 En PHP, on a plusieurs façons de faire des assertions. Pour rappel une assertions en PHP [est définie de la manière suivante](https://www.php.net/assert) :
