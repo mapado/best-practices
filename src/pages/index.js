@@ -71,7 +71,7 @@ function Home() {
                 'button button--outline button--secondary button--lg',
                 styles.getStarted,
               )}
-              to={useBaseUrl('docs/common/')}
+              to={useBaseUrl('docs/common')}
             >
               Général
             </Link>
@@ -81,7 +81,7 @@ function Home() {
                 'button button--outline button--secondary button--lg',
                 styles.getStarted,
               )}
-              to={useBaseUrl('docs/js/')}
+              to={useBaseUrl('docs/js')}
             >
               JS / TS
             </Link>
@@ -91,7 +91,7 @@ function Home() {
                 'button button--outline button--secondary button--lg',
                 styles.getStarted,
               )}
-              to={useBaseUrl('docs/php/')}
+              to={useBaseUrl('docs/php')}
             >
               PHP
             </Link>
