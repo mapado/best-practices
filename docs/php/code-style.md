@@ -55,7 +55,7 @@ En PHP, il existe différente façon de concaténer des choses :
 
 :::
 
-A Mapado, nous DEVONS utiliser l'interpolation de variable dans une string, qui est plus lisible et plus simple à écrire que les autres méthodes quand c'est un cas avec des variables simples à interpoler.
+A Mapado, nous DEVONS utiliser l'interpolation de variable dans une string, qui est plus lisible et plus simple à écrire que les autres méthodes quand il est possible de le faire.
 
 <Tabs
 defaultValue="interpolation"
@@ -68,47 +68,46 @@ values={[
 <TabItem value="concat">
 
 ```php
-$message = 'Bonjour ' . $user . '. Ton nombre porte-bonheur est le ' . $luckyNumber . '.';
+$message = 'Bonjour ' . $user . '. Ton nombre porte-bonheur est le ' . $this->getLuckyNumber() . '.';
 ```
 
 </TabItem>
 <TabItem value="sprintf">
 
 ```php
-$message = sprintf('Bonjour %s. Ton nombre porte-bonheur est le %d.', $user, $luckyNumber);
+$message = sprintf('Bonjour %s. Ton nombre porte-bonheur est le %d.', $user, $this->getLuckyNumber());
 ```
 
 </TabItem>
 <TabItem value="interpolation">
 
 ```php
-$message = "Bonjour {$user}. Ton nombre porte-bonheur est le {$luckyNumber}.";
+$message = "Bonjour {$user}. Ton nombre porte-bonheur est le {$this->getLuckyNumber()}.";
 ```
 
 </TabItem>
 </Tabs>
 
-Dans tous les autres cas, nous DEVONS utiliser `sprintf` qui est plus lisible et plus simple à écrire que les autres méthodes quand c'est un cas plus complexe (ex: interpolation de fonctions, de méthodes, etc.)
+Dans les cas où on ne peut pas faire d'interpolation (par exemple lors d'utilisation d'appels statiques ou de fonctions), nous DEVONS utiliser `sprintf` qui est plus lisible et plus simple à écrire que la concaténation.
 
 <Tabs
 defaultValue="sprintf"
 values={[
 { label: 'opérateur de concaténation ❌', value: 'concat', },
 { label: 'sprintf ✅', value: 'sprintf', },
-{ label: 'Interpolation de variables dans une string ❌', value: 'interpolation', },
 ]
 }>
 <TabItem value="concat">
 
 ```php
-$message = 'Bonjour ' . $user . '. Ton nombre porte-bonheur est le ' . $this->getLuckyNumber($user) . '.';
+$message = 'Bonjour ' . ucfirst($user) . '. Le nombre porte-bonheur est le ' . self::getLuckyNumber($user) . '.';
 ```
 
 </TabItem>
 <TabItem value="sprintf">
 
 ```php
-$message = sprintf('Bonjour %s. Ton nombre porte-bonheur est le %d.', $user, $this->getLuckyNumber($user));
+$message = sprintf('Bonjour %s. Ton nombre porte-bonheur est le %d.', ucfirst($user), self::getLuckyNumber($user));
 ```
 
 </TabItem>
