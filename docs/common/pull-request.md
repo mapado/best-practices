@@ -5,7 +5,6 @@ title: 'Pull request'
 Une pull request doit respecter les règles suivantes avant d'être mergée :
 
 - 2 reviewers minimum (cas exceptionnel : pompier urgent ou upgrade de package) sans contrainte de durée
-- Favoriser les PR de - de 1000 lignes (avec tests) / 600 lignes de code pur
 - Aucun "Request changes" en attente, et toutes les conversations résolues
 - Être à jour avec `main`
 
@@ -42,7 +41,9 @@ PEUT exister dans le cas de question qui mérite des échanges, mais dans l'idé
 
 ### Résolution des commentaires
 
-C'est **l'auteur de la PR** qui clique sur "Resolve conversation", une fois le commentaire traité : corrigé, ou discuté et tranché. Le reviewer NE DOIT PAS résoudre lui-même ses propres commentaires — il perdrait la trace de ce qui reste à traiter.
+Chaque commentaire DOIT recevoir une réponse, ou a minima une réaction (👍) quand il n'appelle pas de discussion : le reviewer sait ainsi qu'il a été lu et pris en compte.
+
+C'est **l'auteur de la PR** qui clique sur "Resolve conversation", une fois le commentaire traité : corrigé, ou discuté et tranché. On ne résout la conversation QU'UNE FOIS la correction poussée : une conversation résolue sans le commit qui va avec laisse croire que le travail est fait.
 
 Le reviewer PEUT "unresolve" une conversation si la réponse ou la correction ne lui convient pas : c'est le signal que l'échange n'est pas terminé.
 
