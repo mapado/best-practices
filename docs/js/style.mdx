@@ -223,6 +223,53 @@ En savoir plus : [Array Types in TypeScript](https://tkdodo.eu/blog/array-types-
 
 :::
 
+## Nommage des variables : `List` vs `Array`
+
+On **DOIT** suffixer une variable par `List` lorsqu'elle contient une [`List` Immutable](https://immutable-js.com/docs/latest@main/List/), et par `Array` lorsqu'elle contient un tableau JavaScript natif. On ne **DOIT jamais** utiliser le pluriel.
+
+<Tabs
+  defaultValue="good"
+  values={[
+    { label: 'Pas bien 👎', value: 'bad', },
+    { label: 'Bien 👍', value: 'good', },
+  ]}
+>
+<TabItem value="bad">
+
+```ts
+// Pluriel : impossible de savoir si c'est une List Immutable ou un tableau JS
+const devices = contractUser.get('desk_selling_device_ids');
+const selectedItems = itemArray.filter((item) => item.isSelected);
+```
+
+</TabItem>
+<TabItem value="good">
+
+```ts
+// `List` Immutable → suffixe `List`
+const deviceList = contractUser.get('desk_selling_device_ids');
+
+// Tableau JS natif → suffixe `Array`
+const selectedItemArray = itemArray.filter((item) => item.isSelected);
+```
+
+</TabItem>
+</Tabs>
+
+:::info Pourquoi ?
+
+Le suffixe reflète le type réel du conteneur à l'exécution, et donc l'API disponible : une `List` Immutable (`.size`, `.get(0)`, `.push()` qui renvoie une **nouvelle** `List`…) n'a pas la même interface qu'un tableau JS (`.length`, `[0]`, `.push()` qui **mute**). Nommer la variable d'après son conteneur évite de se tromper de méthode et rend le code immédiatement lisible.
+
+Le pluriel (`devices`) ne porte pas cette information : on ne sait pas quelle API utiliser sans remonter à la déclaration.
+
+:::
+
+:::caution Attention
+
+Les entités du SDK désérialisées via l'`EntityFactory` du ticketing utilisent `fromJS` : les tableaux imbriqués reviennent donc sous forme de **`List` Immutable** et non de tableau JS. Il faut les nommer `…List` et les manipuler en conséquence (`List.isList`, `.size`, `.includes`, `.filter`, `.first()`).
+
+:::
+
 ## Constantes & Enums
 
 On DEVRAIT utiliser des constantes lorsqu'on utilise une donnée simple (`string` | `number` | `boolean`...) en tant que valeur de configuration (d'une fonction ou autre).
