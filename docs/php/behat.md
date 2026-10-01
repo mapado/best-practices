@@ -2,7 +2,7 @@
 title: 'Behat'
 ---
 
-### egalité de "JSON node"
+### Égalité de "JSON node"
 
 Évitez d'utiliser :
 
@@ -43,3 +43,9 @@ Then the JSON nodes should be equal to:
 behat parse une seule fois la ligne, et fait tout le traitement du "check" en une seule fois : c'est plus rapide.
 
 Accessoirement, si vous avez les deux lignes avec les infos en erreur (si je suis sur le billet 14 à 8€ par exemple), vous aurez en retour toutes les lignes qui sont mauvaise, alors qu'en traitement ligne à ligne, vous aurez le retour de la première ligne seulement, puis vous allez relancer le test pour vous apercevoir que la deuxième ligne est en erreur.
+
+:::caution Exception : `null`, booléens et existence
+La forme "tableau" compare les valeurs avec un `!=` (comparaison non stricte) : `true` est considéré égal à n'importe quelle chaîne non vide, et `null` ou `false` ne sont jamais égaux aux chaînes `"null"` ou `"false"`.
+
+Pour ces valeurs, on DOIT utiliser les steps typés : `the JSON node "x" should be null`, `should be true`, `should be false`, `should exist`, `should not exist`.
+:::
