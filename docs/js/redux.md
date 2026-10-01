@@ -6,23 +6,21 @@ title: 'Redux'
 
 Nous avions donc besoin de standardiser nos façons de faire. C'est chose faite !
 
-Ce document est encore à approuver, nous ne sommes pas forcément sûrs de nos choix, mais ils nous parraissent à l'heure actuelle les plus pertinents dans notre cas.
-
-Nous sommes d'ailleurs très preneurs de retours sur ces sujets si vous avez des utilisations différentes, soit en ouvrant [une issue](https://github.com/mapado/best-practices/issues).
+Nous sommes très preneurs de retours sur ces sujets si vous avez des utilisations différentes, en ouvrant [une issue](https://github.com/mapado/best-practices/issues) ou une pull request.
 
 ### Quand utiliser Redux
 
 Redux **NE DOIT ÊTRE** utilisé que lorsqu'il y a un besoin global de partage à travers toute l'application.
 
-React permet déjà d'avoir des infos dans son state, et depuis quelques temps maintenant [l'API contexte](https://reactjs.org/docs/context.html) permet de partager efficacement les données entre composants.
+React permet déjà d'avoir des infos dans son state, et [l'API contexte](https://react.dev/learn/passing-data-deeply-with-context) permet de partager efficacement les données entre composants.
 
 En savoir plus : ["You might not need Redux" par Dan Abramov](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367).
 
 ### Librairies utilisées avec Redux
 
-- Sélecteurs: [reselect](https://github.com/reactjs/reselect)
-- Structures de données: [immutable-js](https://facebook.github.io/immutable-js/)
-- Middleware pour actions asynchrones: [redux-thunk](https://github.com/gaearon/redux-thunk)
+- Sélecteurs : [reselect](https://github.com/reduxjs/reselect)
+- Structures de données : [immutable-js](https://immutable-js.com/)
+- Middlewares pour actions asynchrones : [redux-thunk](https://github.com/reduxjs/redux-thunk), et [redux-observable](https://redux-observable.js.org/) pour les flux asynchrones plus complexes (annulation, debounce, enchaînement d'actions…)
 
 ### Le guide de bonne pratique de redux
 
@@ -48,7 +46,7 @@ On **PEUT** utiliser un `Record` immutable pour interdire tout ajout de nouvelle
 
 On ne **DOIT PAS** supprimer de clé du state.
 
-> Si l'on supprime une clé, on se retrouve dans le même cas que précédement.
+> Si l'on supprime une clé, on se retrouve dans le même cas que précédemment.
 
 Du coup : préférez `state.set('foo', false)`, ou `state.set('foo', null)` plutôt que `state.remove('foo')`.
 
@@ -179,7 +177,7 @@ Les opérations sur les items d’une liste **DOIVENT** suivre la même logique,
 
 Les clés de cette `Map` **DEVRAIT** être l'identifiant de l'item concerné.
 
-Exemple:
+Exemple (écrit en objets JS pour la lisibilité : en pratique, ce sont des `Map` immutable) :
 
 ```js
 const state = {
@@ -196,7 +194,7 @@ const state = {
       error: null,
     },
     9: {
-      status: 'ERROR',
+      status: 'FAILED',
       error: 'No more paper',
     },
   },
@@ -209,7 +207,7 @@ Le state **DEVRAIT** être utilisé pour stocker les données brutes.
 
 Un sélecteur **DEVRAIT** être utilisé pour “grouper” / “filtrer” / “trier”, finalement “travailler” sur les données brutes pour les envoyer au composant.
 
-Vous pouvez consulter la doc de [reselect](https://github.com/reactjs/reselect) pour plus d'informations sur les sélecteurs.
+Vous pouvez consulter la doc de [reselect](https://github.com/reduxjs/reselect) pour plus d'informations sur les sélecteurs.
 
 cf. [Use Selector Functions to Extract and Transform Data](https://react-redux.js.org/using-react-redux/connect-mapstate#use-selector-functions-to-extract-and-transform-data)
 

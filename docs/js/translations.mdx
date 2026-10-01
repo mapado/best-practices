@@ -7,9 +7,9 @@ import TabItem from '@theme/TabItem';
 
 ### Clé de traduction
 
-La clé de traduction NE DOIT PAS être créée à partir de variable dans une chaine de caractère.
+La clé de traduction NE DOIT PAS être créée à partir d'une variable, que ce soit dans une chaîne de caractères (`` t(`errors.${errorCode}`) ``) ou directement (`t(errorKey)`).
 
-Elle doit TOUJOURS être une chaine de caractère statique.
+Elle DOIT TOUJOURS être une chaîne de caractères statique, passée directement à `t()`.
 
 <Tabs
   defaultValue="good"
@@ -22,6 +22,9 @@ Elle doit TOUJOURS être une chaine de caractère statique.
 
 ```ts
 t(`errors.${errorCode}`);
+
+const errorKey = ERROR_KEYS[errorCode];
+t(errorKey);
 ```
 
 </TabItem>
@@ -44,13 +47,13 @@ On a souvent besoin de chercher dans la base de code où se trouve une clé de t
 
 Les outils d'analyse statique (comme [i18next-scanner](https://github.com/i18next/i18next-scanner)) peuvent être utilisés pour détecter les clés de traduction manquantes ou inutilisées dans le code.
 
-Idéalement, ou pourrait aussi valider avec TypeScript que la clé de traduction existe bien dans les fichiers de traduction.
+Idéalement, on pourrait aussi valider avec TypeScript que la clé de traduction existe bien dans les fichiers de traduction.
 
 :::
 
 Si l'on a besoin d'avoir une partie dynamique dans la clé de traduction, il existe des façons de faire :
 
-#### Utiliser un "switch ICU"
+#### Utiliser un `select` ICU
 
 ```ts
 return t('errors', { errorCode });
@@ -73,14 +76,25 @@ et dans l'éditeur de traduction:
 switch (errorCode) {
   case 'network':
     return t('errors.network');
-    break;
   case 'server':
     return t('errors.server');
-    break;
   case 'timeout':
     return t('errors.timeout');
-    break;
   default:
     return t('errors.unknown');
 }
+```
+
+#### Construire la configuration avec des appels à `t()`
+
+Quand les libellés sont utilisés dans une configuration (options d'un select, colonnes d'un tableau…), on construit cette configuration avec des appels à `t()`, plutôt que d'y stocker des clés :
+
+```ts
+const ERROR_LABEL = {
+  network: t('errors.network'),
+  server: t('errors.server'),
+  timeout: t('errors.timeout'),
+};
+
+return ERROR_LABEL[errorCode] ?? t('errors.unknown');
 ```
