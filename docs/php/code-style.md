@@ -7,7 +7,15 @@ import TabItem from '@theme/TabItem';
 
 ## Gestion des pluriels
 
-Le nom des variables, quand elles sont au pluriels DOIVENT se terminer par `List` et NE DOIVENT PAS se terminer par `s`.
+Les noms des variables qui contiennent plusieurs éléments DOIVENT se terminer par `List` et NE DOIVENT PAS être au pluriel (terminaison en `s`).
+
+```php
+<?php
+$ticketList = $this->ticketRepository->findByOrder($order); // ✅
+$tickets = $this->ticketRepository->findByOrder($order); // ❌
+```
+
+Cela vaut aussi pour les propriétés, les paramètres et les noms de méthodes (`$order->ticketList`, `findTicketList()`).
 
 :::info Pourquoi ?
 
@@ -35,10 +43,10 @@ et le **snake_case** pour :
 private const PROVIDER_KEY = 'provider_name';
 
 private array $aggregationData = [
-    "filterList": [],
-    "aggregationList": [
-        "average_cart_value"
-    ]
+    'filterList' => [],
+    'aggregationList' => [
+        'average_cart_value',
+    ],
 ];
 ```
 
@@ -51,7 +59,7 @@ En PHP, il existe différente façon de concaténer des choses :
 - Opérateur de concaténation (.),
 - Interpolation de variables dans une string,
 - sprintf
-- Et d'autre (herodoc, nowdoc, etc.)
+- Et d'autres (heredoc, nowdoc, etc.)
 
 :::
 
@@ -88,7 +96,9 @@ $message = "Bonjour {$user}. Ton nombre porte-bonheur est le {$this->getLuckyNum
 </TabItem>
 </Tabs>
 
-Dans les cas où on ne peut pas faire d'interpolation (par exemple lors d'utilisation d'appels statiques ou de fonctions), nous DEVONS utiliser `sprintf` qui est plus lisible et plus simple à écrire que la concaténation.
+L'interpolation fonctionne avec les variables, les propriétés, les appels de méthode et les accès aux tableaux (`{$user}`, `{$this->name}`, `{$this->getLuckyNumber()}`, `{$data['key']}`).
+
+Dans les cas où on ne peut pas faire d'interpolation (appels de fonctions, appels statiques, constantes), nous DEVONS utiliser `sprintf`, qui est plus lisible et plus simple à écrire que la concaténation.
 
 <Tabs
 defaultValue="sprintf"
@@ -108,13 +118,6 @@ $message = 'Bonjour ' . ucfirst($user) . '. Le nombre porte-bonheur est le ' . s
 
 ```php
 $message = sprintf('Bonjour %s. Ton nombre porte-bonheur est le %d.', ucfirst($user), self::getLuckyNumber($user));
-```
-
-</TabItem>
-<TabItem value="interpolation">
-
-```php
-$message = "Bonjour {$user}. Ton nombre porte-bonheur est le {$this->getLuckyNumber($user)}.";
 ```
 
 </TabItem>
@@ -150,10 +153,17 @@ assert(is_int($id));
 
 C'est très simple, mais cela manque de description, et cela ne permet pas d'avoir d'assertions complexes écrites simplement.
 
-On DEVRAIT utiliser la librairie webmozarts/assert qui donne accès à un large panel d'assertion, et qui permet d'avoir un message d'erreur plus explicite.
+On DEVRAIT utiliser la librairie [`webmozart/assert`](https://github.com/webmozarts/assert), qui donne accès à un large panel d'assertions et permet d'avoir un message d'erreur explicite :
+
+```php
+<?php
+use Webmozart\Assert\Assert;
+
+Assert::integer($id, '$id must be an int. Got: %s');
+```
 
 :::note
-Pour info, webmozarts utilise une `InvalidArgumentException` en soute.
+Pour info, `webmozart/assert` lance une `InvalidArgumentException` sous le capot.
 :::
 
 ## If / Match / Switch
@@ -171,7 +181,7 @@ $expressionResult = match ($condition) {
     default => baz(),
 };
 
-match ($job->getName()) {
+match ($job->name) {
     Job::NAME_EXPORT_DATA => $this->exportData($job),
     Job::NAME_DENORMALIZE => $this->denormalize($job),
     default => null,
@@ -182,11 +192,11 @@ Dès lors que l'on veut faire plusieurs choses dans un cas, on DEVRAIT utiliser 
 
 ```php
 <?php
-switch ($action) {
-    case self::NAME_EXPORT_DATA:
+switch ($job->name) {
+    case Job::NAME_EXPORT_DATA:
         $this->exportData($job);
         break;
-    case self::DENORMALIZE:
+    case Job::NAME_DENORMALIZE:
         $this->publishToRabbitMQ($job);
         $this->onJobUpdated($job);
         $this->triggerCoffeeMachine($job);
@@ -196,9 +206,13 @@ switch ($action) {
 }
 ```
 
-A noter quand dans ce cas, on PEUT aussi tout à refactorer le code du `case self::DENORMALIZE` dans une méthode dédiée, et appeler `match`.
+À noter que dans ce cas, on PEUT aussi extraire le code du `case Job::NAME_DENORMALIZE` dans une méthode dédiée, et utiliser `match`.
 
-Dès que les cas de tests deviennent trop complexes, on DEVRAIT utiliser un `if` / `elseif` / `else` :
+:::info Enums
+Sur un `enum`, on DEVRAIT préférer `match` dès que chaque cas tient en une expression : sans `default`, un cas oublié lève une `UnhandledMatchError` (et PHPStan le signale), là où un `switch` l'ignore silencieusement. Si un cas doit exécuter plusieurs instructions, la règle ci-dessus s'applique : `switch`, ou extraction dans une méthode.
+:::
+
+Dès que les conditions deviennent trop complexes, on DEVRAIT utiliser un `if` / `elseif` / `else` :
 
 Par exemple, on ne DEVRAIT pas faire ça :
 
@@ -268,6 +282,10 @@ Depuis PHP 8.4, trois fonctionnalités majeures ont été introduites :
 Toutes ces fonctionnalités permettent de ne plus avoir besoin de getter et de setter.
 
 On DOIT utiliser ces fonctionnalités au maximum et NE PLUS écrire de getters/setters classiques.
+
+:::warning Exception : propriétés mappées par Doctrine
+Doctrine ORM 2.x refuse de charger les métadonnées d'une entité dont une propriété mappée (colonne ou association) porte un property hook. Tant qu'on est sur ORM 2.x, on NE DOIT PAS mettre de hook sur ces propriétés : on utilise la visibilité asymétrique (`public private(set)`), et on porte la validation ou le traitement dans une méthode dédiée. Les hooks restent utilisables sur les propriétés non mappées (propriétés calculées, propriétés virtuelles).
+:::
 
 :::info Pourquoi ?
 
@@ -407,7 +425,7 @@ class User
 
     public function getFullName(): string
     {
-        return $this->firstName . ' ' . $this->lastName;
+        return "{$this->firstName} {$this->lastName}";
     }
 }
 
@@ -421,7 +439,7 @@ echo $user->getFullName();
 class User
 {
     public string $fullName {
-        get => $this->firstName . ' ' . $this->lastName;
+        get => "{$this->firstName} {$this->lastName}";
     }
 
     public function __construct(
