@@ -15,7 +15,7 @@ Quand ils sont identifiés :
 
 - Oui, si c'est lié au contexte / au code que je crée
 - Je n'impose rien à personne, chaque dev est libre de faire ou non de la refacto
-- Si je refacto, je DOIS séparer mon commit de refacto de mon commit de dev (éventuellement faire une PR à part)
+- Si je refacto, je DOIS séparer mon commit de refacto de mon commit de dev (éventuellement faire une PR à part, en particulier si la refacto fait dépasser la [taille maximale d'une PR](../common/pull-request.md#taille-des-pr))
 - Le pompier lit beaucoup de code, c'est le plus à même de faire des petites refactos
 
 **Exemple :**
@@ -41,7 +41,7 @@ Cette documentation doit être créée dans le dossier `/doc(s)` à la racine du
 
 ### @see
 
-Pour aider les autres devs à naviguer dans le code que vous avez créé, il est possible d'utiliser la phpdoc `@see` pour faire un lien vers un fichier.
+Pour aider les autres devs à naviguer dans le code que vous avez créé, il est possible d'utiliser la phpdoc `@see` pour faire un lien vers un fichier de documentation ou vers une autre classe.
 
 Exemple :
 
@@ -53,6 +53,8 @@ Exemple :
  */
 interface HasAvailableActionInterface {}
 ```
+
+Ces liens vont dans la phpdoc de la classe ou de l'interface "point d'entrée" de la feature. On NE DEVRAIT PAS citer de fichier de documentation, de section (`§`) ou de plan de travail dans les commentaires au milieu du code : ces références se périment vite et `@see` suffit à retrouver la documentation.
 
 ## TODOs
 
@@ -81,6 +83,14 @@ Lors de la mise à jour vers les versions concernées, PHPStan émettra des erre
 ## Patcher une dépendance
 
 Quand on a besoin de modifier le code d'une dépendance (un package du `vendor`), on DOIT privilégier [`symplify/vendor-patches`](https://github.com/symplify/vendor-patches) plutôt que de forker le projet.
+
+Le principe (voir la documentation du package pour le détail) :
+
+1. copier le fichier à modifier en lui ajoutant le suffixe `.old` (`vendor/foo/bar/src/Baz.php.old`) ;
+2. modifier le fichier d'origine ;
+3. lancer `vendor/bin/vendor-patches generate` : le patch est créé dans `patches/` et déclaré dans `composer.json`, puis appliqué à chaque `composer install` par `cweagans/composer-patches`.
+
+On DEVRAIT expliquer en tête du fichier `.patch` (ou dans le message de commit) pourquoi le patch existe et à quelle condition on pourra le supprimer (ex. une PR upstream à attendre).
 
 ### Problèmes des forks
 
