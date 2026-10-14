@@ -17,6 +17,8 @@ $tickets = $this->ticketRepository->findByOrder($order); // ❌
 
 Cela vaut aussi pour les propriétés, les paramètres et les noms de méthodes (`$order->ticketList`, `findTicketList()`).
 
+Quand les éléments sont uniques (un _set_, par exemple construit avec `setOf()` de `noctud/collection`), le suffixe est `Set` au lieu de `List` : `$contractIdSet`, `$orderSet`. Le nom dit alors aussi qu'il n'y a pas de doublon.
+
 :::info Pourquoi ?
 
 Cela permet d'avoir une vrai segmentation visuelle afin de comprendre très rapidement que l'on est sur une liste en pas sur un objet simple.
