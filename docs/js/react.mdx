@@ -5,7 +5,9 @@ title: 'ReactJS'
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Cette liste de bonne pratique est surtout un retour sur certaines "mauvaise pratiques" que nous avons mis dans notre code et comment les corriger.
+Cette liste de bonnes pratiques est surtout un retour sur certaines "mauvaises pratiques" que nous avons mises dans notre code, et sur la façon de les corriger.
+
+On DOIT écrire les nouveaux composants sous forme de composants fonctionnels avec des hooks. Les règles sur les composants "classe" en fin de page ne concernent que le code existant.
 
 ### Nombre de composants par fichiers composants
 
@@ -47,7 +49,7 @@ function Menu() {
 </TabItem>
 <TabItem value="good">
 
-```jsx title="/src/components/Menu/Content.js"
+```jsx title="/src/components/Menu/Label.js"
 function Label() {
   return 'some label';
 }
@@ -79,210 +81,26 @@ function Menu() {
 </Tabs>
 
 :::note Intérêt
-Le but est de trouver le bon composant quand on ouvre le fichier en question, en pas de trouver plusieurs composants sans trouver celui qui est censé être là.
+Le but est de trouver le bon composant quand on ouvre le fichier en question, et pas de trouver plusieurs composants sans trouver celui qui est censé être là.
 :::
 
-#### Cas des "conteneurs" / "injecteurs"
+### Nommage des fonctions de gestion d'évènement
 
-### Nommage de méthodes
+Une fonction "répondant" à un évènement `onSomething` DEVRAIT être préfixée par `handle`.
 
-Un méthode "répondant" à un évènement `onSomething` DEVRAIT être préfixée par `handle`.
-
-```js {2,8}
-class Foo() {
-  handleClick() {
+```jsx {2,6}
+function Foo() {
+  const handleClick = () => {
     // do something
-  }
+  };
 
-  render() {
-    return (
-      <button onClick={this.handleClick}>
-        Click
-      </button>
-    );
-  }
-}
-```
-
-### bind(this) dans la methode `render`
-
-Le binding javascript [n'est pas simple](http://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/).
-
-Les nouvelles fonctionnalités d'ECMAScript permettent de se rapprocher des autres langages et de ne plus avoir à connaitre les "internes", et c'est plutôt bien (même si c'est encore mieux de connaitre comment ça fonctionne sous le capôt).
-
-Pour cette raison, le `binding` et les appels de méthodes DEVRAIENT être le plus "simple" et le plus "logique" pour les débutants.
-
-Cela facilite aussi la lisibilité et la compréhension pour les développeurs chevronnés.
-
-<Tabs
-  defaultValue="good"
-  values={[
-    { label: 'Pas bien 👎', value: 'bad', },
-    { label: 'Bien 👍', value: 'good', },
-  ]
-}>
-<TabItem value="bad">
-
-```js {7}
-class Foo extends Component {
-  handleClick(foo) {
-    // do someting
-  }
-
-  render() {
-    this.handleClick.bind(this, this.props.foo);
-
-    return <button onClick={this.handleClick}></button>;
-  }
-}
-```
-
-</TabItem>
-<TabItem value="good">
-
-```js {5}
-class Foo extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    const foo = this.props.foo;
-    // do someting
-  }
-
-  render() {
-    return <button onClick={this.handleClick}></button>;
-  }
-}
-```
-
-</TabItem>
-</Tabs>
-
-### Composant "classe" : fonctions anonymes dans la methode `render`
-
-De la même manière, on NE DOIT PAS créer des fonctions anonymes dans la méthode `render`.
-
-:::note Explications
-
-- Les fonctions anonymes sont regénérées à chaque appel de `render`, ce qui consomme de la ressource pour rien.
-- Cela rend la méthode `render` moins lisible car il y a du code "métier" dans le rendu.
-
-:::
-
-<Tabs
-  defaultValue="good"
-  values={[
-    { label: 'Pas bien 👎', value: 'bad', },
-    { label: 'Bien 👍', value: 'good', },
-  ]
-}>
-<TabItem value="bad">
-
-```js {14-16}
-class Foo extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      foo: false,
-    };
-  }
-
-  render() {
-    return (
-      <div>
-        <button
-          onClick={() => {
-            this.setState({ foo: 'bar' });
-          }}
-        >
-          Hey, click-me !
-        </button>
-      </div>
-    );
-  }
-}
-```
-
-</TabItem>
-<TabItem value="good">
-
-```js {5,12-16,21}
-class Foo extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.handleButtonClick = this.handleButtonClick.bind(this);
-
-    this.state = {
-      foo: false,
-    };
-  }
-
-  handleButtonClick() {
-    this.setState((prevState) => ({
-      foo: !prevState.foo,
-    }));
-  }
-
-  render() {
-    return (
-      <div>
-        <button onClick={this.handleButtonClick}>Hey, click-me !</button>
-      </div>
-    );
-  }
-}
-```
-
-</TabItem>
-</Tabs>
-
-#### Exception
-
-La seule exception étant si l'on est en train d'itérer sur une liste et que l'on doit passer un object en paramètre.
-
-On DOIT dans tous les cas limiter la fonction anonyme à un appel d'une autre méthode pour la lisibilité.
-
-On PEUT alors faire comme ça:
-
-```js {20-21}
-class Foo extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.handleButtonClick = this.handleButtonClick.bind(this);
-
-    this.state = {
-      btnClicked: null,
-    };
-  }
-
-  handleButtonClick(item) {
-    this.setState({
-      btnClicked: item,
-    });
-  }
-
-  render() {
-    return (<div>
-      {this.props.myList.map(item =>
-        <button onClick={(item) => this.handleButtonClick(item)}>
-          Hey, click-me !
-        </button>
-      }
-    </div>);
-  }
+  return <button onClick={handleClick}>Click</button>;
 }
 ```
 
 ### Hooks : définitions des fonctions de "setters"
 
-À l'instar des composants de classe, on NE DEVRAIT PAS de définir des fonctions dans le corps du rendu de la méthode pour faire des actions simples:
+On NE DEVRAIT PAS définir de fonction dans le corps du composant pour faire une action simple, comme appeler un "setter" :
 
 <Tabs
   defaultValue="good"
@@ -297,9 +115,9 @@ class Foo extends PureComponent {
 function Container() {
   const [isVisible, setIsVisible] = useState(false);
 
-  function handleClick() {
+  const handleClick = () => {
     setIsVisible(true);
-  }
+  };
 
   return <button onClick={handleClick}>Make visible</button>;
 }
@@ -322,7 +140,7 @@ function Container() {
 :::info Explication
 
 - Dans tous les cas la fonction est regénérée à chaque rendu
-- Le fait de définir une fonction supplémentaire peut complexifier la compréhension pour des cas simple
+- Le fait de définir une fonction supplémentaire peut complexifier la compréhension pour des cas simples
 
 :::
 
@@ -337,7 +155,7 @@ On DEVRAIT extraire les hooks personnalisés dans les cas suivants :
 - Quand les "hooks" prennent plus de 40% de la taille du composant : extraire dans des hooks par "blocs fonctionnels"
 - Quand plusieurs "hooks" ont des "périmètres fonctionnels" différents, sortir les hooks par blocs fonctionnels différents
 
-Il est très facile à extraire des hooks : il suffit de copier coller tout son code dans une autre fonction.
+Il est très facile d'extraire des hooks : il suffit de copier-coller tout son code dans une autre fonction.
 
 <Tabs
   defaultValue="good"
@@ -420,7 +238,7 @@ Une meilleure lisibilité du composant, possibilité de tester les hooks.
 
 Les hooks personnalisés PEUVENT être situés dans le fichier à côté du composant si ils restent petits et "privés".
 
-Ils DEVRAIENT être dans un fichiers autonome dans le dossier du composant si ils sont "privés" mais complexes (plus de ~50 lignes).
+Ils DEVRAIENT être dans un fichier autonome dans le dossier du composant si ils sont "privés" mais complexes (plus de ~50 lignes).
 
 Ils PEUVENT être situés dans un dossier / fichier partagés si ils sont utilisables par plusieurs composants.
 Dans ce cas ils DEVRAIENT être au plus près de leur utilisation métier. (un "hook" concernant uniquement les paniers devrait se trouver avec le code des paniers, et pas à la racine).
@@ -459,9 +277,9 @@ function useCurrentCart(sdk, cartId) {
         setIsLoadingCart(false);
         setError(error);
       });
-  }, [cartId]);
+  }, [sdk, cartId]);
 
-  return { isLoading, cart, error };
+  return { isLoading: isLoadingCart, cart, error };
 }
 ```
 
@@ -514,7 +332,7 @@ function useCurrentCart(sdk, cartId) {
       .catch((error) => {
         dispatch({ type: 'FETCH_CART_ERROR', error });
       });
-  }, [cartId]);
+  }, [sdk, cartId]);
 
   return state;
 }
@@ -529,3 +347,185 @@ function useCurrentCart(sdk, cartId) {
 - Avoir la liste de tous les cas et les actions lisibles facilement sans avoir besoin de comprendre la logique sous-jacente.
 
 :::
+
+### Composants "classe" (code existant)
+
+On NE DOIT PAS créer de nouveau composant "classe". Les règles suivantes s'appliquent quand on maintient un composant "classe" existant.
+
+#### bind(this) dans la méthode `render`
+
+Le binding javascript [n'est pas simple](http://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/).
+
+Les nouvelles fonctionnalités d'ECMAScript permettent de se rapprocher des autres langages et de ne plus avoir à connaitre les "internes", et c'est plutôt bien (même si c'est encore mieux de connaitre comment ça fonctionne sous le capôt).
+
+Pour cette raison, le `binding` et les appels de méthodes DEVRAIENT être le plus "simple" et le plus "logique" pour les débutants.
+
+Cela facilite aussi la lisibilité et la compréhension pour les développeurs chevronnés.
+
+<Tabs
+  defaultValue="good"
+  values={[
+    { label: 'Pas bien 👎', value: 'bad', },
+    { label: 'Bien 👍', value: 'good', },
+  ]
+}>
+<TabItem value="bad">
+
+```js {7}
+class Foo extends Component {
+  handleClick(foo) {
+    // do something
+  }
+
+  render() {
+    this.handleClick.bind(this, this.props.foo);
+
+    return <button onClick={this.handleClick}></button>;
+  }
+}
+```
+
+</TabItem>
+<TabItem value="good">
+
+```js {5}
+class Foo extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    const foo = this.props.foo;
+    // do something
+  }
+
+  render() {
+    return <button onClick={this.handleClick}></button>;
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+#### Fonctions anonymes dans la méthode `render`
+
+De la même manière, on NE DOIT PAS créer des fonctions anonymes dans la méthode `render`.
+
+:::note Explications
+
+- Les fonctions anonymes sont regénérées à chaque appel de `render`, ce qui consomme de la ressource pour rien.
+- Cela rend la méthode `render` moins lisible car il y a du code "métier" dans le rendu.
+
+:::
+
+<Tabs
+  defaultValue="good"
+  values={[
+    { label: 'Pas bien 👎', value: 'bad', },
+    { label: 'Bien 👍', value: 'good', },
+  ]
+}>
+<TabItem value="bad">
+
+```js {14-16}
+class Foo extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      foo: false,
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        <button
+          onClick={() => {
+            this.setState({ foo: 'bar' });
+          }}
+        >
+          Hey, click-me !
+        </button>
+      </div>
+    );
+  }
+}
+```
+
+</TabItem>
+<TabItem value="good">
+
+```js {5,12-16,21}
+class Foo extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.handleButtonClick = this.handleButtonClick.bind(this);
+
+    this.state = {
+      foo: false,
+    };
+  }
+
+  handleButtonClick() {
+    this.setState((prevState) => ({
+      foo: !prevState.foo,
+    }));
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.handleButtonClick}>Hey, click-me !</button>
+      </div>
+    );
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+##### Exception
+
+La seule exception étant si l'on est en train d'itérer sur une liste et que l'on doit passer un objet en paramètre.
+
+On DOIT dans tous les cas limiter la fonction anonyme à un appel d'une autre méthode pour la lisibilité.
+
+On PEUT alors faire comme ça:
+
+```jsx {22}
+class Foo extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.handleButtonClick = this.handleButtonClick.bind(this);
+
+    this.state = {
+      btnClicked: null,
+    };
+  }
+
+  handleButtonClick(item) {
+    this.setState({
+      btnClicked: item,
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        {this.props.myList.map((item) => (
+          <button key={item.id} onClick={() => this.handleButtonClick(item)}>
+            Hey, click-me !
+          </button>
+        ))}
+      </div>
+    );
+  }
+}
+```
