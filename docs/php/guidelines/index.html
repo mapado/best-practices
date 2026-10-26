@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">Guidelines globales | Bonnes pratiques de Mapado</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://mapado.github.io/best-practices/docs/php/guidelines"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Guidelines globales | Bonnes pratiques de Mapado"><meta data-rh="true" name="description" content="Refacto - Ligne de conduite"><meta data-rh="true" property="og:description" content="Refacto - Ligne de conduite"><link data-rh="true" rel="icon" href="/best-practices/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://mapado.github.io/best-practices/docs/php/guidelines"><link data-rh="true" rel="alternate" href="https://mapado.github.io/best-practices/docs/php/guidelines" hreflang="en"><link data-rh="true" rel="alternate" href="https://mapado.github.io/best-practices/docs/php/guidelines" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Guidelines globales","item":"https://mapado.github.io/best-practices/docs/php/guidelines"}]}</script><link rel="stylesheet" href="/best-practices/assets/css/styles.058bb05c.css">
-<script src="/best-practices/assets/js/runtime~main.6cdf4f51.js" defer="defer"></script>
+<script src="/best-practices/assets/js/runtime~main.d0cd4017.js" defer="defer"></script>
 <script src="/best-practices/assets/js/main.20a1809b.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -22,7 +22,7 @@
 <ul>
 <li class="">Oui, si c&#x27;est lié au contexte / au code que je crée</li>
 <li class="">Je n&#x27;impose rien à personne, chaque dev est libre de faire ou non de la refacto</li>
-<li class="">Si je refacto, je DOIS séparer mon commit de refacto de mon commit de dev (éventuellement faire une PR à part)</li>
+<li class="">Si je refacto, je DOIS séparer mon commit de refacto de mon commit de dev (éventuellement faire une PR à part, en particulier si la refacto fait dépasser la <a class="" href="/best-practices/docs/common/pull-request#taille-des-pr">taille maximale d&#x27;une PR</a>)</li>
 <li class="">Le pompier lit beaucoup de code, c&#x27;est le plus à même de faire des petites refactos</li>
 </ul>
 <p><strong>Exemple :</strong></p>
@@ -43,9 +43,10 @@
 </ul>
 <p>Cette documentation doit être créée dans le dossier <code>/doc(s)</code> à la racine du projet.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="see">@see<a href="#see" class="hash-link" aria-label="Direct link to @see" title="Direct link to @see" translate="no">​</a></h3>
-<p>Pour aider les autres devs à naviguer dans le code que vous avez créé, il est possible d&#x27;utiliser la phpdoc <code>@see</code> pour faire un lien vers un fichier.</p>
+<p>Pour aider les autres devs à naviguer dans le code que vous avez créé, il est possible d&#x27;utiliser la phpdoc <code>@see</code> pour faire un lien vers un fichier de documentation ou vers une autre classe.</p>
 <p>Exemple :</p>
 <div class="language-php codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-php codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#F8F8F2"><span class="token comment" style="color:rgb(98, 114, 164)">/**</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token comment" style="color:rgb(98, 114, 164)"> * @see /doc/ENTITY_AVAILABLE_ACTION.md</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token comment" style="color:rgb(98, 114, 164)"> * @see \Mapado\TicketingBundle\Api\Normalizer\AvailableActionNormalizer::normalize</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token comment" style="color:rgb(98, 114, 164)"> * @see \Mapado\TicketingBundle\Application\Resolver\AvailableAction\AvailableActionResolverInterface</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token comment" style="color:rgb(98, 114, 164)"> */</span><span class="token plain"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token keyword" style="color:rgb(189, 147, 249);font-style:italic">interface</span><span class="token plain"> </span><span class="token class-name-definition class-name">HasAvailableActionInterface</span><span class="token plain"> </span><span class="token punctuation" style="color:rgb(248, 248, 242)">{</span><span class="token punctuation" style="color:rgb(248, 248, 242)">}</span><br></span></code></pre></div></div>
+<p>Ces liens vont dans la phpdoc de la classe ou de l&#x27;interface &quot;point d&#x27;entrée&quot; de la feature. On NE DEVRAIT PAS citer de fichier de documentation, de section (<code>§</code>) ou de plan de travail dans les commentaires au milieu du code : ces références se périment vite et <code>@see</code> suffit à retrouver la documentation.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="todos">TODOs<a href="#todos" class="hash-link" aria-label="Direct link to TODOs" title="Direct link to TODOs" translate="no">​</a></h2>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="todo-liées-à-une-future-mise-à-jour-de-package">TODO liées à une future mise à jour de package<a href="#todo-liées-à-une-future-mise-à-jour-de-package" class="hash-link" aria-label="Direct link to TODO liées à une future mise à jour de package" title="Direct link to TODO liées à une future mise à jour de package" translate="no">​</a></h3>
 <p>On utilise <code>phpstan-todo-by</code> qui permet de lier des todo à une version d&#x27;un package.</p>
@@ -55,6 +56,13 @@
 <p>Lors de la mise à jour vers les versions concernées, PHPStan émettra des erreurs.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="patcher-une-dépendance">Patcher une dépendance<a href="#patcher-une-dépendance" class="hash-link" aria-label="Direct link to Patcher une dépendance" title="Direct link to Patcher une dépendance" translate="no">​</a></h2>
 <p>Quand on a besoin de modifier le code d&#x27;une dépendance (un package du <code>vendor</code>), on DOIT privilégier <a href="https://github.com/symplify/vendor-patches" target="_blank" rel="noopener noreferrer" class=""><code>symplify/vendor-patches</code></a> plutôt que de forker le projet.</p>
+<p>Le principe (voir la documentation du package pour le détail) :</p>
+<ol>
+<li class="">copier le fichier à modifier en lui ajoutant le suffixe <code>.old</code> (<code>vendor/foo/bar/src/Baz.php.old</code>) ;</li>
+<li class="">modifier le fichier d&#x27;origine ;</li>
+<li class="">lancer <code>vendor/bin/vendor-patches generate</code> : le patch est créé dans <code>patches/</code> et déclaré dans <code>composer.json</code>, puis appliqué à chaque <code>composer install</code> par <code>cweagans/composer-patches</code>.</li>
+</ol>
+<p>On DEVRAIT expliquer en tête du fichier <code>.patch</code> (ou dans le message de commit) pourquoi le patch existe et à quelle condition on pourra le supprimer (ex. une PR upstream à attendre).</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="problèmes-des-forks">Problèmes des forks<a href="#problèmes-des-forks" class="hash-link" aria-label="Direct link to Problèmes des forks" title="Direct link to Problèmes des forks" translate="no">​</a></h3>
 <ul>
 <li class="">On perd petit à petit l&#x27;information du « pourquoi on a forké », à partir de quelle version, etc.</li>
